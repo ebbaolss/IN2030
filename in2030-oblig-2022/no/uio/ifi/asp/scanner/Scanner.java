@@ -94,6 +94,21 @@ public class Scanner {
     }
 
     private String expandLeadingTabs(String s) {
+		int teller = 0;
+		
+		String[] substrings = s.split("");
+         
+      	for (String ch : substrings) {
+        	if (ch == " ") {
+				teller++;
+			}
+			if (ch == "\t") {
+				//-- Hvis ch er en tab så 4-(n mod 4)
+			}
+			else {
+				break;
+			}
+        }
 	//-- Must be changed in part 1:
 	return null;
     }

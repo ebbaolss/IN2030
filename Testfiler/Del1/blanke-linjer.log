@@ -1,0 +1,39 @@
+   1: # Dette programmet inneholder ulike former for blanke linjer,
+Scanner: NEWLINE token on line 1
+   2: # dvs tomme linjer eller linjer med blanke eller TAB-er i ulike posisjoner.
+Scanner: NEWLINE token on line 2
+   3: # Dette skal Asp-interpreten kunne håndtere.
+Scanner: NEWLINE token on line 3
+   4: 
+Scanner: NEWLINE token on line 4
+   5: # Denne linjen er tom:
+Scanner: NEWLINE token on line 5
+   6: 
+Scanner: NEWLINE token on line 6
+   7: # Denne linjen inneholder kun noen blanke i starten:
+Scanner: NEWLINE token on line 7
+   8:     
+Scanner: NEWLINE token on line 8
+   9: # Denne linjen starter med en TAB:
+Scanner: NEWLINE token on line 9
+  10: 	
+Scanner: NEWLINE token on line 10
+  11: if 1+1 = 2:
+Scanner: NEWLINE token on line 11
+  12: # Denne linjen starter med 2 TAB-er og 3 blanke:
+Scanner: NEWLINE token on line 12
+  13: 		   print("Ja")
+Scanner: NEWLINE token on line 13
+  14: # Denne linjen inneholder et utplukk blanke og TAB-er:
+Scanner: NEWLINE token on line 14
+  15: 	 		   	
+Scanner: NEWLINE token on line 15
+  16: # Og det var alt.
+Scanner: NEWLINE token on line 16
+  17: # Siste linje mangler LF som linjeslutt, men slikt skal skanneren kunne takle.
+Scanner: NEWLINE token on line 17
+  18: # Skanneren skal generere et NEWLINE-symbol uansett.
+Scanner: NEWLINE token on line 18
+  19: x = 4
+Scanner: NEWLINE token on line 19
+Scanner: NEWLINE token
