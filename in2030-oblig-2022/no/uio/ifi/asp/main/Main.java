@@ -38,7 +38,6 @@ public class Main {
 		testParser = true; 
 	    } else if (a.equals("-testscanner")) {
 		testScanner = true; 
-		System.out.println("heihei");
 	    } else if (a.startsWith("-")) {
 		usage();
 	    } else if (fileName != null) {

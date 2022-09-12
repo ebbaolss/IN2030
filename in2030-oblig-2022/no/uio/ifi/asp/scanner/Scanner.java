@@ -67,24 +67,40 @@ public class Scanner {
 			}
 			if (line != null) {
 				String indentString = expandLeadingTabs(line);
+				int n = findIndent(indentString);
 				if (line.isBlank() || line.charAt(0) == '#') {
 		
 				}
 				else {
 					//3c
-					int n = findIndent(indentString);
+					//int n = findIndent(indentString);
+					int pushN = 4;
 					if (n > indents.peek()) {
-						indents.push(n);
-						curLineTokens.add(new Token(indentToken));
+
+						System.out.println("tall: " + n);
+						int x = n/4;
+						for (int i = 0; i < x; i++) {
+							indents.push(pushN);
+							curLineTokens.add(new Token(indentToken,curLineNum()));
+							System.out.println("indent added");
+						}
+						System.out.println(indents);
 					}
-					if (n < indents.peek()) { //sjekk ut denne ekstra 3d(ii) - loop?
-						indents.pop();
-						curLineTokens.add(new Token(dedentToken));
-					}
-					if (n != indents.peek()) {
-						System.out.println("-------Indenteringsfeil--------");
+					else 
+					{ // sjekk ut denne ekstra 3d(ii) - loop?
+						System.out.println("tall: " + n);
+						int x = n / 4;
+						for (int i = 0; i < x; i++) {
+							indents.pop();
+							curLineTokens.add(new Token(dedentToken, curLineNum()));
+							System.out.println("dedent added");
+						}
+						System.out.println(indents);
 					}
 				}	
+				if (4 != indents.peek()) {
+					System.out.println("-------Indenteringsfeil--------");
+				}
 			} 
 			else {
 				Main.log.noteSourceLine(curLineNum(), line);
@@ -118,6 +134,7 @@ public class Scanner {
     }
 
     private String expandLeadingTabs(String s) {
+		System.out.println(s);
 		int cnt = 0;
 		String s2 = "";
 
