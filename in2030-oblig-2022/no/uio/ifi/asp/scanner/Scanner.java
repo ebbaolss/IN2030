@@ -50,68 +50,95 @@ public class Scanner {
 
 
     public void readNextToken() {
-	if (! curLineTokens.isEmpty())
-	    curLineTokens.remove(0);
-    }
-
-
+		if (! curLineTokens.isEmpty()) {
+			curLineTokens.remove(0);
+		}
+	}		
     private void readNextLine() {
-	curLineTokens.clear();
+		curLineTokens.clear();
 
-	// Read the next line:
-	String line = null;
-	try {
-	    line = sourceFile.readLine();
-	    if (line == null) {
-		sourceFile.close();
-		sourceFile = null;
-	    } else {
-		Main.log.noteSourceLine(curLineNum(), line);
-	    }
-	} catch (IOException e) {
-	    sourceFile = null;
-	    scannerError("Unspecified I/O error!");
-	}
+		// Read the next line:
+		String line = null;
+		try {
+			line = sourceFile.readLine();
+			if (line == null) {
+				sourceFile.close();
+				sourceFile = null;
+			}
+			if (line != null) {
+				String indentString = expandLeadingTabs(line);
+				if (line.isBlank() || line.charAt(0) == '#') {
+		
+				}
+				else {
+					//3c
+					int n = findIndent(indentString);
+					if (n > indents.peek()) {
+						indents.push(n);
+						curLineTokens.add(new Token(indentToken));
+					}
+					if (n < indents.peek()) { //sjekk ut denne ekstra 3d(ii) - loop?
+						indents.pop();
+						curLineTokens.add(new Token(dedentToken));
+					}
+					if (n != indents.peek()) {
+						System.out.println("-------Indenteringsfeil--------");
+					}
+				}	
+			} 
+			else {
+				Main.log.noteSourceLine(curLineNum(), line);
+			}
+		} catch (IOException e) {
+			sourceFile = null;
+			scannerError("Unspecified I/O error!");
+		}
 
-	//-- Must be changed in part 1:
+		for (int i = 0; i < indents.size(); i++) {
+			if (i > indents.get(i)) {
+				curLineTokens.add(new Token(dedentToken));
+			}
+		}
+		// Terminate line:
+		curLineTokens.add(new Token(newLineToken,curLineNum()));
 
-	// Terminate line:
-	curLineTokens.add(new Token(newLineToken,curLineNum()));
-
-	for (Token t: curLineTokens) 
-	    Main.log.noteToken(t);
-    }
+		for (Token t: curLineTokens) 
+			Main.log.noteToken(t);
+		}
 
     public int curLineNum() {
-	return sourceFile!=null ? sourceFile.getLineNumber() : 0;
-    }
+		return sourceFile!=null ? sourceFile.getLineNumber() : 0;
+    	}
 
     private int findIndent(String s) {
-	int indent = 0;
+		int indent = 0;
 
-	while (indent<s.length() && s.charAt(indent)==' ') indent++;
-	return indent;
+		while (indent<s.length() && s.charAt(indent)==' ') indent++;
+		return indent;
     }
 
     private String expandLeadingTabs(String s) {
-		int teller = 0;
-		
-		String[] substrings = s.split("");
-         
-      	for (String ch : substrings) {
-        	if (ch == " ") {
-				teller++;
+		int cnt = 0;
+		String s2 = "";
+
+    	for (int i = 0;  i < s.length();  i++) {
+			char c = s.charAt(i);
+			if (c == ' ') {
+				s2 += " ";
+				cnt++;
+			} else if (c == '\t') {
+				int nReplace = 4 - (cnt % 4);
+				for (int j = 0; j < nReplace; j++) {
+					s2 += " "; 
+				}
+				cnt += nReplace;
+			} else {
+				s2 += s.substring(i);
+				break; 
 			}
-			if (ch == "\t") {
-				//-- Hvis ch er en tab så 4-(n mod 4)
-			}
-			else {
-				break;
-			}
-        }
-	//-- Must be changed in part 1:
-	return null;
-    }
+		}
+		return s2;
+	}
 
 
     private boolean isLetterAZ(char c) {

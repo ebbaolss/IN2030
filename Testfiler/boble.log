@@ -1,0 +1,37 @@
+   1: # Boblesortering
+Scanner: NEWLINE token on line 1
+   2: # (Den enkleste men akk så ineffektive sorteringsmetoden)
+Scanner: NEWLINE token on line 2
+   3: 
+Scanner: NEWLINE token on line 3
+   4: def boblesorter (a):
+Scanner: NEWLINE token on line 4
+   5:     global ombyttinger
+Scanner: NEWLINE token on line 5
+   6:     while True:
+Scanner: NEWLINE token on line 6
+   7:         endret = False
+Scanner: NEWLINE token on line 7
+   8:         for i in range(1,len(a)):
+Scanner: NEWLINE token on line 8
+   9:             if a[i-1] > a[i]:
+Scanner: NEWLINE token on line 9
+  10:                 t = a[i-1];  a[i-1] = a[i];  a[i] = t
+Scanner: NEWLINE token on line 10
+  11:                 ombyttinger = ombyttinger + 1
+Scanner: NEWLINE token on line 11
+  12:                 endret = True
+Scanner: NEWLINE token on line 12
+  13:         if not endret: return 0
+Scanner: NEWLINE token on line 13
+  14: 
+Scanner: NEWLINE token on line 14
+  15: data = [ 3, 17, -3, 0, 3, 1, 12 ]
+Scanner: NEWLINE token on line 15
+  16: ombyttinger = 0
+Scanner: NEWLINE token on line 16
+  17: boblesorter(data)
+Scanner: NEWLINE token on line 17
+  18: print("Resultatet etter", ombyttinger, "ombyttinger er", data)
+Scanner: NEWLINE token on line 18
+Scanner: NEWLINE token
