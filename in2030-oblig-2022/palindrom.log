@@ -3,12 +3,14 @@ Scanner: NEWLINE token on line 2
 Scanner: NEWLINE token on line 3
 Scanner: NEWLINE token on line 4
 Scanner: NEWLINE token on line 5
-Scanner: INDENT token on line 6
-Scanner: INDENT token on line 6
 Scanner: NEWLINE token on line 6
-Scanner: DEDENT token on line 7
 Scanner: NEWLINE token on line 7
 Scanner: INDENT token on line 8
 Scanner: NEWLINE token on line 8
+Scanner: NEWLINE token on line 9
+Scanner: NEWLINE token on line 10
+Scanner: NEWLINE token on line 11
+Scanner: NEWLINE token on line 12
+Scanner: NEWLINE token on line 13
    0: null
 Scanner: NEWLINE token

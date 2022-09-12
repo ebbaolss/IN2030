@@ -68,37 +68,38 @@ public class Scanner {
 			if (line != null) {
 				String indentString = expandLeadingTabs(line);
 				int n = findIndent(indentString);
-				if (line.isBlank() || line.charAt(0) == '#') {
-		
+				if (line.isBlank() || line.charAt(0) == '#') { //denne er feil fordi første symbol hvor det er indentert først vil aldri bli #
+																	// kan bruke en egen metode for å finne første tegn som ikke er mellomrom.
 				}
 				else {
 					//3c
 					//int n = findIndent(indentString);
-					int pushN = 4;
+					//int pushN = 4;
 					if (n > indents.peek()) {
 
 						System.out.println("tall: " + n);
+						indents.push(n);
 						int x = n/4;
 						for (int i = 0; i < x; i++) {
-							indents.push(pushN);
 							curLineTokens.add(new Token(indentToken,curLineNum()));
 							System.out.println("indent added");
 						}
 						System.out.println(indents);
 					}
-					else 
-					{ // sjekk ut denne ekstra 3d(ii) - loop?
+					else { // sjekk ut denne ekstra 3d(ii) - loop?
+						while (n < indents.peek()) {
 						System.out.println("tall: " + n);
+						indents.pop();
 						int x = n / 4;
 						for (int i = 0; i < x; i++) {
-							indents.pop();
 							curLineTokens.add(new Token(dedentToken, curLineNum()));
 							System.out.println("dedent added");
 						}
 						System.out.println(indents);
+						}
 					}
 				}	
-				if (4 != indents.peek()) {
+				if (n != indents.peek()) {
 					System.out.println("-------Indenteringsfeil--------");
 				}
 			} 
