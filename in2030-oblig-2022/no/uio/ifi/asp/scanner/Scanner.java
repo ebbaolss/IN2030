@@ -65,44 +65,6 @@ public class Scanner {
 				sourceFile.close();
 				sourceFile = null;
 			}
-			if (line != null) {
-				String indentString = expandLeadingTabs(line);
-				int n = findIndent(indentString);
-				if (line.isBlank() || line.charAt(0) == '#') { //denne er feil fordi første symbol hvor det er indentert først vil aldri bli #
-																	// kan bruke en egen metode for å finne første tegn som ikke er mellomrom.
-				}
-				else {
-					//3c
-					//int n = findIndent(indentString);
-					//int pushN = 4;
-					if (n > indents.peek()) {
-
-						System.out.println("tall: " + n);
-						indents.push(n);
-						int x = n/4;
-						for (int i = 0; i < x; i++) {
-							curLineTokens.add(new Token(indentToken,curLineNum()));
-							System.out.println("indent added");
-						}
-						System.out.println(indents);
-					}
-					else { // sjekk ut denne ekstra 3d(ii) - loop?
-						while (n < indents.peek()) {
-						System.out.println("tall: " + n);
-						indents.pop();
-						int x = n / 4;
-						for (int i = 0; i < x; i++) {
-							curLineTokens.add(new Token(dedentToken, curLineNum()));
-							System.out.println("dedent added");
-						}
-						System.out.println(indents);
-						}
-					}
-				}	
-				if (n != indents.peek()) {
-					System.out.println("-------Indenteringsfeil--------");
-				}
-			} 
 			else {
 				Main.log.noteSourceLine(curLineNum(), line);
 			}
@@ -110,6 +72,44 @@ public class Scanner {
 			sourceFile = null;
 			scannerError("Unspecified I/O error!");
 		}
+
+		if (line.isBlank()) return;
+
+		//char c = line.charAt(i); denne kan brukes for å sjekke at et tegn er likt
+		//if (c == '#')
+
+		if (line != null) {
+			String indentString = expandLeadingTabs(line);
+			int n = findIndent(indentString);
+
+			if (n > indents.peek()) {
+
+				System.out.println("tall: " + n);
+				indents.push(n);
+				int x = n/4;
+				for (int i = 0; i < x; i++) {
+					curLineTokens.add(new Token(indentToken,curLineNum()));
+					System.out.println("indent added");
+				}
+				System.out.println(indents);
+			}
+			else { // sjekk ut denne ekstra 3d(ii) - loop?
+				while (n < indents.peek()) {
+					System.out.println("tall: " + n);
+					indents.pop();
+					int x = n / 4;
+					for (int i = 0; i < x; i++) {
+						curLineTokens.add(new Token(dedentToken, curLineNum()));
+						System.out.println("dedent added");
+					}
+						System.out.println(indents);
+				}
+			}
+			if (n != indents.peek()) {
+				System.out.println("-------Indenteringsfeil--------");
+			}
+		}	
+		
 
 		for (int i = 0; i < indents.size(); i++) {
 			if (i > indents.get(i)) {
