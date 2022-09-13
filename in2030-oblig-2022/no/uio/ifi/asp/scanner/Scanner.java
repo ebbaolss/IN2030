@@ -77,36 +77,63 @@ public class Scanner {
 		if (line != null) {
 			if (line.isBlank() || line.charAt(0) == '#')return;
 
-			String indentString = expandLeadingTabs(line);
-			int n = findIndent(indentString);
+			line = expandLeadingTabs(line);
+			int n = findIndent(line);
 
 			if (n > indents.peek()) {
 
-				System.out.println("tall: " + n);
 				indents.push(n);
 				curLineTokens.add(new Token(indentToken,curLineNum()));
-				System.out.println("indent added");
-
-				System.out.println(indents);
 			}
 			if (n < indents.peek()) {
-				System.out.println("tall: " + n);
 				indents.pop();
 				curLineTokens.add(new Token(dedentToken, curLineNum()));
-				System.out.println("dedent added");
-				System.out.println(indents);
-				}
-		}
-			/*if (n != indents.peek()) {
+			}	
+			
+			if (n != indents.peek()) {
 				System.out.println("-------Indenteringsfeil--------");
-			}*/	
-		
+			}
+		}	
 
 		for (int i = 0; i < indents.size(); i++) {
 			if (i > indents.get(i)) {
 				curLineTokens.add(new Token(dedentToken));
 			}
 		}
+
+		if (line != null) {
+			char[] ch = line.toCharArray();
+			for (char c : ch) {
+
+				for (TokenKind tokenKind : EnumSet.range(colonToken, semicolonToken)) {
+				
+					String nc = String.valueOf(c);
+					if (tokenKind.name() == nc) {
+				 		System.out.println(c);
+					}
+				}
+				
+				if (isDigit(c)) {
+					curLineTokens.add(new Token(integerToken,curLineNum()));
+				}
+			}
+
+			/*
+			 * char c = line.charAt();
+			 * 
+			 * if (isLetterAZ(c)) {
+			 * curLineTokens.add(new Token(nameToken,curLineNum()));
+			 * //while (isLetterAZ(line.charAt(index)))
+			 * }
+			 * 
+			 * 
+			 * if (isDigit(c)) {
+			 * curLineTokens.add(new Token(integerToken,curLineNum()));
+			 * }
+			 */
+		}
+		
+
 		// Terminate line:
 		curLineTokens.add(new Token(newLineToken,curLineNum()));
 
@@ -126,7 +153,6 @@ public class Scanner {
     }
 
     private String expandLeadingTabs(String s) {
-		System.out.println(s);
 		int cnt = 0;
 		String s2 = "";
 
@@ -159,6 +185,13 @@ public class Scanner {
 	return '0'<=c && c<='9';
     }
 
+	//egenlaget
+	private boolean usedInAsp(char c) {
+		if (!isLetterAZ(c) && !isDigit(c) == false) {
+			return false;
+		}
+		return true;
+	}
 
     public boolean isCompOpr() {
 	TokenKind k = curToken().kind;
