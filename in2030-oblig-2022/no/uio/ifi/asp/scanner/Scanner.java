@@ -64,6 +64,7 @@ public class Scanner {
 			if (line == null) {
 				sourceFile.close();
 				sourceFile = null;
+				curLineTokens.add(new Token(eofToken, curLineNum()));
 			}
 			else {
 				Main.log.noteSourceLine(curLineNum(), line);
@@ -73,12 +74,9 @@ public class Scanner {
 			scannerError("Unspecified I/O error!");
 		}
 
-		if (line.isBlank()) return;
-
-		//char c = line.charAt(i); denne kan brukes for å sjekke at et tegn er likt
-		//if (c == '#')
-
 		if (line != null) {
+			if (line.isBlank() || line.charAt(0) == '#')return;
+
 			String indentString = expandLeadingTabs(line);
 			int n = findIndent(indentString);
 
@@ -86,29 +84,22 @@ public class Scanner {
 
 				System.out.println("tall: " + n);
 				indents.push(n);
-				int x = n/4;
-				for (int i = 0; i < x; i++) {
-					curLineTokens.add(new Token(indentToken,curLineNum()));
-					System.out.println("indent added");
-				}
+				curLineTokens.add(new Token(indentToken,curLineNum()));
+				System.out.println("indent added");
+
 				System.out.println(indents);
 			}
-			else { // sjekk ut denne ekstra 3d(ii) - loop?
-				while (n < indents.peek()) {
-					System.out.println("tall: " + n);
-					indents.pop();
-					int x = n / 4;
-					for (int i = 0; i < x; i++) {
-						curLineTokens.add(new Token(dedentToken, curLineNum()));
-						System.out.println("dedent added");
-					}
-						System.out.println(indents);
+			if (n < indents.peek()) {
+				System.out.println("tall: " + n);
+				indents.pop();
+				curLineTokens.add(new Token(dedentToken, curLineNum()));
+				System.out.println("dedent added");
+				System.out.println(indents);
 				}
-			}
-			if (n != indents.peek()) {
+		}
+			/*if (n != indents.peek()) {
 				System.out.println("-------Indenteringsfeil--------");
-			}
-		}	
+			}*/	
 		
 
 		for (int i = 0; i < indents.size(); i++) {

@@ -3,12 +3,12 @@ Scanner: NEWLINE token on line 1
    2: # selve tallet 0 er selvfølgelig et unntak.
 Scanner: NEWLINE token on line 2
    3: 
+Scanner: NEWLINE token on line 3
    4: a = 0   # Dette er helt OK.
 Scanner: NEWLINE token on line 4
    5: a = 04  # Men dette to tall: 0 og 4!
 Scanner: NEWLINE token on line 5
    6:     	# Slikt er OK for skanneren,
-Scanner: INDENT token on line 6
 Scanner: INDENT token on line 6
 Scanner: NEWLINE token on line 6
    7: 	# men parseren (del 2) vil gi
@@ -17,3 +17,5 @@ Scanner: NEWLINE token on line 7
    8: 	# en feilmelding.
 Scanner: INDENT token on line 8
 Scanner: NEWLINE token on line 8
+Scanner: E-o-f token
+Scanner: NEWLINE token
