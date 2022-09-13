@@ -9,64 +9,65 @@ import no.uio.ifi.asp.main.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class Scanner {
-    private LineNumberReader sourceFile = null;
-    private String curFileName;
-    private ArrayList<Token> curLineTokens = new ArrayList<>();
-    private Stack<Integer> indents = new Stack<>();
-    private final int TABDIST = 4;
+	private LineNumberReader sourceFile = null;
+	private String curFileName;
+	private ArrayList<Token> curLineTokens = new ArrayList<>(); //
+	private Stack<Integer> indents = new Stack<>();
+	private final int TABDIST = 4;
 
 
-    public Scanner(String fileName) {
-	curFileName = fileName;
-	indents.push(0);
+	public Scanner(String fileName) {
+		curFileName = fileName;
+		indents.push(0);
 
-	try {
-	    sourceFile = new LineNumberReader(
-			    new InputStreamReader(
-				new FileInputStream(fileName),
-				"UTF-8"));
-	} catch (IOException e) {
-	    scannerError("Cannot read " + fileName + "!");
-	}
-    }
-
-
-    private void scannerError(String message) {
-	String m = "Asp scanner error";
-	if (curLineNum() > 0)
-	    m += " on line " + curLineNum();
-	m += ": " + message;
-
-	Main.error(m);
-    }
-
-
-    public Token curToken() {
-	while (curLineTokens.isEmpty()) {
-	    readNextLine();
-	}
-	return curLineTokens.get(0);
-    }
-
-
-    public void readNextToken() {
-		if (! curLineTokens.isEmpty()) {
-			curLineTokens.remove(0);
+		try {
+			sourceFile = new LineNumberReader(
+					new InputStreamReader(
+					new FileInputStream(fileName),
+					"UTF-8"));
+		} catch (IOException e) {
+			scannerError("Cannot read " + fileName + "!");
 		}
-	}		
-    private void readNextLine() {
+	}
+
+
+	private void scannerError(String message) {
+		String m = "Asp scanner error";
+		if (curLineNum() > 0)
+			m += " on line " + curLineNum();
+		m += ": " + message;
+
+		Main.error(m);
+	}
+
+
+	public Token curToken() {
+		while (curLineTokens.isEmpty()) {
+			readNextLine();
+		}
+		return curLineTokens.get(0);
+	}
+
+
+	public void readNextToken() {
+		if (! curLineTokens.isEmpty())
+			curLineTokens.remove(0);
+	}
+
+
+	private void readNextLine() {
 		curLineTokens.clear();
 
 		// Read the next line:
 		String line = null;
 		try {
+			//System.out.println("***>>>" + sourceFile);
 			line = sourceFile.readLine();
 			if (line == null) {
 				sourceFile.close();
 				sourceFile = null;
-				curLineTokens.add(new Token(eofToken, curLineNum()));
-			}
-			else {
+				curLineTokens.add(new Token(eofToken,curLineNum()));	//Indicates E-O-F
+			} else {
 				Main.log.noteSourceLine(curLineNum(), line);
 			}
 		} catch (IOException e) {
@@ -74,6 +75,7 @@ public class Scanner {
 			scannerError("Unspecified I/O error!");
 		}
 
+		//-- Must be changed in part 1:
 		if (line != null) {
 			if (line.isBlank() || line.charAt(0) == '#')return;
 
@@ -109,54 +111,59 @@ public class Scanner {
 				
 					String nc = String.valueOf(c);
 					if (tokenKind.name() == nc) {
-				 		System.out.println(c);
+						System.out.println(c);
 					}
 				}
 				
 				if (isDigit(c)) {
-					curLineTokens.add(new Token(integerToken,curLineNum()));
+					Token t = new Token(integerToken,curLineNum());
+					t.integerLit = Integer.parseInt(String.valueOf(c));
+					curLineTokens.add(t);
+				}
+
+				if (isSingleQuoteMark(c)) {
+					//curLineTokens.add(new Token(stringToken,curLineNum()));
 				}
 			}
 
-			/*
-			 * char c = line.charAt();
-			 * 
-			 * if (isLetterAZ(c)) {
-			 * curLineTokens.add(new Token(nameToken,curLineNum()));
-			 * //while (isLetterAZ(line.charAt(index)))
-			 * }
-			 * 
-			 * 
-			 * if (isDigit(c)) {
-			 * curLineTokens.add(new Token(integerToken,curLineNum()));
-			 * }
-			 */
+
+			// Terminate line:
+			curLineTokens.add(new Token(newLineToken,curLineNum()));
+
+		}
+
+		for (Token t: curLineTokens){
+			Main.log.noteToken(t);
+
+			System.out.println("HJELP 🦄" + t);
+			if (t.kind == TokenKind.stringToken){
+				System.out.println("Dette er en 🩲🩲🩲" + t);
+			} else if (t.kind == TokenKind.integerToken){
+				System.out.println("Jeg er en 🐩🐩🐩🐩🐩" + t.integerLit);
+			} else if (t.kind == TokenKind.nameToken){
+				System.out.println("Denne oppgaven er 🚽🚽🚽🚽🚽🚽🚽🚽🚽🚽" + t);
+			}
 		}
 		
+	}
 
-		// Terminate line:
-		curLineTokens.add(new Token(newLineToken,curLineNum()));
-
-		for (Token t: curLineTokens) 
-			Main.log.noteToken(t);
-		}
-
-    public int curLineNum() {
+	public int curLineNum() {
 		return sourceFile!=null ? sourceFile.getLineNumber() : 0;
-    	}
+	}
 
-    private int findIndent(String s) {
+	private int findIndent(String s) {
 		int indent = 0;
 
 		while (indent<s.length() && s.charAt(indent)==' ') indent++;
 		return indent;
-    }
+	}
 
-    private String expandLeadingTabs(String s) {
+	private String expandLeadingTabs(String s) {
+		//-- Must be changed in part 1:
 		int cnt = 0;
 		String s2 = "";
 
-    	for (int i = 0;  i < s.length();  i++) {
+		for (int i = 0;  i < s.length();  i++) {
 			char c = s.charAt(i);
 			if (c == ' ') {
 				s2 += " ";
@@ -176,56 +183,62 @@ public class Scanner {
 	}
 
 
-    private boolean isLetterAZ(char c) {
-	return ('A'<=c && c<='Z') || ('a'<=c && c<='z') || (c=='_');
-    }
-
-
-    private boolean isDigit(char c) {
-	return '0'<=c && c<='9';
-    }
-
-	//egenlaget
-	private boolean usedInAsp(char c) {
-		if (!isLetterAZ(c) && !isDigit(c) == false) {
-			return false;
-		}
-		return true;
+	private boolean isLetterAZ(char c) {
+		return ('A'<=c && c<='Z') || ('a'<=c && c<='z') || (c=='_');
 	}
 
-    public boolean isCompOpr() {
-	TokenKind k = curToken().kind;
-	//-- Must be changed in part 2:
-	return false;
-    }
+
+	private boolean isDigit(char c) {
+		return '0'<=c && c<='9';
+	}
+
+	private boolean isSingleQuoteMark(char c) {
+		if (c == '\''){
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isDoubleQuoteMark(char c) {
+		if (c == '"'){
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isCompOpr() {
+		TokenKind k = curToken().kind;
+		//-- Must be changed in part 2:
+		return false;
+	}
 
 
-    public boolean isFactorPrefix() {
-	TokenKind k = curToken().kind;
-	//-- Must be changed in part 2:
-	return false;
-    }
+	public boolean isFactorPrefix() {
+		TokenKind k = curToken().kind;
+		//-- Must be changed in part 2:
+		return false;
+	}
 
 
-    public boolean isFactorOpr() {
-	TokenKind k = curToken().kind;
-	//-- Must be changed in part 2:
-	return false;
-    }
+	public boolean isFactorOpr() {
+		TokenKind k = curToken().kind;
+		//-- Must be changed in part 2:
+		return false;
+	}
 	
 
-    public boolean isTermOpr() {
-	TokenKind k = curToken().kind;
-	//-- Must be changed in part 2:
-	return false;
-    }
-
-
-    public boolean anyEqualToken() {
-	for (Token t: curLineTokens) {
-	    if (t.kind == equalToken) return true;
-	    if (t.kind == semicolonToken) return false;
+	public boolean isTermOpr() {
+		TokenKind k = curToken().kind;
+		//-- Must be changed in part 2:
+		return false;
 	}
-	return false;
-    }
+
+
+	public boolean anyEqualToken() {
+		for (Token t: curLineTokens) {
+			if (t.kind == equalToken) return true;
+			if (t.kind == semicolonToken) return false;
+		}
+		return false;
+	}
 }
