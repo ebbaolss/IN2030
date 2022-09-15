@@ -61,7 +61,7 @@ public class Scanner {
 			if (line == null) {
 				sourceFile.close();
 				sourceFile = null;
-				curLineTokens.add(new Token(eofToken,curLineNum()));	//Indicates E-O-F
+				curLineTokens.add(new Token(eofToken, curLineNum()));	//Indicates E-O-F
 			} else {
 				Main.log.noteSourceLine(curLineNum(), line);
 			}
@@ -128,18 +128,23 @@ public class Scanner {
 
 				else if (isLetterAZ(ch[i])) {
 					s += ch[i];
-					while (isLetterAZ(ch[i+1]) && ch[i+1] != ' ' && !isOperator(String.valueOf(ch[i+1])) && !isDelimiter(ch[i+1])) {
-						s += ch[i+1];
+					
+					while ((isLetterAZ(ch[i + 1]) || isDigit(ch[i + 1])) && ch[i + 1] != ' ' && !isOperator(String.valueOf(ch[i + 1])) && !isDelimiter(ch[i + 1])) {
+						s += ch[i + 1];
+						System.out.println(s);
 						i++;
-					}
+					}	
+					
+			
 					Token n = new Token(nameToken, curLineNum());
 					n.name = s;
+					//sjekker for keywords
 					for (TokenKind t : EnumSet.range(andToken, yieldToken)) {
 						if (n.name.equals(t.toString())) {
 							curLineTokens.add(new Token(t, curLineNum()));
 						}
 						
-						
+							
 					}
 					//System.out.println(n.name);
 			
@@ -174,29 +179,13 @@ public class Scanner {
 				}
 				
 			}
-			
-			
-		 
-			/*
-				for (TokenKind tokenKind : EnumSet.range(colonToken, semicolonToken)) {
-				
-					String nc = String.valueOf(c);
-					if (tokenKind.name() == nc) {
-						System.out.println(c);
-					}
-				}
-			}*/
-
-			
 
 			// Terminate line:
 			curLineTokens.add(new Token(newLineToken,curLineNum()));
+		}
 
-			for (Token t : curLineTokens) {
+		for (Token t : curLineTokens) {
 				Main.log.noteToken(t);
-			}
-
-			//må legge til eofToken på slutten
 		}
 		
 	}
