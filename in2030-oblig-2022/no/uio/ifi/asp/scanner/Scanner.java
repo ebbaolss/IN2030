@@ -103,8 +103,35 @@ public class Scanner {
 			}
 		}
 
+
 		if (line != null) {
+			/*
+			 * Rekkefølge på ting
+			 * gå igjennom char for char
+			 * legg til char i egen string ORD
+			 * stopp når du kommer til mellomrom, du har nå formet et ord i ORD
+			 * sjekk nå ORD mot alle tokens, hvis det ikke matcher noen er det et NAME
+			 * token, så sjekk for name token tilslutt
+			 * bruk metode i TOKEN for å sammenligne ORD med token
+			 * add token i curlinetokens
+			 * 
+			 * samme på nytt bare at nå stopper man også opp hvis char er et tegn
+			 * bruk metodene nederst i dette dokumentet for dette
+			 */
+
 			char[] ch = line.toCharArray();
+			char[] ord = new char[ch.length];
+			StringBuilder s = new StringBuilder();
+			for (char c : ch) {
+				
+				if () {
+					s.append(c);
+				}
+				s.append(c);
+			}
+			
+		 
+			/*char[] ch = line.toCharArray();
 			for (char c : ch) {
 
 				for (TokenKind tokenKind : EnumSet.range(colonToken, semicolonToken)) {
@@ -121,11 +148,13 @@ public class Scanner {
 					curLineTokens.add(t);
 				}
 
-				if (isSingleQuoteMark(c)) {
+				//sjekker for keywords
+				if ((c)) {
 					//curLineTokens.add(new Token(stringToken,curLineNum()));
 				}
-			}
+			}*/
 
+			
 
 			// Terminate line:
 			curLineTokens.add(new Token(newLineToken,curLineNum()));

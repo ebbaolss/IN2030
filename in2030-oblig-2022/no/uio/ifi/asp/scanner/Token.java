@@ -23,13 +23,13 @@ public class Token {
     }
 
     void checkResWords() {
-	if (kind != nameToken) return;
+		if (kind != nameToken) return;
 
-	for (TokenKind tk: EnumSet.range(andToken,yieldToken)) {
-	    if (name.equals(tk.image)) {
-		kind = tk;  break;
-	    }
-	}
+		for (TokenKind tk: EnumSet.range(andToken,yieldToken)) {
+			if (name.equals(tk.image)) {
+			kind = tk;  break;
+			}
+		}
     }
 
     public String showInfo() {
