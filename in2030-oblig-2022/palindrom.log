@@ -1,0 +1,13 @@
+   1: 
+   2: # A palindrome is a word that reads the same
+   3: # forwards and backwards, like OBO and RACECAR.
+   4: 
+   5: def is_a_palindrome (word):
+   6:    i1 = 0;  i2 = len(word)-1
+   7:    while i1 < i2:
+   8:       if word[i1] != word[i2]: return False
+   9:       i1 = i1 + 1;  i2 = i2 - 1
+  10:    return True
+  11: 
+  12: query = input("A word: ")
+  13: print('"'+query+'":', is_a_palindrome(query))

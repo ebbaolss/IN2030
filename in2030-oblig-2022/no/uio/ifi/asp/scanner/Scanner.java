@@ -116,29 +116,50 @@ public class Scanner {
 
 			String s = "";
 			char[] ch = line.toCharArray();
-			for (char c : ch) {
+			for (int i = 0; i < ch.length; i++) {
 				
-				if (isDigit(c)) {
-					System.out.println(c);
+				if (isDigit(ch[i])) {
+
 					Token t = new Token(integerToken, curLineNum());
+					t.integerLit = Integer.parseInt(String.valueOf(ch[i]));
 					curLineTokens.add(t);
 					//grei men må fikses for FLOAT
 				}
-				else if (isLetterAZ(c)) {
+				else if (isLetterAZ(ch[i])) {
 					Token t = new Token(nameToken, curLineNum());
+					t.name = Character.toString(ch[i]);
 					curLineTokens.add(t);
 					
 				}
-				else if (c == ' ') {
+				else if (ch[i] == ' ') {
 					continue;
 				} 
-				else if (c == '#') {
+				else if (ch[i] == '#') {
 					curLineTokens.add(new Token(newLineToken, curLineNum()));
 				}	
-				else if (isDelimiter(c)) {
+				else if (isDelimiter(ch[i])) {
 					Token n = new Token(nameToken, curLineNum());
-					n.checkResWords();
+					n.name = Character.toString(ch[i]);
+					
+					for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
+						if (n.name.equals(t.toString())) {
+							//System.out.println("yess " + t.toString());
+							curLineTokens.add(new Token(t, curLineNum()));
+						}
+					}	
 				}
+				else if (isOperator(Character.toString(ch[i]))) {
+					Token n = new Token(nameToken, curLineNum());
+					n.name = Character.toString(ch[i]);
+					System.out.println(n.name);
+					for (TokenKind t : EnumSet.range(astToken, slashToken)) {
+						if (n.name.equals(t.toString())) {
+							System.out.println("yess " + t.toString());
+							curLineTokens.add(new Token(t, curLineNum()));
+						}
+					}
+				}
+				
 			}
 			
 			
@@ -157,6 +178,10 @@ public class Scanner {
 
 			// Terminate line:
 			curLineTokens.add(new Token(newLineToken,curLineNum()));
+
+			for (Token t : curLineTokens) {
+				Main.log.noteToken(t);
+			}
 
 		}
 		
@@ -217,7 +242,7 @@ public class Scanner {
 	}
 
 	private boolean isDelimiter(char c) {
-		char[] delimiters = { '(', '[', '{', '}', ']', ')' };
+		char[] delimiters = {':', ',', '=', '{', '[', '(', '}', ']', ')', ';'};
 		for (char d : delimiters) {
 			if (c == d) {
 				return true;
