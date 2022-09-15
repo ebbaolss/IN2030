@@ -15,7 +15,6 @@ public class Scanner {
 	private Stack<Integer> indents = new Stack<>();
 	private final int TABDIST = 4;
 
-
 	public Scanner(String fileName) {
 		curFileName = fileName;
 		indents.push(0);
@@ -23,13 +22,12 @@ public class Scanner {
 		try {
 			sourceFile = new LineNumberReader(
 					new InputStreamReader(
-					new FileInputStream(fileName),
-					"UTF-8"));
+							new FileInputStream(fileName),
+							"UTF-8"));
 		} catch (IOException e) {
 			scannerError("Cannot read " + fileName + "!");
 		}
 	}
-
 
 	private void scannerError(String message) {
 		String m = "Asp scanner error";
@@ -40,7 +38,6 @@ public class Scanner {
 		Main.error(m);
 	}
 
-
 	public Token curToken() {
 		while (curLineTokens.isEmpty()) {
 			readNextLine();
@@ -48,12 +45,10 @@ public class Scanner {
 		return curLineTokens.get(0);
 	}
 
-
 	public void readNextToken() {
-		if (! curLineTokens.isEmpty())
+		if (!curLineTokens.isEmpty())
 			curLineTokens.remove(0);
 	}
-
 
 	private void readNextLine() {
 		curLineTokens.clear();
@@ -119,38 +114,42 @@ public class Scanner {
 			 * bruk metodene nederst i dette dokumentet for dette
 			 */
 
+			String s = "";
 			char[] ch = line.toCharArray();
-			char[] ord = new char[ch.length];
-			StringBuilder s = new StringBuilder();
 			for (char c : ch) {
 				
-				if () {
-					s.append(c);
+				if (isDigit(c)) {
+					System.out.println(c);
+					Token t = new Token(integerToken, curLineNum());
+					curLineTokens.add(t);
+					//grei men må fikses for FLOAT
 				}
-				s.append(c);
+				else if (isLetterAZ(c)) {
+					Token t = new Token(nameToken, curLineNum());
+					curLineTokens.add(t);
+					
+				}
+				else if (c == ' ') {
+					continue;
+				} 
+				else if (c == '#') {
+					curLineTokens.add(new Token(newLineToken, curLineNum()));
+				}	
+				else if (isDelimiter(c)) {
+					Token n = new Token(nameToken, curLineNum());
+					n.checkResWords();
+				}
 			}
 			
+			
 		 
-			/*char[] ch = line.toCharArray();
-			for (char c : ch) {
-
+			/*
 				for (TokenKind tokenKind : EnumSet.range(colonToken, semicolonToken)) {
 				
 					String nc = String.valueOf(c);
 					if (tokenKind.name() == nc) {
 						System.out.println(c);
 					}
-				}
-				
-				if (isDigit(c)) {
-					Token t = new Token(integerToken,curLineNum());
-					t.integerLit = Integer.parseInt(String.valueOf(c));
-					curLineTokens.add(t);
-				}
-
-				//sjekker for keywords
-				if ((c)) {
-					//curLineTokens.add(new Token(stringToken,curLineNum()));
 				}
 			}*/
 
@@ -177,22 +176,23 @@ public class Scanner {
 	}
 
 	public int curLineNum() {
-		return sourceFile!=null ? sourceFile.getLineNumber() : 0;
+		return sourceFile != null ? sourceFile.getLineNumber() : 0;
 	}
 
 	private int findIndent(String s) {
 		int indent = 0;
 
-		while (indent<s.length() && s.charAt(indent)==' ') indent++;
+		while (indent < s.length() && s.charAt(indent) == ' ')
+			indent++;
 		return indent;
 	}
 
 	private String expandLeadingTabs(String s) {
-		//-- Must be changed in part 1:
+		// -- Must be changed in part 1:
 		int cnt = 0;
 		String s2 = "";
 
-		for (int i = 0;  i < s.length();  i++) {
+		for (int i = 0; i < s.length(); i++) {
 			char c = s.charAt(i);
 			if (c == ' ') {
 				s2 += " ";
@@ -200,36 +200,53 @@ public class Scanner {
 			} else if (c == '\t') {
 				int nReplace = 4 - (cnt % 4);
 				for (int j = 0; j < nReplace; j++) {
-					s2 += " "; 
+					s2 += " ";
 				}
 				cnt += nReplace;
 			} else {
 				s2 += s.substring(i);
-				break; 
+				break;
 			}
 		}
 		return s2;
 	}
 
-
 	private boolean isLetterAZ(char c) {
-		return ('A'<=c && c<='Z') || ('a'<=c && c<='z') || (c=='_');
+		return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') || (c == '_');
 	}
-
 
 	private boolean isDigit(char c) {
-		return '0'<=c && c<='9';
+		return '0' <= c && c <= '9';
 	}
 
+	private boolean isOperator(String s) {
+		String[] operators = { "*", "==", "//", ">", ">=", "<", "<=", "-", "!=", "%", "+", "/" };
+		for (String o : operators) {
+			if (s == o) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isDelimiter(char c) {
+		char[] delimiters = { '(', '[', '{', '}', ']', ')' };
+		for (char d : delimiters) {
+			if (c == d) {
+				return true;
+			}
+		}
+		return false;
+	}
 	private boolean isSingleQuoteMark(char c) {
-		if (c == '\''){
+		if (c == '\'') {
 			return true;
 		}
 		return false;
 	}
 
 	private boolean isDoubleQuoteMark(char c) {
-		if (c == '"'){
+		if (c == '"') {
 			return true;
 		}
 		return false;
@@ -237,36 +254,34 @@ public class Scanner {
 
 	public boolean isCompOpr() {
 		TokenKind k = curToken().kind;
-		//-- Must be changed in part 2:
+		// -- Must be changed in part 2:
 		return false;
 	}
-
 
 	public boolean isFactorPrefix() {
 		TokenKind k = curToken().kind;
-		//-- Must be changed in part 2:
+		// -- Must be changed in part 2:
 		return false;
 	}
-
 
 	public boolean isFactorOpr() {
 		TokenKind k = curToken().kind;
-		//-- Must be changed in part 2:
+		// -- Must be changed in part 2:
 		return false;
 	}
-	
 
 	public boolean isTermOpr() {
 		TokenKind k = curToken().kind;
-		//-- Must be changed in part 2:
+		// -- Must be changed in part 2:
 		return false;
 	}
 
-
 	public boolean anyEqualToken() {
-		for (Token t: curLineTokens) {
-			if (t.kind == equalToken) return true;
-			if (t.kind == semicolonToken) return false;
+		for (Token t : curLineTokens) {
+			if (t.kind == equalToken)
+				return true;
+			if (t.kind == semicolonToken)
+				return false;
 		}
 		return false;
 	}
