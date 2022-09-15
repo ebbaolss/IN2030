@@ -117,6 +117,7 @@ public class Scanner {
 			String s = "";
 			char[] ch = line.toCharArray();
 			for (int i = 0; i < ch.length; i++) {
+
 				if (isDigit(ch[i])) {
 
 					Token t = new Token(integerToken, curLineNum());
@@ -124,18 +125,34 @@ public class Scanner {
 					curLineTokens.add(t);
 					//grei men må fikses for FLOAT
 				}
+
 				else if (isLetterAZ(ch[i])) {
-					Token t = new Token(nameToken, curLineNum());
-					t.name = Character.toString(ch[i]);
-					curLineTokens.add(t);
-					
+					s += ch[i];
+					while (isLetterAZ(ch[i+1]) && ch[i+1] != ' ' && !isOperator(String.valueOf(ch[i+1])) && !isDelimiter(ch[i+1])) {
+						s += ch[i+1];
+						i++;
+					}
+					Token n = new Token(nameToken, curLineNum());
+					n.name = s;
+					for (TokenKind t : EnumSet.range(andToken, yieldToken)) {
+						if (n.name.equals(t.toString())) {
+							curLineTokens.add(new Token(t, curLineNum()));
+						}
+						
+						
+					}
+					//System.out.println(n.name);
+			
 				}
+
 				else if (ch[i] == ' ') {
 					continue;
 				} 
+
 				else if (ch[i] == '#') {
 					curLineTokens.add(new Token(newLineToken, curLineNum()));
 				}	
+
 				else if (isDelimiter(ch[i])) {
 					Token n = new Token(nameToken, curLineNum());
 					n.name = Character.toString(ch[i]);
@@ -146,7 +163,7 @@ public class Scanner {
 					}	
 				}
 				
-				if (isOperator(String.valueOf(ch[i]))) {
+				else if (isOperator(String.valueOf(ch[i]))) {
 					Token n = new Token(nameToken, curLineNum());
 					n.name = Character.toString(ch[i]);
 					for (TokenKind t : EnumSet.range(astToken, slashToken)) {
@@ -179,6 +196,7 @@ public class Scanner {
 				Main.log.noteToken(t);
 			}
 
+			//må legge til eofToken på slutten
 		}
 		
 	}
