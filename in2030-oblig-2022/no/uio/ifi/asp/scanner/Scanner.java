@@ -159,19 +159,6 @@ public class Scanner {
 			curLineTokens.add(new Token(newLineToken,curLineNum()));
 
 		}
-
-		for (Token t: curLineTokens){
-			Main.log.noteToken(t);
-
-			System.out.println("HJELP 🦄" + t);
-			if (t.kind == TokenKind.stringToken){
-				System.out.println("Dette er en 🩲🩲🩲" + t);
-			} else if (t.kind == TokenKind.integerToken){
-				System.out.println("Jeg er en 🐩🐩🐩🐩🐩" + t.integerLit);
-			} else if (t.kind == TokenKind.nameToken){
-				System.out.println("Denne oppgaven er 🚽🚽🚽🚽🚽🚽🚽🚽🚽🚽" + t);
-			}
-		}
 		
 	}
 
