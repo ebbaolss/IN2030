@@ -21,9 +21,9 @@ public class Scanner {
 
 		try {
 			sourceFile = new LineNumberReader(
-					new InputStreamReader(
-							new FileInputStream(fileName),
-							"UTF-8"));
+				new InputStreamReader(
+					new FileInputStream(fileName),
+					"UTF-8"));
 		} catch (IOException e) {
 			scannerError("Cannot read " + fileName + "!");
 		}
@@ -100,18 +100,11 @@ public class Scanner {
 
 
 		if (line != null) {
-			/*
-			 * Rekkefølge på ting
-			 * gå igjennom char for char
-			 * legg til char i egen string ORD
-			 * stopp når du kommer til mellomrom, du har nå formet et ord i ORD
-			 * sjekk nå ORD mot alle tokens, hvis det ikke matcher noen er det et NAME
-			 * token, så sjekk for name token tilslutt
-			 * bruk metode i TOKEN for å sammenligne ORD med token
-			 * add token i curlinetokens
-			 * 
-			 * samme på nytt bare at nå stopper man også opp hvis char er et tegn
-			 * bruk metodene nederst i dette dokumentet for dette
+			
+			/*sjekkliste
+			 * si ifra at ord er ferdig for å fikse name
+			 * lete etter quotes
+			 * float fiks
 			 */
 
 			String s = "";
@@ -124,30 +117,61 @@ public class Scanner {
 					t.integerLit = Integer.parseInt(String.valueOf(ch[i]));
 					curLineTokens.add(t);
 					//grei men må fikses for FLOAT
-				}
 
+					/*if (i+1 < ch.length) {
+						s += ch[i];
+						if (ch[i + 1] == '.') {
+							
+							if (isDigit(ch[i + 1])) {
+								i++;
+								s+= ch[i + 1];
+							}
+							Token t = new Token(floatToken, curLineNum());
+							t.floatLit = Float.parseFloat(s);
+							curLineTokens.add(t);
+
+						}
+						else if (isDigit(ch[i + 1])) {
+							Token t = new Token(integerToken, curLineNum());
+							t.integerLit = Integer.parseInt(s);
+							curLineTokens.add(t);
+						} 
+						else {
+							Token t = new Token(integerToken, curLineNum());
+							t.integerLit = Integer.parseInt(String.valueOf(ch[i]));
+							curLineTokens.add(t);
+						}*/
+				}
+				
+			
 				else if (isLetterAZ(ch[i])) {
 					s += ch[i];
-					
-					while ((isLetterAZ(ch[i + 1]) || isDigit(ch[i + 1])) && ch[i + 1] != ' ' && !isOperator(String.valueOf(ch[i + 1])) && !isDelimiter(ch[i + 1])) {
-						s += ch[i + 1];
-						System.out.println(s);
-						i++;
-					}	
-					
-			
+
+					while ((isLetterAZ(ch[i + 1]) || isDigit(ch[i + 1]))) {
+
+						if (!isOperator(String.valueOf(ch[i + 1])) || !isDelimiter(ch[i + 1]) || ch[i + 1] != ' ') {
+							s += ch[i + 1];
+							System.out.println(s);
+							i++;
+							if (i + 1 >= ch.length) {
+								break;
+							}
+						}
+						//vi må si ifra at ordet er ferdig 
+						//når det kommer til enten operator delimiter eller mellomrom
+							
+					}
+
 					Token n = new Token(nameToken, curLineNum());
 					n.name = s;
-					//sjekker for keywords
+					// sjekker for keywords
 					for (TokenKind t : EnumSet.range(andToken, yieldToken)) {
 						if (n.name.equals(t.toString())) {
 							curLineTokens.add(new Token(t, curLineNum()));
 						}
-						
-							
+
 					}
-					//System.out.println(n.name);
-			
+
 				}
 
 				else if (ch[i] == ' ') {
@@ -177,7 +201,6 @@ public class Scanner {
 						}
 					}
 				}
-				
 			}
 
 			// Terminate line:
