@@ -140,21 +140,17 @@ public class Scanner {
 				else if (isDelimiter(ch[i])) {
 					Token n = new Token(nameToken, curLineNum());
 					n.name = Character.toString(ch[i]);
-					
 					for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
 						if (n.name.equals(t.toString())) {
-							//System.out.println("yess " + t.toString());
 							curLineTokens.add(new Token(t, curLineNum()));
 						}
 					}	
 				}
-				else if (isOperator(Character.toString(ch[i]))) {
+				
+				if (isOperator(String.valueOf(ch[i]))) {
 					Token n = new Token(nameToken, curLineNum());
-					n.name = Character.toString(ch[i]);
-					System.out.println(n.name);
 					for (TokenKind t : EnumSet.range(astToken, slashToken)) {
 						if (n.name.equals(t.toString())) {
-							System.out.println("yess " + t.toString());
 							curLineTokens.add(new Token(t, curLineNum()));
 						}
 					}
@@ -234,7 +230,7 @@ public class Scanner {
 	private boolean isOperator(String s) {
 		String[] operators = { "*", "==", "//", ">", ">=", "<", "<=", "-", "!=", "%", "+", "/" };
 		for (String o : operators) {
-			if (s == o) {
+			if (s.equals(o)) {
 				return true;
 			}
 		}
