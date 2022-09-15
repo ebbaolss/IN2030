@@ -117,7 +117,6 @@ public class Scanner {
 			String s = "";
 			char[] ch = line.toCharArray();
 			for (int i = 0; i < ch.length; i++) {
-				
 				if (isDigit(ch[i])) {
 
 					Token t = new Token(integerToken, curLineNum());
@@ -149,6 +148,7 @@ public class Scanner {
 				
 				if (isOperator(String.valueOf(ch[i]))) {
 					Token n = new Token(nameToken, curLineNum());
+					n.name = Character.toString(ch[i]);
 					for (TokenKind t : EnumSet.range(astToken, slashToken)) {
 						if (n.name.equals(t.toString())) {
 							curLineTokens.add(new Token(t, curLineNum()));
