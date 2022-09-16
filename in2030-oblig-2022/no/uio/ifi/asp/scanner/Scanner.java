@@ -102,7 +102,6 @@ public class Scanner {
 		if (line != null) {
 			
 			/*sjekkliste
-
 			 * lete etter quotes
 			 * float fiks
 			 */
@@ -113,34 +112,41 @@ public class Scanner {
 			for (int i = 0; i < ch.length; i++) {
 				teller = i;
 				if (isDigit(ch[i])) {
-
-					
-					//grei men må fikses for FLOAT
-
-					/*if (i+1 < ch.length) {
-						s += ch[i];
-						if (ch[i + 1] == '.') {
-							
-							if (isDigit(ch[i + 1])) {
-								i++;
-								s+= ch[i + 1];
-							}
-							Token t = new Token(floatToken, curLineNum());
-							t.floatLit = Float.parseFloat(s);
-							curLineTokens.add(t);
-
+					s += ch[i];
+					for (int j = i; j < ch.length; j++) {
+						if (j + 1 >= ch.length) {
+							break;
 						}
-						else if (isDigit(ch[i + 1])) {
-							Token t = new Token(integerToken, curLineNum());
-							t.integerLit = Integer.parseInt(s);
-							curLineTokens.add(t);
+						//float check
+						boolean f = false;
+						if (ch[j + 1] == '.') {
+							//s += ch[j + 1];
+							f = true;
+						}
+
+						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
+							//hvis tall er float
+							if (f == true) { // får ikke denne til å fungere, noe feil med true/false
+								Token t = new Token(floatToken, curLineNum());
+								t.floatLit = Double.parseDouble(s);
+								curLineTokens.add(t);
+							}
+							else {
+								Token t = new Token(integerToken, curLineNum());
+								t.integerLit = Long.parseLong(s); 
+								curLineTokens.add(t);
+							}
+							
+							teller = j;
+							s = "";
+			
+							break;
 						} 
 						else {
-							Token t = new Token(integerToken, curLineNum());
-							t.integerLit = Integer.parseInt(String.valueOf(ch[i]));
-							curLineTokens.add(t);
-						}*/
-					
+							s += ch[j + 1];
+						}
+					}
+					i = teller;
 				}
 				
 			
@@ -208,6 +214,24 @@ public class Scanner {
 						}
 					}
 				}
+
+				else if (isSingleQuoteMark(ch[i])) {
+					//denne leser til neste single quote men blir feil når man har flere single quotes i hverandre
+					for (int k = i+1; k < ch.length; k++) {
+						if (ch[k] == '\'') {
+							//System.out.println("single quote");
+						}
+					}
+				}
+
+				else if (isDoubleQuoteMark(ch[i])) {
+					for (int k = i+1; k < ch.length; k++) {
+						if (ch[k] == '"') {
+							//System.out.println("double quote");
+						}
+					}
+
+				}
 			}
 
 			// Terminate line:
@@ -215,10 +239,9 @@ public class Scanner {
 		}
 
 		for (Token t : curLineTokens) {
-				Main.log.noteToken(t);
+			Main.log.noteToken(t);
 		}
-		
-	}
+	}	
 
 	public int curLineNum() {
 		return sourceFile != null ? sourceFile.getLineNumber() : 0;

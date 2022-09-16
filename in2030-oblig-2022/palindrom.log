@@ -14,6 +14,7 @@ Scanner: NEWLINE token on line 5
 Scanner: INDENT token on line 6
 Scanner: name token on line 6: i1
 Scanner: = token on line 6
+Scanner: integer literal token on line 6: 0
 Scanner: ; token on line 6
 Scanner: name token on line 6: i2
 Scanner: = token on line 6
@@ -50,6 +51,7 @@ Scanner: name token on line 9: i1
 Scanner: = token on line 9
 Scanner: name token on line 9: i1
 Scanner: + token on line 9
+Scanner: integer literal token on line 9: 1
 Scanner: ; token on line 9
 Scanner: name token on line 9: i2
 Scanner: = token on line 9
