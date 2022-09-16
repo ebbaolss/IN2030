@@ -102,20 +102,19 @@ public class Scanner {
 		if (line != null) {
 			
 			/*sjekkliste
-			 * si ifra at ord er ferdig for å fikse name
+
 			 * lete etter quotes
 			 * float fiks
 			 */
 
 			String s = "";
+			int teller = 0;
 			char[] ch = line.toCharArray();
 			for (int i = 0; i < ch.length; i++) {
-
+				teller = i;
 				if (isDigit(ch[i])) {
 
-					Token t = new Token(integerToken, curLineNum());
-					t.integerLit = Integer.parseInt(String.valueOf(ch[i]));
-					curLineTokens.add(t);
+					
 					//grei men må fikses for FLOAT
 
 					/*if (i+1 < ch.length) {
@@ -141,37 +140,45 @@ public class Scanner {
 							t.integerLit = Integer.parseInt(String.valueOf(ch[i]));
 							curLineTokens.add(t);
 						}*/
+					
 				}
 				
 			
 				else if (isLetterAZ(ch[i])) {
 					s += ch[i];
 
-					while ((isLetterAZ(ch[i + 1]) || isDigit(ch[i + 1]))) {
+					for (int j = i; j < ch.length; j++) {
+						if (j + 1 >= ch.length) {
+							break;
+						}
+						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 
-						if (!isOperator(String.valueOf(ch[i + 1])) || !isDelimiter(ch[i + 1]) || ch[i + 1] != ' ') {
-							s += ch[i + 1];
-							System.out.println(s);
-							i++;
-							if (i + 1 >= ch.length) {
-								break;
+							Token n = new Token(nameToken, curLineNum());
+							n.name = s;
+							// sjekker for keywords
+							Boolean keyword = false;
+							for (TokenKind t : EnumSet.range(andToken, yieldToken)) {
+								if (n.name.equals(t.toString())) {
+									keyword = true;
+									curLineTokens.add(new Token(t, curLineNum()));
+								}
 							}
+							//hvis den ikke finner keyword er det et nameToken
+							if (keyword == false) {
+								n.stringLit = s;
+								curLineTokens.add(n);
+							}
+		
+							teller = j;
+							s = "";
+							break;
 						}
-						//vi må si ifra at ordet er ferdig 
-						//når det kommer til enten operator delimiter eller mellomrom
-							
-					}
-
-					Token n = new Token(nameToken, curLineNum());
-					n.name = s;
-					// sjekker for keywords
-					for (TokenKind t : EnumSet.range(andToken, yieldToken)) {
-						if (n.name.equals(t.toString())) {
-							curLineTokens.add(new Token(t, curLineNum()));
+						else {
+							s += ch[j + 1];
 						}
-
+						
 					}
-
+					i = teller;
 				}
 
 				else if (ch[i] == ' ') {
