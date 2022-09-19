@@ -102,7 +102,6 @@ public class Scanner {
 		if (line != null) {
 			
 			/*sjekkliste
-			 * lete etter quotes
 			 * float fiks
 			 */
 
@@ -123,8 +122,8 @@ public class Scanner {
 							//s += ch[j + 1];
 							f = true;
 						}
-
-						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
+						
+						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ' || j+1 == ch.length) {
 							//hvis tall er float
 							if (f == true) { // får ikke denne til å fungere, noe feil med true/false
 								Token t = new Token(floatToken, curLineNum());
@@ -145,24 +144,32 @@ public class Scanner {
 						else {
 							s += ch[j + 1];
 						}
+						if (j + 1 >= ch.length) {
+							break;
+						}
 					}
 					i = teller;
 				}
 				
-			
 				else if (isLetterAZ(ch[i])) {
 					s += ch[i];
+					String b = "";
+					b += ch[i];
 
 					for (int j = i; j < ch.length; j++) {
+						
 						if (j + 1 >= ch.length) {
 							break;
 						}
+						
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 
 							Token n = new Token(nameToken, curLineNum());
 							n.name = s;
+
 							// sjekker for keywords
 							Boolean keyword = false;
+
 							for (TokenKind t : EnumSet.range(andToken, yieldToken)) {
 								if (n.name.equals(t.toString())) {
 									keyword = true;
@@ -182,7 +189,6 @@ public class Scanner {
 						else {
 							s += ch[j + 1];
 						}
-						
 					}
 					i = teller;
 				}
@@ -198,11 +204,31 @@ public class Scanner {
 				else if (isDelimiter(ch[i])) {
 					Token n = new Token(nameToken, curLineNum());
 					n.name = Character.toString(ch[i]);
-					for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
-						if (n.name.equals(t.toString())) {
-							curLineTokens.add(new Token(t, curLineNum()));
+					if (ch[i] == '=' && ch[i+1] != '=') {
+						if (ch[i-1] == '!' && ch[i] == '=') {
+							curLineTokens.add(new Token(notEqualToken, curLineNum()));
 						}
-					}	
+						else {
+							curLineTokens.add(new Token(equalToken, curLineNum()));
+						}
+					}
+					else if (ch[i] == '=' && ch[i + 1] == '=') {
+						curLineTokens.add(new Token(doubleEqualToken, curLineNum()));
+						teller = i + 1;
+					}
+					else {
+						for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
+							if (n.name.equals(t.toString())) {
+								if (Character.toString('=') == t.toString()) {
+									
+								}
+								else {
+									curLineTokens.add(new Token(t, curLineNum()));
+								}
+							}
+						}
+					}
+					i = teller; 	
 				}
 				
 				else if (isOperator(String.valueOf(ch[i]))) {
@@ -216,21 +242,39 @@ public class Scanner {
 				}
 
 				else if (isSingleQuoteMark(ch[i])) {
-					//denne leser til neste single quote men blir feil når man har flere single quotes i hverandre
+					Token sq = new Token(stringToken, curLineNum());
+					String q = "";
+					boolean found = false;
 					for (int k = i+1; k < ch.length; k++) {
+						q += ch[k];
 						if (ch[k] == '\'') {
-							//System.out.println("single quote");
+							q = q.substring(0, q.length() - 1);
+							sq.stringLit = q;
+							curLineTokens.add(sq);
+							//if sq found
+							found = true;
+						}
+						teller = k;
+						if (found) {
+							break;
 						}
 					}
+					i = teller;
 				}
 
 				else if (isDoubleQuoteMark(ch[i])) {
+					Token dq = new Token(stringToken, curLineNum());
+					String q = "";
 					for (int k = i+1; k < ch.length; k++) {
+						q += ch[k];
 						if (ch[k] == '"') {
-							//System.out.println("double quote");
+							q = q.substring(0, q.length() - 1);
+							dq.stringLit = q;
+							curLineTokens.add(dq);
 						}
+						teller = k;
 					}
-
+					i = teller;
 				}
 			}
 

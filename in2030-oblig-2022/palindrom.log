@@ -10,10 +10,10 @@ Scanner: name token on line 5: word
 Scanner: ) token on line 5
 Scanner: : token on line 5
 Scanner: NEWLINE token on line 5
-   6:    i1 = 0;  i2 = len(word)-1
+   6:    i1 != 0;  i2 = len(word)-1
 Scanner: INDENT token on line 6
 Scanner: name token on line 6: i1
-Scanner: = token on line 6
+Scanner: != token on line 6
 Scanner: integer literal token on line 6: 0
 Scanner: ; token on line 6
 Scanner: name token on line 6: i2
@@ -38,7 +38,7 @@ Scanner: name token on line 8: word
 Scanner: [ token on line 8
 Scanner: name token on line 8: i1
 Scanner: ] token on line 8
-Scanner: = token on line 8
+Scanner: != token on line 8
 Scanner: name token on line 8: word
 Scanner: [ token on line 8
 Scanner: name token on line 8: i2
@@ -69,18 +69,16 @@ Scanner: name token on line 12: query
 Scanner: = token on line 12
 Scanner: name token on line 12: input
 Scanner: ( token on line 12
-Scanner: name token on line 12: A
-Scanner: name token on line 12: word
-Scanner: : token on line 12
-Scanner: ) token on line 12
+Scanner: string literal token on line 12: "A word: "
 Scanner: NEWLINE token on line 12
   13: print('"'+query+'":', is_a_palindrome(query))
 Scanner: name token on line 13: print
 Scanner: ( token on line 13
+Scanner: string literal token on line 13: '"'
 Scanner: + token on line 13
 Scanner: name token on line 13: query
 Scanner: + token on line 13
-Scanner: : token on line 13
+Scanner: string literal token on line 13: '":'
 Scanner: , token on line 13
 Scanner: name token on line 13: is_a_palindrome
 Scanner: ( token on line 13

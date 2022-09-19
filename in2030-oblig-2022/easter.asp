@@ -21,4 +21,4 @@ while y <= 2025:
       print(str(day) + ". mars", y)
    else:
       print(str(day) + ". april", y)
-   y = y+1
+   y != y+1
