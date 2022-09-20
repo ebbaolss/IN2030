@@ -123,7 +123,7 @@ public class Scanner {
 							f = true;
 						}
 						
-						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ' || j+1 == ch.length) {
+						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 							//hvis tall er float
 							if (f == true) { // får ikke denne til å fungere, noe feil med true/false
 								Token t = new Token(floatToken, curLineNum());
@@ -203,7 +203,7 @@ public class Scanner {
 
 				else if (ch[i] == '#') {
 					curLineTokens.add(new Token(newLineToken, curLineNum()));
-				}		
+				}	
 
 				else if (isDelimiter(ch[i])) {
 					Token n = new Token(nameToken, curLineNum());
