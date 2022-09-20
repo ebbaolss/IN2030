@@ -164,7 +164,7 @@ public class Scanner {
 						
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 
-							Token n = new Token(nameToken, curLineNum());
+							/*Token n = new Token(nameToken, curLineNum());
 							n.name = s;
 
 							// sjekker for keywords
@@ -180,7 +180,7 @@ public class Scanner {
 							if (keyword == false) {
 								n.stringLit = s;
 								curLineTokens.add(n);
-							}
+							}*/
 		
 							teller = j;
 							s = "";
@@ -190,7 +190,11 @@ public class Scanner {
 							s += ch[j + 1];
 						}
 					}
+					Token n = new Token(nameToken, curLineNum());
+					n.name = s;
+					n.checkResWords();
 					i = teller;
+					curLineTokens.add(n);
 				}
 
 				else if (ch[i] == ' ') {
@@ -199,7 +203,7 @@ public class Scanner {
 
 				else if (ch[i] == '#') {
 					curLineTokens.add(new Token(newLineToken, curLineNum()));
-				}	
+				}		
 
 				else if (isDelimiter(ch[i])) {
 					Token n = new Token(nameToken, curLineNum());
