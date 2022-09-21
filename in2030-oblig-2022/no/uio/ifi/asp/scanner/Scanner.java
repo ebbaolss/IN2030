@@ -183,7 +183,7 @@ public class Scanner {
 							}*/
 		
 							teller = j;
-							s = "";
+							//s = "";
 							break;
 						}
 						else {
@@ -192,6 +192,7 @@ public class Scanner {
 					}
 					Token n = new Token(nameToken, curLineNum());
 					n.name = s;
+					s="";
 					n.checkResWords();
 					i = teller;
 					curLineTokens.add(n);
@@ -223,10 +224,7 @@ public class Scanner {
 					else {
 						for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
 							if (n.name.equals(t.toString())) {
-								if (Character.toString('=') == t.toString()) {
-									
-								}
-								else {
+								if (Character.toString('=') != t.toString()) {
 									curLineTokens.add(new Token(t, curLineNum()));
 								}
 							}
