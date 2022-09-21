@@ -101,11 +101,6 @@ public class Scanner {
 
 		if (line != null) {
 
-			/*
-			 * sjekkliste
-			 * float fiks
-			 */
-
 			String s = "";
 			int teller = 0;
 			char[] ch = line.toCharArray();
@@ -113,40 +108,43 @@ public class Scanner {
 				teller = i;
 				if (isDigit(ch[i])) {
 					s += ch[i];
+					boolean f = false;
 					for (int j = i; j < ch.length; j++) {
 						if (j + 1 >= ch.length) {
+							teller = j;
 							break;
 						}
 						// float check
-						boolean f = false;
+						f = false;
 						if (ch[j + 1] == '.') {
 							// s += ch[j + 1];
 							f = true;
+							j++;
+							teller = j;
+							break;
 						}
 
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 							// hvis tall er float
-							if (f == true) { // får ikke denne til å fungere, noe feil med true/false
-								Token t = new Token(floatToken, curLineNum());
-								t.floatLit = Double.parseDouble(s);
-								curLineTokens.add(t);
-							} else {
-								Token t = new Token(integerToken, curLineNum());
-								t.integerLit = Long.parseLong(s);
-								curLineTokens.add(t);
-							}
 
 							teller = j;
-							s = "";
 
 							break;
 						} else {
 							s += ch[j + 1];
 						}
-						if (j + 1 >= ch.length) {
-							break;
-						}
+
 					}
+					if (f == true) { // får ikke denne til å fungere, noe feil med true/false
+						Token t = new Token(floatToken, curLineNum());
+						t.floatLit = Double.parseDouble(s);
+						curLineTokens.add(t);
+					} else {
+						Token t = new Token(integerToken, curLineNum());
+						t.integerLit = Long.parseLong(s);
+						curLineTokens.add(t);
+					}
+					s = "";
 					i = teller;
 				}
 
@@ -198,7 +196,8 @@ public class Scanner {
 					} else if (ch[i] == '=' && ch[i + 1] == '=') {
 						curLineTokens.add(new Token(doubleEqualToken, curLineNum()));
 						teller = i + 1;
-					} else {
+					}
+					else {
 						for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
 							if (n.name.equals(t.toString())) {
 								if (Character.toString('=') != t.toString()) {
@@ -213,11 +212,22 @@ public class Scanner {
 				else if (isOperator(String.valueOf(ch[i]))) {
 					Token n = new Token(nameToken, curLineNum());
 					n.name = Character.toString(ch[i]);
-					for (TokenKind t : EnumSet.range(astToken, slashToken)) {
-						if (n.name.equals(t.toString())) {
-							curLineTokens.add(new Token(t, curLineNum()));
+					if (ch[i] == '>' && ch[i + 1] == '=') {
+						curLineTokens.add(new Token(greaterEqualToken, curLineNum()));
+						teller = i + 1;
+					} 
+					else if (ch[i] == '<' && ch[i + 1] == '=') {
+						curLineTokens.add(new Token(lessEqualToken, curLineNum()));
+						teller = i + 1;
+					} 
+					else {
+						for (TokenKind t : EnumSet.range(astToken, slashToken)) {
+							if (n.name.equals(t.toString())) {
+								curLineTokens.add(new Token(t, curLineNum()));
+							}
 						}
 					}
+					i = teller;
 				}
 
 				else if (isSingleQuoteMark(ch[i])) {
@@ -251,7 +261,7 @@ public class Scanner {
 							dq.stringLit = q;
 							curLineTokens.add(dq);
 						}
-						teller = k;
+						teller = k-1;
 					}
 					i = teller;
 				}
