@@ -45,6 +45,7 @@ Scanner: name token on line 8: i2
 Scanner: ] token on line 8
 Scanner: : token on line 8
 Scanner: return token on line 8
+Scanner: False token on line 8
 Scanner: NEWLINE token on line 8
    9:       i1 = i1 + 1;  i2 = i2 - 1
 Scanner: name token on line 9: i1
@@ -61,6 +62,7 @@ Scanner: NEWLINE token on line 9
   10:    return True
 Scanner: DEDENT token on line 10
 Scanner: return token on line 10
+Scanner: True token on line 10
 Scanner: NEWLINE token on line 10
   11: 
   12: query = input("A word: ")

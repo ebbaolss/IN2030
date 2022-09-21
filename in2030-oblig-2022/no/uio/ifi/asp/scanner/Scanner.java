@@ -21,9 +21,9 @@ public class Scanner {
 
 		try {
 			sourceFile = new LineNumberReader(
-				new InputStreamReader(
-					new FileInputStream(fileName),
-					"UTF-8"));
+					new InputStreamReader(
+							new FileInputStream(fileName),
+							"UTF-8"));
 		} catch (IOException e) {
 			scannerError("Cannot read " + fileName + "!");
 		}
@@ -56,12 +56,12 @@ public class Scanner {
 		// Read the next line:
 		String line = null;
 		try {
-			//System.out.println("***>>>" + sourceFile);
+			// System.out.println("***>>>" + sourceFile);
 			line = sourceFile.readLine();
 			if (line == null) {
 				sourceFile.close();
 				sourceFile = null;
-				curLineTokens.add(new Token(eofToken, curLineNum()));	//Indicates E-O-F
+				curLineTokens.add(new Token(eofToken, curLineNum())); // Indicates E-O-F
 			} else {
 				Main.log.noteSourceLine(curLineNum(), line);
 			}
@@ -70,9 +70,10 @@ public class Scanner {
 			scannerError("Unspecified I/O error!");
 		}
 
-		//-- Must be changed in part 1:
+		// -- Must be changed in part 1:
 		if (line != null) {
-			if (line.isBlank() || line.charAt(0) == '#')return;
+			if (line.isBlank() || line.charAt(0) == '#')
+				return;
 
 			line = expandLeadingTabs(line);
 			int n = findIndent(line);
@@ -80,17 +81,17 @@ public class Scanner {
 			if (n > indents.peek()) {
 
 				indents.push(n);
-				curLineTokens.add(new Token(indentToken,curLineNum()));
+				curLineTokens.add(new Token(indentToken, curLineNum()));
 			}
 			if (n < indents.peek()) {
 				indents.pop();
 				curLineTokens.add(new Token(dedentToken, curLineNum()));
-			}	
-			
+			}
+
 			if (n != indents.peek()) {
 				System.out.println("-------Indenteringsfeil--------");
 			}
-		}	
+		}
 
 		for (int i = 0; i < indents.size(); i++) {
 			if (i > indents.get(i)) {
@@ -98,10 +99,10 @@ public class Scanner {
 			}
 		}
 
-
 		if (line != null) {
-			
-			/*sjekkliste
+
+			/*
+			 * sjekkliste
 			 * float fiks
 			 */
 
@@ -116,32 +117,30 @@ public class Scanner {
 						if (j + 1 >= ch.length) {
 							break;
 						}
-						//float check
+						// float check
 						boolean f = false;
 						if (ch[j + 1] == '.') {
-							//s += ch[j + 1];
+							// s += ch[j + 1];
 							f = true;
 						}
-						
+
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
-							//hvis tall er float
+							// hvis tall er float
 							if (f == true) { // får ikke denne til å fungere, noe feil med true/false
 								Token t = new Token(floatToken, curLineNum());
 								t.floatLit = Double.parseDouble(s);
 								curLineTokens.add(t);
-							}
-							else {
+							} else {
 								Token t = new Token(integerToken, curLineNum());
-								t.integerLit = Long.parseLong(s); 
+								t.integerLit = Long.parseLong(s);
 								curLineTokens.add(t);
 							}
-							
+
 							teller = j;
 							s = "";
-			
+
 							break;
-						} 
-						else {
+						} else {
 							s += ch[j + 1];
 						}
 						if (j + 1 >= ch.length) {
@@ -150,49 +149,30 @@ public class Scanner {
 					}
 					i = teller;
 				}
-				
+
 				else if (isLetterAZ(ch[i])) {
 					s += ch[i];
-					String b = "";
-					b += ch[i];
 
 					for (int j = i; j < ch.length; j++) {
-						
+
 						if (j + 1 >= ch.length) {
+							teller = j;
 							break;
 						}
-						
+
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 
-							/*Token n = new Token(nameToken, curLineNum());
-							n.name = s;
-
-							// sjekker for keywords
-							Boolean keyword = false;
-
-							for (TokenKind t : EnumSet.range(andToken, yieldToken)) {
-								if (n.name.equals(t.toString())) {
-									keyword = true;
-									curLineTokens.add(new Token(t, curLineNum()));
-								}
-							}
-							//hvis den ikke finner keyword er det et nameToken
-							if (keyword == false) {
-								n.stringLit = s;
-								curLineTokens.add(n);
-							}*/
-		
 							teller = j;
-							//s = "";
 							break;
-						}
+						} 
+						
 						else {
 							s += ch[j + 1];
 						}
 					}
 					Token n = new Token(nameToken, curLineNum());
 					n.name = s;
-					s="";
+					s = "";
 					n.checkResWords();
 					i = teller;
 					curLineTokens.add(n);
@@ -200,28 +180,25 @@ public class Scanner {
 
 				else if (ch[i] == ' ') {
 					continue;
-				} 
+				}
 
 				else if (ch[i] == '#') {
 					curLineTokens.add(new Token(newLineToken, curLineNum()));
-				}	
+				}
 
 				else if (isDelimiter(ch[i])) {
 					Token n = new Token(nameToken, curLineNum());
 					n.name = Character.toString(ch[i]);
-					if (ch[i] == '=' && ch[i+1] != '=') {
-						if (ch[i-1] == '!' && ch[i] == '=') {
+					if (ch[i] == '=' && ch[i + 1] != '=') {
+						if (ch[i - 1] == '!' && ch[i] == '=') {
 							curLineTokens.add(new Token(notEqualToken, curLineNum()));
-						}
-						else {
+						} else {
 							curLineTokens.add(new Token(equalToken, curLineNum()));
 						}
-					}
-					else if (ch[i] == '=' && ch[i + 1] == '=') {
+					} else if (ch[i] == '=' && ch[i + 1] == '=') {
 						curLineTokens.add(new Token(doubleEqualToken, curLineNum()));
 						teller = i + 1;
-					}
-					else {
+					} else {
 						for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
 							if (n.name.equals(t.toString())) {
 								if (Character.toString('=') != t.toString()) {
@@ -230,9 +207,9 @@ public class Scanner {
 							}
 						}
 					}
-					i = teller; 	
+					i = teller;
 				}
-				
+
 				else if (isOperator(String.valueOf(ch[i]))) {
 					Token n = new Token(nameToken, curLineNum());
 					n.name = Character.toString(ch[i]);
@@ -247,13 +224,13 @@ public class Scanner {
 					Token sq = new Token(stringToken, curLineNum());
 					String q = "";
 					boolean found = false;
-					for (int k = i+1; k < ch.length; k++) {
+					for (int k = i + 1; k < ch.length; k++) {
 						q += ch[k];
 						if (ch[k] == '\'') {
 							q = q.substring(0, q.length() - 1);
 							sq.stringLit = q;
 							curLineTokens.add(sq);
-							//if sq found
+							// if sq found
 							found = true;
 						}
 						teller = k;
@@ -267,7 +244,7 @@ public class Scanner {
 				else if (isDoubleQuoteMark(ch[i])) {
 					Token dq = new Token(stringToken, curLineNum());
 					String q = "";
-					for (int k = i+1; k < ch.length; k++) {
+					for (int k = i + 1; k < ch.length; k++) {
 						q += ch[k];
 						if (ch[k] == '"') {
 							q = q.substring(0, q.length() - 1);
@@ -281,13 +258,13 @@ public class Scanner {
 			}
 
 			// Terminate line:
-			curLineTokens.add(new Token(newLineToken,curLineNum()));
+			curLineTokens.add(new Token(newLineToken, curLineNum()));
 		}
 
 		for (Token t : curLineTokens) {
 			Main.log.noteToken(t);
 		}
-	}	
+	}
 
 	public int curLineNum() {
 		return sourceFile != null ? sourceFile.getLineNumber() : 0;
@@ -344,7 +321,7 @@ public class Scanner {
 	}
 
 	private boolean isDelimiter(char c) {
-		char[] delimiters = {':', ',', '=', '{', '[', '(', '}', ']', ')', ';'};
+		char[] delimiters = { ':', ',', '=', '{', '[', '(', '}', ']', ')', ';' };
 		for (char d : delimiters) {
 			if (c == d) {
 				return true;
@@ -352,6 +329,7 @@ public class Scanner {
 		}
 		return false;
 	}
+
 	private boolean isSingleQuoteMark(char c) {
 		if (c == '\'') {
 			return true;
