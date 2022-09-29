@@ -84,18 +84,20 @@ public class Scanner {
 				curLineTokens.add(new Token(indentToken, curLineNum()));
 			}
 			if (n < indents.peek()) {
-				indents.pop();
-				curLineTokens.add(new Token(dedentToken, curLineNum()));
+				System.out.println(n + "::" + indents.peek() + "-" + curLineNum());
+				int xx = indents.peek() - n;
+				xx = xx/4;
+				while (xx != 0) {
+					indents.pop();
+					System.out.println("deeeeedent");
+					curLineTokens.add(new Token(dedentToken, curLineNum()));
+					xx -= 1;
+				}
+				
 			}
 
 			if (n != indents.peek()) {
-				System.out.println("-------Indenteringsfeil--------");
-			}
-		}
-
-		for (int i = 0; i < indents.size(); i++) {
-			if (i > indents.get(i)) {
-				curLineTokens.add(new Token(dedentToken));
+				System.out.println("-------Indenteringsfeil--------" + curLineNum());
 			}
 		}
 
@@ -197,6 +199,10 @@ public class Scanner {
 						curLineTokens.add(new Token(doubleEqualToken, curLineNum()));
 						teller = i + 1;
 					}
+					else if (ch[i] == '/' && ch[i + 1] == '/') {
+						curLineTokens.add(new Token(doubleSlashToken, curLineNum()));
+						teller = i + 1;
+					}
 					else {
 						for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
 							if (n.name.equals(t.toString())) {
@@ -252,16 +258,22 @@ public class Scanner {
 				}
 
 				else if (isDoubleQuoteMark(ch[i])) {
-					Token dq = new Token(stringToken, curLineNum());
+					Token sq = new Token(stringToken, curLineNum());
 					String q = "";
+					boolean found = false;
 					for (int k = i + 1; k < ch.length; k++) {
 						q += ch[k];
 						if (ch[k] == '"') {
 							q = q.substring(0, q.length() - 1);
-							dq.stringLit = q;
-							curLineTokens.add(dq);
+							sq.stringLit = q;
+							curLineTokens.add(sq);
+							// if sq found
+							found = true;
 						}
-						teller = k-1;
+						teller = k;
+						if (found) {
+							break;
+						}
 					}
 					i = teller;
 				}
