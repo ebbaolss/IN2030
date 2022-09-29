@@ -84,20 +84,23 @@ public class Scanner {
 				curLineTokens.add(new Token(indentToken, curLineNum()));
 			}
 			if (n < indents.peek()) {
-				System.out.println(n + "::" + indents.peek() + "-" + curLineNum());
-				int xx = indents.peek() - n;
-				xx = xx/4;
-				while (xx != 0) {
-					indents.pop();
-					System.out.println("deeeeedent");
-					curLineTokens.add(new Token(dedentToken, curLineNum()));
-					xx -= 1;
-				}
-				
+				indents.pop();
+				curLineTokens.add(new Token(dedentToken, curLineNum()));	
 			}
 
 			if (n != indents.peek()) {
 				System.out.println("-------Indenteringsfeil--------" + curLineNum());
+			}
+
+			for (int i = n; i < indents.size(); i++) {
+				if (indents.get(i) > 0) {
+					System.out.println(indents);
+					indents.pop();
+					curLineTokens.add(new Token(dedentToken, curLineNum()));
+				}
+				else{
+					break;
+				}
 			}
 		}
 
