@@ -100,6 +100,7 @@ Scanner: True token on line 12
 Scanner: NEWLINE token on line 12
   13:         if not endret: return 0
 Scanner: DEDENT token on line 13
+Scanner: DEDENT token on line 13
 Scanner: if token on line 13
 Scanner: not token on line 13
 Scanner: name token on line 13: endret
@@ -109,6 +110,7 @@ Scanner: integer literal token on line 13: 0
 Scanner: NEWLINE token on line 13
   14: 
   15: data = [ 3, 17, -3, 0, 3, 1, 12 ]
+Scanner: DEDENT token on line 15
 Scanner: DEDENT token on line 15
 Scanner: name token on line 15: data
 Scanner: = token on line 15
@@ -130,13 +132,11 @@ Scanner: integer literal token on line 15: 12
 Scanner: ] token on line 15
 Scanner: NEWLINE token on line 15
   16: ombyttinger = 0
-Scanner: DEDENT token on line 16
 Scanner: name token on line 16: ombyttinger
 Scanner: = token on line 16
 Scanner: integer literal token on line 16: 0
 Scanner: NEWLINE token on line 16
   17: boblesorter(data)
-Scanner: DEDENT token on line 17
 Scanner: name token on line 17: boblesorter
 Scanner: ( token on line 17
 Scanner: name token on line 17: data
