@@ -32,15 +32,17 @@ class AspAndTest extends AspSyntax {
     @Override
     void prettyPrint() {
         int nPrinted = 0;
-        for (AspNotTest ant: notTests) {
+        
+        for (AspNotTest ant : notTests) {
             if (nPrinted > 0) {
                 prettyWrite(" and ");
-                ant.prettyPrint(); 
-                ++nPrinted;
-            } 
+            }
+            ant.prettyPrint(); 
+            ++nPrinted;
         }
     }
 
+    //sjekk om den er til del 3
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = notTests.get(0).eval(curScope);

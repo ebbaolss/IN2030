@@ -30,10 +30,17 @@ public class AspExpr extends AspSyntax {
 
 
     @Override
-    public void prettyPrint() {
-	//-- Must be changed in part 2:
+    void prettyPrint() {
+        int nPrinted = 0;
+        
+        for (AspNotTest ant : notTests) {
+            if (nPrinted > 0) {
+                prettyWrite(" and ");
+            }
+            ant.prettyPrint(); 
+            ++nPrinted;
+        }
     }
-
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {

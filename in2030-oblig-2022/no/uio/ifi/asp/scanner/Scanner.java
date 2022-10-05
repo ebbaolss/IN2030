@@ -386,10 +386,12 @@ public class Scanner {
 
 	public boolean anyEqualToken() {
 		for (Token t : curLineTokens) {
-			if (t.kind == equalToken)
+			if (t.kind == equalToken) {
 				return true;
-			if (t.kind == semicolonToken)
+			}
+			if (t.kind == semicolonToken) {
 				return false;
+			}
 		}
 		return false;
 	}
