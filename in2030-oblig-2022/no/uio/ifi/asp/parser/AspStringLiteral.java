@@ -10,13 +10,13 @@ public class AspStringLiteral extends AspAtom {
     }
 
     static AspStringLiteral parse(Scanner s) {
-        enterParser("String Literal");
+        enterParser("string literal");
 
         AspStringLiteral asl = new AspBooleanLiteral(s.curLineNum());
         asl.stringLiteral = s.curToken().asl;
 
         skip(s, stringToken);
-        leaveParser("String Literal");
+        leaveParser("string literal");
         return asl;
     }
 

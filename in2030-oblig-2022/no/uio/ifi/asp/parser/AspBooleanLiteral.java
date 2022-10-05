@@ -1,21 +1,23 @@
 package no.uio.ifi.asp.parser;
 
 public class AspBooleanLiteral extends AspAtom {
-    boolean booleanLiteral;
+    String booleanLiteral;
 
     AspBooleanLiteral(int n) {
         super(n);
     }
-
+    
     static AspBooleanLiteral parse(Scanner s) {
-        enterParser("Boolean Literal");
-
-        AspBooleanLiteral abl = new AspBooleanLiteral(s.curLineNum());
-        abl.booleanLiteral = s.curToken().abl;
-
-        //mangler false?
-        skip(s, trueToken);
-        leaveParser("Boolean Literal");
+        enterParser("boolean literal");
+        AspBooleanLiteral abl = null;
+        TokenKind cur = s.curToken().kind;
+        if (cur == trueToken) {
+            skip (s, trueToken);
+        }
+        else if (cur == falseToken) {
+            skip (s, falseToken);
+        }
+        leaveParser("boolean literal");
         return abl;
     }
 

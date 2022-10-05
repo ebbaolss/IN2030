@@ -10,13 +10,13 @@ public class AspName extends AspAtom {
     }
 
     static AspName parse(Scanner s) {
-        enterParser("Name");
+        enterParser("name");
 
         AspName an = new AspName(s.curLineNum());
         an.name = s.curToken().an;
 
         //skip(s, nameToken);
-        leaveParser("Name");
+        leaveParser("name");
         return an;
     }
     

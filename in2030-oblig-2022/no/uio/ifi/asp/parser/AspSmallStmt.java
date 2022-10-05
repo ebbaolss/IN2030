@@ -6,6 +6,7 @@ abstract class AspSmallStmt extends AspSyntax {
     }
     
     static AspSmallStmt parse(Scanner s) {
+        enterParser("small stmt");
         AspSmallStmt as = null;
         TokenKind cur = s.curToken().kind;
         if (cur == globalToken) {
@@ -23,6 +24,7 @@ abstract class AspSmallStmt extends AspSyntax {
         else {
             as = AspExprStmt.parse(s);
         }
+        leaveParser("small stmt");
         return as;
     }
 

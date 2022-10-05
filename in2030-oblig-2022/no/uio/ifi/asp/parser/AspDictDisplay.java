@@ -8,13 +8,13 @@ public class AspDictDisplay extends AspAtom {
     }
 
     static AspDictDisplay parse(Scaddner s) {
-        enterParser("Dict Display");
+        enterParser("dict display");
 
         AspDictDisplay add = new AspDictDisplay(s.curLineNum());
         add.name = s.curToken().add;
 
         //skip(s, nameToken);
-        leaveParser("Dict Display");
+        leaveParser("dict display");
         return add;
     }
 

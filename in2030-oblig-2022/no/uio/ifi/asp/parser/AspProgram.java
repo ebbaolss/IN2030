@@ -26,11 +26,13 @@ public class AspProgram extends AspSyntax {
 	    //-- Must be changed in part 2:
 	    ap.stmts.add(AspStmt.parse(s));
 	}
+    if (s.curToken().kind == eofToken) {
+        skip(s, eofToken);
+    }
 
 	leaveParser("program");
 	return ap;
     }
-
 
     @Override
     void prettyPrint() {

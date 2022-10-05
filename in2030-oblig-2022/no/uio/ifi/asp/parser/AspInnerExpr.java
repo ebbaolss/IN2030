@@ -10,13 +10,13 @@ public class AspInnerExpr extends AspAtom {
     }
 
     static AspInnerExpr parse(Scanner s) {
-        enterParser("String Literal");
+        enterParser("inner expr");
 
         AspInnerExpr aie = new AspInnerExpr(s.curLineNum());
         aie.stringLiteral = s.curToken().aie;
 
         //skip(s, stringToken);
-        leaveParser("Inner Expresion");
+        leaveParser("inner expr");
         return aie;
     }
 

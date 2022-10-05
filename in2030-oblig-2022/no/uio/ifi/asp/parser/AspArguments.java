@@ -8,7 +8,7 @@ public class AspArguments extends AspPrimarySuffix {
     }
 
     static AspArguments parse(Scaaner s) {
-        enterParser("Arguments");
+        enterParser("arguments");
 
         AspArguments aa = new AspArguments(s.curLineNum());
         aa.arguments = s.curToken().aa;

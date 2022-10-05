@@ -10,13 +10,13 @@ public class AspFloatLiteral extends AspAtom {
     }
 
     static AspFloatLiteral parse(Scanner s) {
-        enterParser("Float Literal");
+        enterParser("float literal");
 
         AspFloatLiteral afl = new AspFloatLiteral(s.curLineNum());
         afl.floatLiteral = s.curToken().afl;
 
         skip(s, floatToken);
-        leaveParser("String Literal");
+        leaveParser("float literal");
         return afl;
     }
 

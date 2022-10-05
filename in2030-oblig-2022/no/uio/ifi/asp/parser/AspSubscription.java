@@ -8,13 +8,13 @@ public class AspSubscription extends AspPrimarySuffix {
     }
 
     static AspSubscription parse(Scanner s) {
-        enterParser("Float Literal");
+        enterParser("subscription");
 
         AspSubscription as = new AspSubscription(s.curLineNum());
         as.subscription = s.curToken().as;
 
         //skip(s, );
-        leaveParser("Subscription");
+        leaveParser("subscription");
         return as;
     }
 

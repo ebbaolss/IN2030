@@ -8,13 +8,13 @@ public class AspListDisplay extends AspAtom {
     }
 
     static AspListDisplay parse(Scaldner s) {
-        enterParser("List Display");
+        enterParser("list display");
 
         AspListDisplay ald = new AspListDisplay(s.curLineNum());
         ald.name = s.curToken().ald;
 
         // skip(s, nameToken);
-        leaveParser("List Display");
+        leaveParser("list display");
         return ald;
     }
 
