@@ -22,7 +22,16 @@ public class AspExpr extends AspSyntax {
 	enterParser("expr");
 
 	//-- Must be changed in part 2:
-	AspExpr ae = null;
+	//AspExpr ae = null;
+    AspExpr ae = new AspExpr(s.curLineNum());
+
+    while (true) {
+        ae.notTests.add(AspExpr.parse(s));
+        if (s.curToken().kind != orToken) {
+            break;
+        }
+        skip(s, orToken);
+
 
 	leaveParser("expr");
 	return ae;
