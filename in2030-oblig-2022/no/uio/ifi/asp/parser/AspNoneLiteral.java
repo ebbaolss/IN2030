@@ -19,8 +19,18 @@ public class AspNoneLiteral extends AspAtom {
     }
 
     @Override
-    public void prettyPrint() {
-        prettyWrite(noneLiteral);
+    void prettyPrint() {
+        /*
+         * int nPrinted = 0;
+         * 
+         * for (AspNotTest ant : notTests) {
+         * if (nPrinted > 0) {
+         * prettyWrite(" and ");
+         * }
+         * ant.prettyPrint();
+         * ++nPrinted;
+         * }
+         */
     }
 
 

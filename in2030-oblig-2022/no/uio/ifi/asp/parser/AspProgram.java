@@ -14,37 +14,39 @@ public class AspProgram extends AspSyntax {
     ArrayList<AspStmt> stmts = new ArrayList<>();
 
     AspProgram(int n) {
-	super(n);
+	    super(n);
     }
 
 
     public static AspProgram parse(Scanner s) {
-	enterParser("program");
+        enterParser("program");
 
-	AspProgram ap = new AspProgram(s.curLineNum());
-	while (s.curToken().kind != eofToken) {
-	    //-- Must be changed in part 2:
-	    ap.stmts.add(AspStmt.parse(s));
-	}
-    if (s.curToken().kind == eofToken) {
-        skip(s, eofToken);
-    }
+        AspProgram ap = new AspProgram(s.curLineNum());
+        while (s.curToken().kind != eofToken) {
+            //-- Must be changed in part 2:
+            ap.stmts.add(AspStmt.parse(s));
+        }
+        if (s.curToken().kind == eofToken) {
+            skip(s, eofToken);
+        }
 
-	leaveParser("program");
-	return ap;
+        leaveParser("program");
+        return ap;
     }
 
     @Override
     void prettyPrint() {
-        int nPrinted = 0;
-        
-        for (AspNotTest ant : notTests) {
-            if (nPrinted > 0) {
-                prettyWrite(" and ");
-            }
-            ant.prettyPrint(); 
-            ++nPrinted;
-        }
+        /*
+         * int nPrinted = 0;
+         * 
+         * for (AspNotTest ant : notTests) {
+         * if (nPrinted > 0) {
+         * prettyWrite(" and ");
+         * }
+         * ant.prettyPrint();
+         * ++nPrinted;
+         * }
+         */
     }
 
     @Override

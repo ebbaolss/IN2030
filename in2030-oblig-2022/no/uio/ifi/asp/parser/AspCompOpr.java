@@ -1,5 +1,7 @@
 package no.uio.ifi.asp.parser;
 
+import no.uio.ifi.asp.scanner.TokenKind;
+
 public class AspCompOpr extends AspSyntax {
     AspCompOpr(int n) {
         super(n);
@@ -9,8 +11,8 @@ public class AspCompOpr extends AspSyntax {
         enterParser("comp opr");
         AspCompOpr aco = null;
         TokenKind cur = s.curToken().kind;
-        if (cur == lessToken) {
-            skip (s, lessToken);
+        if (cur == TokenKind.lessToken) {
+            skip (s, TokenKind.lessToken);
         }
         else if (cur == greaterToken) {
             skip (s, greaterToken);

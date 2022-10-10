@@ -1,5 +1,7 @@
 package no.uio.ifi.asp.parser;
 
+import no.uio.ifi.asp.scanner.TokenKind;
+
 public class AspFactorOpr extends AspSyntax {
     
     AspFactorOpr(int n) {
@@ -10,17 +12,17 @@ public class AspFactorOpr extends AspSyntax {
         enterParser("factor opr");
         AspFactorOpr afo = null;
         TokenKind cur = s.curToken().kind;
-        if (cur == astToken) {
-            skip (s, astToken);
+        if (cur == Tokenkind.astToken) {
+            skip(s, Tokenkind.astToken);
         }
-        else if (cur == slashToken) {
-            skip (s, slashToken);
+        else if (cur == Tokenkind.slashToken) {
+            skip(s, Tokenkind.slashToken);
         }
-        else if (cur == percentToken) {
-            skip (s, percentToken);
+        else if (cur == Tokenkind.percentToken) {
+            skip(s, Tokenkind.percentToken);
         }
-        else if (cur == doubleSlashToken) {
-            skip (s, doubleSlashToken);
+        else if (cur == Tokenkind.doubleSlashToken) {
+            skip(s, Tokenkind.doubleSlashToken);
         }
         leaveParser("factor opr");
         return afo;
@@ -28,7 +30,7 @@ public class AspFactorOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        int nPrinted = 0;
+        /*int nPrinted = 0;
         
         for (AspNotTest ant : notTests) {
             if (nPrinted > 0) {
@@ -36,6 +38,12 @@ public class AspFactorOpr extends AspSyntax {
             }
             ant.prettyPrint(); 
             ++nPrinted;
-        }
+        }*/
+    }
+
+    @Override
+    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        // -- Must be changed in part 3:
+        return null;
     }
 }

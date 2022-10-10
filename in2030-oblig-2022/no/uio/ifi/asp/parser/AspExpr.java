@@ -23,29 +23,31 @@ public class AspExpr extends AspSyntax {
     
     AspExpr ae = new AspExpr(s.curLineNum());
 
-    while (true) {
-        ae.andTests.add(AspExpr.parse(s));
-        if (s.curToken().kind != orToken) {
-            break;
+        while (true) {
+            ae.andTests.add(AspExpr.parse(s));
+            if (s.curToken().kind != TokenKind.orToken) {
+                break;
+            }
+            skip(s, TokenKind.orToken);
+
+        leaveParser("expr");
+        return ae;
         }
-        skip(s, orToken);
-
-	leaveParser("expr");
-	return ae;
     }
-
 
     @Override
     void prettyPrint() {
-        int nPrinted = 0;
-        
-        for (AspNotTest ant : notTests) {
-            if (nPrinted > 0) {
-                prettyWrite(" and ");
-            }
-            ant.prettyPrint(); 
-            ++nPrinted;
-        }
+        /*
+         * int nPrinted = 0;
+         * 
+         * for (AspNotTest ant : notTests) {
+         * if (nPrinted > 0) {
+         * prettyWrite(" and ");
+         * }
+         * ant.prettyPrint();
+         * ++nPrinted;
+         * }
+         */
     }
 
     @Override

@@ -21,7 +21,17 @@ public class AspName extends AspAtom {
     }
     
     @Override
-    public void prettyPrint() {
-        prettyWrite(name);
+    void prettyPrint() {
+        /*
+         * int nPrinted = 0;
+         * 
+         * for (AspNotTest ant : notTests) {
+         * if (nPrinted > 0) {
+         * prettyWrite(" and ");
+         * }
+         * ant.prettyPrint();
+         * ++nPrinted;
+         * }
+         */
     }
 }

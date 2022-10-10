@@ -22,7 +22,7 @@ public class AspTermOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        int nPrinted = 0;
+        /*int nPrinted = 0;
         
         for (AspNotTest ant : notTests) {
             if (nPrinted > 0) {
@@ -30,6 +30,6 @@ public class AspTermOpr extends AspSyntax {
             }
             ant.prettyPrint(); 
             ++nPrinted;
-        }
+        }*/
     }
 }

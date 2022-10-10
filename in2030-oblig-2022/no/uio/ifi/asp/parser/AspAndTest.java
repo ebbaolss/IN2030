@@ -20,10 +20,10 @@ class AspAndTest extends AspSyntax {
         AspAndTest aat = new AspAndTest(s.curLineNum());
         while (true) {
             aat.notTests.add(AspNotTest.parse(s));
-            if (s.curToken().kind != andToken) {
+            if (s.curToken().kind != TokenKind.andToken) {
                 break;
             }
-            skip(s, andToken);
+            skip(s, TokenKind.andToken);
         }
         leaveParser("and test");
         return aat;
@@ -42,7 +42,6 @@ class AspAndTest extends AspSyntax {
         }
     }
 
-    //sjekk om den er til del 3
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = notTests.get(0).eval(curScope);

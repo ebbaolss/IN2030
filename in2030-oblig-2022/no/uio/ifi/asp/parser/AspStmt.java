@@ -2,17 +2,22 @@ package no.uio.ifi.asp.parser;
 
 abstract class AspStmt extends AspSyntax{
     
+    AspStmt() {
+        
+    }
 
     @Override
     void prettyPrint() {
-        int nPrinted = 0;
-        
-        for (AspNotTest ant : notTests) {
-            if (nPrinted > 0) {
-                prettyWrite(" and ");
-            }
-            ant.prettyPrint(); 
-            ++nPrinted;
-        }
+        /*
+         * int nPrinted = 0;
+         * 
+         * for (AspNotTest ant : notTests) {
+         * if (nPrinted > 0) {
+         * prettyWrite(" and ");
+         * }
+         * ant.prettyPrint();
+         * ++nPrinted;
+         * }
+         */
     }
 }

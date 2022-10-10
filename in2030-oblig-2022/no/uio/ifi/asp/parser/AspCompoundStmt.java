@@ -1,5 +1,7 @@
 package no.uio.ifi.asp.parser;
 
+import no.uio.ifi.asp.scanner.TokenKind;
+
 abstract class AspCompoundStmt extends AspStmt {
     AspCompoundStmt(int n) {
         super(n);
@@ -9,13 +11,13 @@ abstract class AspCompoundStmt extends AspStmt {
         enterParser("compound stmt");
         AspCompoundStmt acs = null;
         TokenKind cur = s.curToken().kind;
-        if (cur == forToken) {
+        if (cur == TokenKind.forToken) {
             acs = AspForStmt.parse(s);
         }
-        else if (cur == ifToken) {
+        else if (cur == TokenKind.ifToken) {
             acs = AspIfStmt.parse(s);
         }
-        else if (cur == whileToken) {
+        else if (cur == TokenKind.ifToken) {
             acs = AspWhileStmt.parse(s);
         }
         else {
@@ -27,14 +29,16 @@ abstract class AspCompoundStmt extends AspStmt {
 
     @Override
     void prettyPrint() {
-        int nPrinted = 0;
-        
-        for (AspNotTest ant : notTests) {
-            if (nPrinted > 0) {
-                prettyWrite(" and ");
-            }
-            ant.prettyPrint(); 
-            ++nPrinted;
-        }
+        /*
+         * int nPrinted = 0;
+         * 
+         * for (AspNotTest ant : notTests) {
+         * if (nPrinted > 0) {
+         * prettyWrite(" and ");
+         * }
+         * ant.prettyPrint();
+         * ++nPrinted;
+         * }
+         */
     }
 }
