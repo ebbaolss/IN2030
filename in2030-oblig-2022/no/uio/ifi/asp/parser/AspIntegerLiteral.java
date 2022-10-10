@@ -8,8 +8,8 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class AspIntegerLiteral extends AspAtom {
     String integerLiteral;
 
-    AspIntegerLiteral(int n) {
-        super(n);
+    AspIntegerLiteral() {
+        
     }
 
     static AspIntegerLiteral parse(Scanner s) {

@@ -13,7 +13,7 @@ public class AspDictDisplay extends AspAtom {
         super(n);
     }
 
-    static AspDictDisplay parse(Scaddner s) {
+    static AspDictDisplay parse(Scanner s) {
         enterParser("dict display");
 
         skip(s, leftBraceToken);

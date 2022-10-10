@@ -9,7 +9,7 @@ public class AspSubscription extends AspPrimarySuffix {
     ArrayList<AspExpr> exp = new ArrayList<>();
     String subscription;
 
-    AspSubscription(String n) {
+    AspSubscription(int n) {
         super(n);
     }
 

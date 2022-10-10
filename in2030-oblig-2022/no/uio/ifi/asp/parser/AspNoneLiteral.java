@@ -8,15 +8,17 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class AspNoneLiteral extends AspAtom {
     String noneLiteral;
 
-    AspNoneLiteral(int n) {
-        super(n);
+    AspNoneLiteral() {
+        
     }
     
     static AspNoneLiteral parse(Scanner s) {
         enterParser("none literal");
 
-        AspNoneLiteral anl = new AspNoneLiteral(s.curLineNum());
-        anl.noneLiteral = s.curToken().anl;
+        AspNoneLiteral anl = new AspNoneLiteral();
+        // AspNoneLiteral anl = new AspNoneLiteral(s.curLineNum());
+        anl.noneLiteral = s.curToken();
+        //anl.noneLiteral = s.curToken().anl;
         skip(s, noneToken);
 
         leaveParser("none literal");

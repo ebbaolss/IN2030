@@ -9,15 +9,15 @@ public class AspListDisplay extends AspAtom {
     Arraylist<AspListDisplay> listdisp = new ArrayList<>();
     String listDisplay;
 
-    AspListDisplay(int n) {
-        super(n);
+    AspListDisplay() {
+        
     }
 
     static AspListDisplay parse(Scaldner s) {
         enterParser("list display");
 
         AspListDisplay ald = new AspListDisplay(s.curLineNum());
-        ald.name = s.curToken().ald;
+        ald.listDisplay = s.curToken().ald;
 
         skip(s, TokenKind.leftBracketToken);
         
@@ -36,17 +36,11 @@ public class AspListDisplay extends AspAtom {
 
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        prettyWrite(listDisplay);
     }
 
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        return null;
+    }
 }

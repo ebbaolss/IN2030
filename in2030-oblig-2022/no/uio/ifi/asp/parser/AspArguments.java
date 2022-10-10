@@ -13,7 +13,7 @@ public class AspArguments extends AspPrimarySuffix {
         super(n);
     }
 
-    static AspArguments parse(Scaaner s) {
+    static AspArguments parse(Scanner s) {
         enterParser("arguments");
 
         skip(s, leftParToken);

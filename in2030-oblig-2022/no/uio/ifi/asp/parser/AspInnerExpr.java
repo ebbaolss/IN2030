@@ -8,14 +8,14 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class AspInnerExpr extends AspAtom {
     //String stringLiteral;
 
-    AspInnerExpr(String n) {
-        super(n);
+    AspInnerExpr() {
+        
     }
 
     static AspInnerExpr parse(Scanner s) {
         enterParser("inner expr");
 
-        AspInnerExpr aie = new AspInnerExpr(s.curLineNum());
+        AspInnerExpr aie = new AspInnerExpr();
         aie.stringLiteral = s.curToken().aie;
 
         //skip(s, stringToken);
@@ -25,17 +25,12 @@ public class AspInnerExpr extends AspAtom {
 
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        prettyWrite(null);
+    }
+
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        return null;
     }
 }
 

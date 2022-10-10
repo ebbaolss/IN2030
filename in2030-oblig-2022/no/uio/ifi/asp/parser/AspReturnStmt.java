@@ -7,22 +7,17 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspReturnStmt extends AspSmallStmt{
     
-    AspReturnStmt() {
-
+    AspReturnStmt(int n) {
+        super(n);
     }
 
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        prettyWrite(null);
+    }
+
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        return null;
     }
 }
