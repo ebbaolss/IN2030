@@ -1,16 +1,17 @@
 // © 2021 Dag Langmyhr, Institutt for informatikk, Universitetet i Oslo
 
 package no.uio.ifi.asp.parser;
-
+import java.util.ArrayList;
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public abstract class AspSyntax {
     public int lineNum;
 
     AspSyntax(int n) {
-	    lineNum = n;
+        lineNum = n;
     }
 
 
@@ -28,14 +29,14 @@ public abstract class AspSyntax {
 
     public static void test(Scanner s, TokenKind tk) {
 	if (s.curToken().kind != tk)
-	    parserError("Expected " + tk + " but found " + 
+        parserError("Expected " + tk + " but found " + 
 			s.curToken().kind + "!", s.curLineNum());
     }
 
 
     public static void test(Scanner s, TokenKind tk1, TokenKind tk2) {
 	if (s.curToken().kind!=tk1 && s.curToken().kind!=tk2)
-	    parserError("Expected " + tk1 + " or " + tk2 + " but found " + 
+        parserError("Expected " + tk1 + " or " + tk2 + " but found " + 
 			s.curToken().kind + "!", s.curLineNum());
     }
 

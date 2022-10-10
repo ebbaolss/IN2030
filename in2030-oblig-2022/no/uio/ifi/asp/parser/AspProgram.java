@@ -1,9 +1,7 @@
 // © 2021 Dag Langmyhr, Institutt for informatikk, Universitetet i Oslo
 
 package no.uio.ifi.asp.parser;
-
 import java.util.ArrayList;
-
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
@@ -14,7 +12,7 @@ public class AspProgram extends AspSyntax {
     ArrayList<AspStmt> stmts = new ArrayList<>();
 
     AspProgram(int n) {
-	    super(n);
+        super(n);
     }
 
 

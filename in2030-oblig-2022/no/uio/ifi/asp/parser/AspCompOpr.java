@@ -1,8 +1,13 @@
 package no.uio.ifi.asp.parser;
-
-import no.uio.ifi.asp.scanner.TokenKind;
+import java.util.ArrayList;
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspCompOpr extends AspSyntax {
+    String CompOpr;
+
     AspCompOpr(int n) {
         super(n);
     }
@@ -35,14 +40,6 @@ public class AspCompOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        int nPrinted = 0;
-        
-        for (AspNotTest ant : notTests) {
-            if (nPrinted > 0) {
-                prettyWrite(" and ");
-            }
-            ant.prettyPrint(); 
-            ++nPrinted;
-        }
+        prettyWrite(CompOpr);
     }
 }

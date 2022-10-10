@@ -1,6 +1,9 @@
 package no.uio.ifi.asp.parser;
-
-import no.uio.ifi.asp.scanner.TokenKind;
+import java.util.ArrayList;
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFactorOpr extends AspSyntax {
     
@@ -12,17 +15,17 @@ public class AspFactorOpr extends AspSyntax {
         enterParser("factor opr");
         AspFactorOpr afo = null;
         TokenKind cur = s.curToken().kind;
-        if (cur == Tokenkind.astToken) {
-            skip(s, Tokenkind.astToken);
+        if (cur == TokenKind.astToken) {
+            skip(s, TokenKind.astToken);
         }
-        else if (cur == Tokenkind.slashToken) {
-            skip(s, Tokenkind.slashToken);
+        else if (cur == TokenKind.slashToken) {
+            skip(s, TokenKind.slashToken);
         }
-        else if (cur == Tokenkind.percentToken) {
-            skip(s, Tokenkind.percentToken);
+        else if (cur == TokenKind.percentToken) {
+            skip(s, TokenKind.percentToken);
         }
-        else if (cur == Tokenkind.doubleSlashToken) {
-            skip(s, Tokenkind.doubleSlashToken);
+        else if (cur == TokenKind.doubleSlashToken) {
+            skip(s, TokenKind.doubleSlashToken);
         }
         leaveParser("factor opr");
         return afo;

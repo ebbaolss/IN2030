@@ -1,11 +1,12 @@
 package no.uio.ifi.asp.parser;
-
 import java.util.ArrayList;
-
-import no.uio.ifi.asp.scanner.TokenKind;
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspDictDisplay extends AspAtom {
-    ArrayList<AspDictDisplay> dictdisp = new ArrayList<>();
+    ArrayList<AspExpr> exp = new ArrayList<>();
     String dictDisplay;
 
     AspDictDisplay(int n) {
@@ -15,40 +16,42 @@ public class AspDictDisplay extends AspAtom {
     static AspDictDisplay parse(Scaddner s) {
         enterParser("dict display");
 
-        skip(s, TokenKind.leftBraceToken);
+        skip(s, leftBraceToken);
         AspDictDisplay add = new AspDictDisplay(s.curLineNum());
-        add.name = s.curToken().add;
+        add.dictDisplay = s.curToken().add;
 
-        while (s.curToken().kind != TokenKind.rightBraceToken) {
+        while (s.curToken().kind != rightBraceToken) {
             aa.dictdisp.add(AspStringLiteral.parse(s));
-            if (s.curToken().kind == TokenKind.colonToken) {
-                skip(s, TokenKind.colonToken);
+            if (s.curToken().kind == colonToken) {
+                skip(s, colonToken);
             }
             aa.dictdisp.add(AspExpr.parse(s));
 
             //tror denne blir feil
-            if (s.curToken.kind == TokenKind.commaToken) {
-                skip(s, TokenKind.commaToken);
+            if (s.curToken.kind == commaToken) {
+                skip(s, commaToken);
             }
         }
+        skip(s, rightBraceToken);
 
-        skip(s, TokenKind.rightBraceToken);
         leaveParser("dict display");
         return add;
     }
 
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        int nPrinted = 0;
+        for (AspExpr expr : exprs) {
+            if (nPrinted < exprs.size()) {
+                prettyWrite(",");
+            }
+            ++nPrinted;
+        }
+        prettyWrite(dictDisplay);
+    }
+
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        return null;
     }
 }

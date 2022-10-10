@@ -1,6 +1,9 @@
 package no.uio.ifi.asp.parser;
-
-import no.uio.ifi.asp.scanner.Scanner;
+import java.util.ArrayList;
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspStringLiteral extends AspAtom {
     String stringLiteral;
@@ -12,26 +15,21 @@ public class AspStringLiteral extends AspAtom {
     static AspStringLiteral parse(Scanner s) {
         enterParser("string literal");
 
-        AspStringLiteral asl = new AspBooleanLiteral(s.curLineNum());
+        AspStringLiteral asl = new AspStringLiteral(s.curLineNum());
         asl.stringLiteral = s.curToken().asl;
-
         skip(s, stringToken);
+
         leaveParser("string literal");
         return asl;
     }
 
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        prettyWrite(stringLiteral);
+    }
+
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        return null;
     }
 }

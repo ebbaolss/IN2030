@@ -1,9 +1,12 @@
 package no.uio.ifi.asp.parser;
-
-import no.uio.ifi.asp.scanner.TokenKind;
+import java.util.ArrayList;
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspSubscription extends AspPrimarySuffix {
-    ArrayList<AspSubscription> subs = new ArrayList<>();
+    ArrayList<AspExpr> exp = new ArrayList<>();
     String subscription;
 
     AspSubscription(String n) {
@@ -12,30 +15,34 @@ public class AspSubscription extends AspPrimarySuffix {
 
     static AspSubscription parse(Scanner s) {
         enterParser("subscription");
-        skip(s, TokenKind.leftBracketToken);
+
+        skip(s, leftBracketToken);
         AspSubscription as = new AspSubscription(s.curLineNum());
         as.subscription = s.curToken().as;
-        while (s.curToken().kind != TokenKind.rightBracketToken) {
-            aa.subs.add(AspExpr.parse(s));
+        while (s.curToken().kind != rightBracketToken) {
+            as.exp.add(AspExpr.parse(s));
         }
-
-        skip(s, TokenKind.rightBracketToken);
+        skip(s, rightBracketToken);
+        
         leaveParser("subscription");
         return as;
     }
 
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        
+        int nPrinted = 0;
+        for (AspExpr x : exp) {
+            if (nPrinted > 0) {
+                prettyWrite(" expr ");
+            }
+            x.prettyPrint();
+            ++nPrinted;
+        }
+    }
+
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        return null;
     }
 }

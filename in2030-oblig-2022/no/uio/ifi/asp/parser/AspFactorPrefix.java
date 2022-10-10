@@ -1,6 +1,9 @@
 package no.uio.ifi.asp.parser;
-
-import no.uio.ifi.asp.scanner.TokenKind;
+import java.util.ArrayList;
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFactorPrefix extends AspSyntax {
 
@@ -16,7 +19,7 @@ public class AspFactorPrefix extends AspSyntax {
             skip (s, TokenKind.plusToken);
         }
         else if (cur == TokenKind.minusToken) {
-            skip (s, Tokenkind.minusToken);
+            skip (s, TokenKind.minusToken);
         }
         leaveParser("factor prefix");
         return afp;

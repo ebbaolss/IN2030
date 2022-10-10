@@ -1,8 +1,12 @@
 package no.uio.ifi.asp.parser;
-
-import no.uio.ifi.asp.scanner.TokenKind;
+import java.util.ArrayList;
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspArguments extends AspPrimarySuffix {
+    ArrayList<AspExpr> exp = new ArrayList<>();
     String arguments;
 
     AspArguments(int n) {
@@ -11,17 +15,18 @@ public class AspArguments extends AspPrimarySuffix {
 
     static AspArguments parse(Scaaner s) {
         enterParser("arguments");
-        skip(s, TokenKind.leftParToken);
+
+        skip(s, leftParToken);
         AspArguments aa = new AspArguments(s.curLineNum());
-        //aa.arguments = s.curToken().aa;
-        while (s.curToken().kind != TokenKind.rightParToken) {
-            aa.exprs.add(AspExpr.parse(s));
-            if (s.curToken().kind == TokenKind.commaToken) {
-                skip(s, TokenKind.commaToken);
+        aa.arguments = s.curToken().aa;
+        while (s.curToken().kind != rightParToken) {
+            aa.exp.add(AspExpr.parse(s));
+            if (s.curToken().kind == commaToken) {
+                skip(s, commaToken);
             }
         }
+        skip(s, rightParToken);
 
-        skip(s, TokenKind.rightParToken);
         leaveParser("Arguments");
         return aa;
     }
@@ -36,5 +41,10 @@ public class AspArguments extends AspPrimarySuffix {
             ++nPrinted;
         }
         prettyWrite(arguments);
+    }
+
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        return null;
     }
 }

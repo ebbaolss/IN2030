@@ -1,8 +1,9 @@
 package no.uio.ifi.asp.parser;
-
 import java.util.ArrayList;
-
-import no.uio.ifi.asp.scanner.TokenKind;
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspListDisplay extends AspAtom {
     Arraylist<AspListDisplay> listdisp = new ArrayList<>();
