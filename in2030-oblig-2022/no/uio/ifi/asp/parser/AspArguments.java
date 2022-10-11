@@ -18,7 +18,7 @@ public class AspArguments extends AspPrimarySuffix {
 
         skip(s, leftParToken);
         AspArguments aa = new AspArguments(s.curLineNum());
-        aa.arguments = s.curToken().aa;
+        aa.arguments = s.curToken().name;
         while (s.curToken().kind != rightParToken) {
             aa.exp.add(AspExpr.parse(s));
             if (s.curToken().kind == commaToken) {
@@ -34,8 +34,8 @@ public class AspArguments extends AspPrimarySuffix {
     @Override
     public void prettyPrint() {
         int nPrinted = 0;
-        for (AspExpr expr : exprs) {
-            if (nPrinted < exprs.size()) {
+        for (AspExpr expr : exp) {
+            if (nPrinted < exp.size()) {
                 prettyWrite(",");
             }
             ++nPrinted;

@@ -7,4 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspAssignment extends AspSmallStmt{
     
+    AspAssignment(int n) {
+        super(n);
+    }
 }

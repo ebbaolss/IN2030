@@ -7,8 +7,8 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspSmallStmtList extends AspStmt{
     
-    AspSmallStmtList() {
-        
+    AspSmallStmtList(int n) {
+        super(n);
     }
 
     @Override

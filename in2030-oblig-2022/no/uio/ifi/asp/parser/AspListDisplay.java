@@ -6,29 +6,29 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspListDisplay extends AspAtom {
-    Arraylist<AspListDisplay> listdisp = new ArrayList<>();
+    //Arraylist<AspListDisplay> listdisp = new ArrayList<>();
     String listDisplay;
-
-    AspListDisplay() {
-        
+    
+    AspListDisplay(int n) {
+        super(n);
     }
 
-    static AspListDisplay parse(Scaldner s) {
+    static AspListDisplay parse(Scanner s) {
         enterParser("list display");
 
         AspListDisplay ald = new AspListDisplay(s.curLineNum());
-        ald.listDisplay = s.curToken().ald;
+        ald.listDisplay = s.curToken().name;
 
-        skip(s, TokenKind.leftBracketToken);
+        skip(s, leftBracketToken);
         
-        while (s.curToken().kind != TokenKind.rightBracketToken) {
-            ald.listdisp.add(AspExpr.parse(s));
-            if (s.curToken().kind == TokenKind.commaToken) {
-                skip(s, TokenKind.commaToken);
+        while (s.curToken().kind != rightBracketToken) {
+            //ald.listdisp.add(AspExpr.parse(s));
+            if (s.curToken().kind == commaToken) {
+                skip(s, commaToken);
             }
         }
 
-        skip(s, TokenKind.rightBracketToken);
+        skip(s, rightBracketToken);
 
         leaveParser("list display");
         return ald;

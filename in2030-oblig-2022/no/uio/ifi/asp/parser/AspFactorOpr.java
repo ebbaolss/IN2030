@@ -6,14 +6,15 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFactorOpr extends AspSyntax {
-    
+    String factorOpr;
     AspFactorOpr(int n) {
         super(n);
     }
     
     static AspFactorOpr parse(Scanner s) {
         enterParser("factor opr");
-        AspFactorOpr afo = null;
+        AspFactorOpr afo = new AspFactorOpr(s.curLineNum());
+        afo.factorOpr = s.curToken().name;
         TokenKind cur = s.curToken().kind;
         if (cur == TokenKind.astToken) {
             skip(s, TokenKind.astToken);
@@ -33,15 +34,7 @@ public class AspFactorOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        /*int nPrinted = 0;
-        
-        for (AspNotTest ant : notTests) {
-            if (nPrinted > 0) {
-                prettyWrite(" and ");
-            }
-            ant.prettyPrint(); 
-            ++nPrinted;
-        }*/
+        prettyWrite(factorOpr);
     }
 
     @Override

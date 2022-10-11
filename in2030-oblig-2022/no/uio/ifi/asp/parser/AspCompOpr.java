@@ -15,6 +15,7 @@ public class AspCompOpr extends AspSyntax {
     static AspCompOpr parse(Scanner s) {
         enterParser("comp opr");
         AspCompOpr aco = null;
+        aco.CompOpr = s.curToken().name;
         TokenKind cur = s.curToken().kind;
         if (cur == TokenKind.lessToken) {
             skip (s, TokenKind.lessToken);
@@ -41,5 +42,11 @@ public class AspCompOpr extends AspSyntax {
     @Override
     void prettyPrint() {
         prettyWrite(CompOpr);
+    }
+
+    @Override
+    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        // -- Must be changed in part 3:
+        return null;
     }
 }

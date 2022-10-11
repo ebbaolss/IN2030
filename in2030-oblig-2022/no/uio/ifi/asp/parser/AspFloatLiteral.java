@@ -8,7 +8,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class AspFloatLiteral extends AspAtom {
     String floatLiteral;
 
-    AspFloatLiteral(String n) {
+    AspFloatLiteral(int n) {
         super(n);
     }
 
@@ -16,7 +16,7 @@ public class AspFloatLiteral extends AspAtom {
         enterParser("float literal");
 
         AspFloatLiteral afl = new AspFloatLiteral(s.curLineNum());
-        afl.floatLiteral = s.curToken().afl;
+        afl.floatLiteral = s.curToken().name;
         skip(s, floatToken);
 
         leaveParser("float literal");

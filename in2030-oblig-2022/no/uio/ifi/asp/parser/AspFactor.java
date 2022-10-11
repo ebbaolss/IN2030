@@ -8,7 +8,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class AspFactor extends AspSyntax {
     
     AspFactor(int n) {
-
+        super(n);
     }
 
     @Override

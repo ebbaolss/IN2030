@@ -8,16 +8,15 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class AspStringLiteral extends AspAtom {
     String stringLiteral;
 
-    AspStringLiteral() {
-        //super(n);
+    AspStringLiteral(int n) {
+        super(n);
     }
 
     static AspStringLiteral parse(Scanner s) {
         enterParser("string literal");
 
-        AspStringLiteral asl = new AspStringLiteral();
-        // AspStringLiteral asl = new AspStringLiteral(s.curLineNum());
-        asl.stringLiteral = s.curToken().asl;
+        AspStringLiteral asl = new AspStringLiteral(s.curLineNum());
+        asl.stringLiteral = s.curToken().name;
         skip(s, stringToken);
 
         leaveParser("string literal");

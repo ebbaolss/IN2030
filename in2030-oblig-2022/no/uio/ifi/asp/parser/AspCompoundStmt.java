@@ -7,6 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspCompoundStmt extends AspStmt {
 
+    String compoundStmt;
     AspCompoundStmt(int n) {
         super(n);
     }
@@ -14,6 +15,7 @@ abstract class AspCompoundStmt extends AspStmt {
     static AspCompoundStmt parse(Scanner s) {
         enterParser("compound stmt");
         AspCompoundStmt acs = null;
+        acs.compoundStmt = s.curToken().name;
         TokenKind cur = s.curToken().kind;
         if (cur == TokenKind.forToken) {
             acs = AspForStmt.parse(s);

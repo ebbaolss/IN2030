@@ -7,6 +7,10 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspAtom extends AspSyntax {
     
+    AspAtom(int n) {
+        super(n);
+    }
+    
     static AspAtom parse(Scanner s) {
         AspAtom aa = null;
         enterParser("atom");

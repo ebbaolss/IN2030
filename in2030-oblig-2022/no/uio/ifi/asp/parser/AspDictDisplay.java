@@ -1,4 +1,5 @@
 package no.uio.ifi.asp.parser;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
@@ -7,6 +8,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspDictDisplay extends AspAtom {
     ArrayList<AspExpr> exp = new ArrayList<>();
+    ArrayList<AspStringLiteral> strl = new ArrayList<>();
     String dictDisplay;
 
     AspDictDisplay(int n) {
@@ -18,17 +20,18 @@ public class AspDictDisplay extends AspAtom {
 
         skip(s, leftBraceToken);
         AspDictDisplay add = new AspDictDisplay(s.curLineNum());
-        add.dictDisplay = s.curToken().add;
+        add.dictDisplay = s.curToken().name;
+        TokenKind cur = s.curToken().kind;
 
         while (s.curToken().kind != rightBraceToken) {
-            aa.dictdisp.add(AspStringLiteral.parse(s));
-            if (s.curToken().kind == colonToken) {
+            add.strl.add(AspStringLiteral.parse(s));
+            if (cur == colonToken) {
                 skip(s, colonToken);
             }
-            aa.dictdisp.add(AspExpr.parse(s));
+            add.exp.add(AspExpr.parse(s));
 
             //tror denne blir feil
-            if (s.curToken.kind == commaToken) {
+            if (cur == commaToken) {
                 skip(s, commaToken);
             }
         }
@@ -41,8 +44,8 @@ public class AspDictDisplay extends AspAtom {
     @Override
     void prettyPrint() {
         int nPrinted = 0;
-        for (AspExpr expr : exprs) {
-            if (nPrinted < exprs.size()) {
+        for (AspExpr expr : exp) {
+            if (nPrinted < exp.size()) {
                 prettyWrite(",");
             }
             ++nPrinted;

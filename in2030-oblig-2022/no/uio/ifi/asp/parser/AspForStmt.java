@@ -7,23 +7,24 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspForStmt extends AspCompoundStmt{
     
-    AspForStmt() {
+    String forStmt;
+    AspForStmt(int n) {
+        super(n);
+    }
 
+    static AspForStmt parse(Scanner s) {
+        enterParser("for smtm");
+        AspForStmt afs = new AspForStmt(s.curLineNum());
+        afs.forStmt = s.curToken().name;
+        TokenKind cur = s.curToken().kind;
+        
+        leaveParser("for stmt");
+        return afs;
     }
 
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        prettyWrite(forStmt);
     }
 
     @Override

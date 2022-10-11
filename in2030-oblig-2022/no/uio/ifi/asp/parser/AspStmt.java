@@ -7,8 +7,8 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspStmt extends AspSyntax{
     
-    AspStmt() {
-        
+    AspStmt(int n) {
+        super(n);
     }
 
     @Override

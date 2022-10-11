@@ -26,6 +26,8 @@ public class AspIfStmt extends AspCompoundStmt{
         while(s.curToken().kind == elifToken) {
             skip(s, elifToken);
         }
+
+        return is;
     }
 
     @Override

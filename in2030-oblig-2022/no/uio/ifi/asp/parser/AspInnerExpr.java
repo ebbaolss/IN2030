@@ -6,17 +6,17 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspInnerExpr extends AspAtom {
-    //String stringLiteral;
+    String stringLiteral;
 
-    AspInnerExpr() {
-        
+    AspInnerExpr(int n) {
+        super(n);
     }
 
     static AspInnerExpr parse(Scanner s) {
         enterParser("inner expr");
 
-        AspInnerExpr aie = new AspInnerExpr();
-        aie.stringLiteral = s.curToken().aie;
+        AspInnerExpr aie = new AspInnerExpr(s.curLineNum());
+        aie.stringLiteral = s.curToken().name;
 
         //skip(s, stringToken);
         leaveParser("inner expr");
