@@ -7,7 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspPrimary extends AspSyntax {
     ArrayList<AspPrimarySuffix> prisuf = new ArrayList<>();
-    ArrayList<AspAtom> atm = new ArrayList<>();
+    AspAtom atm = null;
     String primary;
 
     AspPrimary(int n) {
@@ -19,12 +19,12 @@ public class AspPrimary extends AspSyntax {
 
         AspPrimary ap = null;
         ap.primary = s.curToken().name;
-        ap = AspAtom.parse(s);
+        ap.atm = AspAtom.parse(s);
+
         TokenKind cur = s.curToken().kind;
 
-        //fix denne pls
         if(cur == leftParToken|| cur == leftBracketToken) {
-            ap.prisuf.add(AspAtom.parse(s));
+            ap.prisuf.add(AspPrimarySuffix.parse(s));
         }
             
         leaveParser("primary");
