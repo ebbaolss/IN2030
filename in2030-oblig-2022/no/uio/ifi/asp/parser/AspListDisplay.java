@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspListDisplay extends AspAtom {
-    //Arraylist<AspListDisplay> listdisp = new ArrayList<>();
+    ArrayList<AspExpr> exp = new ArrayList<>();
     String listDisplay;
     
     AspListDisplay(int n) {
@@ -15,19 +15,18 @@ public class AspListDisplay extends AspAtom {
 
     static AspListDisplay parse(Scanner s) {
         enterParser("list display");
-
+        
+        skip(s, leftBracketToken);
         AspListDisplay ald = new AspListDisplay(s.curLineNum());
         ald.listDisplay = s.curToken().name;
-
-        skip(s, leftBracketToken);
         
         while (s.curToken().kind != rightBracketToken) {
-            //ald.listdisp.add(AspExpr.parse(s));
+            ald.exp.add(AspExpr.parse(s));
+            
             if (s.curToken().kind == commaToken) {
                 skip(s, commaToken);
             }
         }
-
         skip(s, rightBracketToken);
 
         leaveParser("list display");

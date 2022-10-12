@@ -6,34 +6,32 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public abstract class AspPrimarySuffix extends AspSyntax {
-    
+    String primarySuffix;
+
     AspPrimarySuffix(int n) {
         super(n);
     }
     
     static AspPrimarySuffix parse(Scanner s) {
         enterParser("primary suffix");
+
         AspPrimarySuffix aps = null;
-        TokenKind cur = s.curToken().kind;
-        /*if (cur == ) {
-            aps = AspExpr.parse(s);
-        }*/
+        aps.primarySuffix = s.curToken().name;
+        switch (s.curToken().kind) {
+            case leftParToken:
+                aps = AspArguments.parse(s); 
+                break;
+            case leftBracketToken:
+                aps = AspSubscription.parse(s); 
+                break;
+        }        
+        
         leaveParser("primary suffix");
         return aps;
     }
 
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        prettyWrite(primarySuffix);
     }
 }

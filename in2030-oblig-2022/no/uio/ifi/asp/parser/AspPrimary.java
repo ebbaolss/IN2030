@@ -6,15 +6,34 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspPrimary extends AspSyntax {
-    
+    ArrayList<AspPrimarySuffix> prisuf = new ArrayList<>();
+    ArrayList<AspAtom> atm = new ArrayList<>();
+    String primary;
 
     AspPrimary(int n) {
         super(n);
     }
+
+    static AspPrimary parse(Scanner s) {
+        enterParser("primary");
+
+        AspPrimary ap = null;
+        ap.primary = s.curToken().name;
+        ap = AspAtom.parse(s);
+        TokenKind cur = s.curToken().kind;
+
+        //fix denne pls
+        if(cur == leftParToken|| cur == leftBracketToken) {
+            ap.prisuf.add(AspAtom.parse(s));
+        }
+            
+        leaveParser("primary");
+        return ap;
+    }
     
     @Override
     void prettyPrint() {
-        prettyWrite(null);
+        prettyWrite(primary);
     }
 
     @Override

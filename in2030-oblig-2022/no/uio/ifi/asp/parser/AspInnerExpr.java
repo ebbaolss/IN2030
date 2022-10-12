@@ -6,7 +6,8 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspInnerExpr extends AspAtom {
-    String stringLiteral;
+    ArrayList<AspExpr> exp = new ArrayList<>();
+    String innerExpr;
 
     AspInnerExpr(int n) {
         super(n);
@@ -15,17 +16,20 @@ public class AspInnerExpr extends AspAtom {
     static AspInnerExpr parse(Scanner s) {
         enterParser("inner expr");
 
+        skip(s, leftParToken);
         AspInnerExpr aie = new AspInnerExpr(s.curLineNum());
-        aie.stringLiteral = s.curToken().name;
+        aie.innerExpr = s.curToken().name;
 
-        //skip(s, stringToken);
+        aie.exp.add(AspExpr.parse(s));
+
+        skip(s, rightParToken);
         leaveParser("inner expr");
         return aie;
     }
 
     @Override
     void prettyPrint() {
-        prettyWrite(null);
+        prettyWrite(innerExpr);
     }
 
     @Override
