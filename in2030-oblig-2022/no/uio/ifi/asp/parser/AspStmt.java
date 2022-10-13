@@ -7,22 +7,29 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspStmt extends AspSyntax{
     
+    AspSmallStmtList assl;
+    AspCompoundStmt acs;
+
     AspStmt(int n) {
         super(n);
     }
 
+    static AspStmt parse(Scanner s) {
+        enterParser("stmt");
+
+        AspStmt as = null;
+        if (s.isCompoundStmt()) {
+            as.acs = AspCompoundStmt.parse(s);
+        }
+
+        as.assl = AspSmallStmtList.parse(s);
+
+        leaveParser("stmt");
+        return as;
+    }
+
     @Override
     void prettyPrint() {
-        /*
-         * int nPrinted = 0;
-         * 
-         * for (AspNotTest ant : notTests) {
-         * if (nPrinted > 0) {
-         * prettyWrite(" and ");
-         * }
-         * ant.prettyPrint();
-         * ++nPrinted;
-         * }
-         */
+        
     }
 }

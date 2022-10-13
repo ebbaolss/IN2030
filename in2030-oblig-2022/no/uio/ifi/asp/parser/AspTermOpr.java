@@ -27,7 +27,7 @@ public class AspTermOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        prettyWrite(null);
+        prettyWrite("term - opr");
     }
 
     @Override

@@ -6,6 +6,9 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspForStmt extends AspCompoundStmt{
+    AspName name;
+    AspExpr expr;
+    AspSuite sui;
     
     String forStmt;
     AspForStmt(int n) {
@@ -14,9 +17,16 @@ public class AspForStmt extends AspCompoundStmt{
 
     static AspForStmt parse(Scanner s) {
         enterParser("for smtm");
+
         AspForStmt afs = new AspForStmt(s.curLineNum());
         afs.forStmt = s.curToken().name;
-        TokenKind cur = s.curToken().kind;
+        
+        skip(s, TokenKind.forToken);
+        afs.name = AspName.parse(s); 
+        skip(s, TokenKind.inToken);
+        afs.expr = AspExpr.parse(s);
+        skip(s, TokenKind.colonToken);
+        afs.sui = AspSuite.parse(s);
         
         leaveParser("for stmt");
         return afs;

@@ -12,10 +12,29 @@ public class AspTerm extends AspSyntax {
     AspTerm(int n) {
         super(n);
     }
+
+    public static AspTerm parse(Scanner s) {
+        enterParser("term");
+
+        AspTerm ter = new AspTerm(s.curLineNum());
+
+        boolean f = true;
+        while (f == true) {
+            ter.fac.add(AspFactor.parse(s));
+            f = false;
+            if (s.isFactorPrefix()) {
+                ter.teropr.add(AspTermOpr.parse(s));
+                f = true;
+            }
+        }
+
+        leaveParser("term");
+        return ter;
+    }
     
     @Override
     void prettyPrint() {
-        prettyWrite(null);
+        prettyWrite("term");
     }
 
     @Override

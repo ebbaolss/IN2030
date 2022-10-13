@@ -23,7 +23,7 @@ public class AspPrimary extends AspSyntax {
 
         TokenKind cur = s.curToken().kind;
 
-        if(cur == leftParToken|| cur == leftBracketToken) {
+        if(cur == TokenKind.leftParToken|| cur == TokenKind.leftBracketToken) {
             ap.prisuf.add(AspPrimarySuffix.parse(s));
         }
             

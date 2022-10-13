@@ -10,6 +10,16 @@ class AspPassStmt extends AspSmallStmt {
     AspPassStmt(int n) {
         super(n);
     }
+
+    static AspPassStmt parse(Scanner s) {
+        enterParser("pass");
+
+        AspPassStmt aps = new AspPassStmt(s.curLineNum());
+        skip(s, passToken);
+
+        leaveParser("pass");
+        return aps;
+    }
     
     @Override
     void prettyPrint() {

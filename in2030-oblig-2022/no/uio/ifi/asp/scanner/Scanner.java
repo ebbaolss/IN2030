@@ -1,10 +1,10 @@
 // © 2021 Dag Langmyhr, Institutt for informatikk, Universitetet i Oslo
+// testkjør:: java -jar asp.jar -testparser test.asp
+// scannerkjør::  java -jar asp.jar -testscanner boble.asp
 
 package no.uio.ifi.asp.scanner;
-
 import java.io.*;
 import java.util.*;
-
 import no.uio.ifi.asp.main.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
@@ -362,25 +362,41 @@ public class Scanner {
 
 	public boolean isCompOpr() {
 		TokenKind k = curToken().kind;
-		// -- Must be changed in part 2:
+		if (k.equals(TokenKind.lessToken) || k.equals(TokenKind.greaterToken) || k.equals(TokenKind.doubleEqualToken) || k.equals(TokenKind.greaterEqualToken)|| k.equals(TokenKind.lessEqualToken)|| k.equals(TokenKind.notEqualToken)) {
+			return true;
+		}
 		return false;
 	}
 
 	public boolean isFactorPrefix() {
 		TokenKind k = curToken().kind;
-		// -- Must be changed in part 2:
+		if (k.equals(TokenKind.plusToken) || k.equals(TokenKind.minusToken)) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isCompoundStmt() {
+		TokenKind k = curToken().kind;
+		if (k.equals(TokenKind.forToken) || k.equals(TokenKind.ifToken) || k.equals(TokenKind.whileToken) || k.equals(TokenKind.defToken)) {
+			return true;
+		}
 		return false;
 	}
 
 	public boolean isFactorOpr() {
 		TokenKind k = curToken().kind;
-		// -- Must be changed in part 2:
+		if (k.equals(TokenKind.astToken) || k.equals(TokenKind.slashToken) || k.equals(TokenKind.percentToken) || k.equals(TokenKind.doubleSlashToken)) {
+			return true;
+		}
 		return false;
 	}
 
 	public boolean isTermOpr() {
 		TokenKind k = curToken().kind;
-		// -- Must be changed in part 2:
+		if (k.equals(TokenKind.plusToken) || k.equals(TokenKind.minusToken)) {
+			return true;
+		}
 		return false;
 	}
 
