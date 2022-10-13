@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspSmallStmt extends AspSyntax {
-    AspSmallStmt as = null;
+    static AspSmallStmt as = null;
 
     AspSmallStmt(int n) {
         super(n);
@@ -17,6 +17,17 @@ abstract class AspSmallStmt extends AspSyntax {
         
         TokenKind cur = s.curToken().kind;
 
+        if (cur == TokenKind.returnToken){
+            as = AspReturnStmt.parse(s);
+        }
+        else if (cur == TokenKind.passToken) {
+            as = AspPassStmt.parse(s);
+        }
+        else if (s.anyEqualToken()) {
+            as = AspExprStmt.parse(s);
+        }
+
+        /* 
         // DENNE MÅ FIKSES
         if (s.anyEqualToken()) {    //metode i scanner som sjekker om det er assignment visst
             as = AspAssignment.parse(s);
@@ -32,7 +43,7 @@ abstract class AspSmallStmt extends AspSyntax {
             } else {
                 as = AspExprStmt.parse(s);
             }
-        }
+        }*/
 
         leaveParser("small stmt");
         return as;

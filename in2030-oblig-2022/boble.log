@@ -15,9 +15,5 @@
           <stmt>
             <small stmt list>
               <small stmt>
-                <global stmt>
-                  <name>
-                  </name>
-                </global stmt>
               </small stmt>
-            </small stmt list>
+Asp parser error on line 5: Expected NEWLINE but found global!
