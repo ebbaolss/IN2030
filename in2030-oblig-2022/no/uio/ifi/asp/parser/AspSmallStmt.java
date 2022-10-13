@@ -17,7 +17,8 @@ abstract class AspSmallStmt extends AspSyntax {
         
         TokenKind cur = s.curToken().kind;
 
-        if (s.anyEqualToken()) {
+        // DENNE MÅ FIKSES
+        if (s.anyEqualToken()) {    //metode i scanner som sjekker om det er assignment visst
             as = AspAssignment.parse(s);
         } else {
             if (cur == globalToken) {
