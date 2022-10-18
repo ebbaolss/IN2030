@@ -14,7 +14,7 @@ public class AspIfStmt extends AspCompoundStmt{
     }
 
     public static AspIfStmt parse(Scanner s) {
-        enterParser("if statement");
+        enterParser("if stmt");
         AspIfStmt is = new AspIfStmt(s.curLineNum());
         
         skip(s, TokenKind.ifToken);
@@ -38,7 +38,7 @@ public class AspIfStmt extends AspCompoundStmt{
             is.sui.add(AspSuite.parse(s));
         }
         
-        leaveParser("if statement");
+        leaveParser("if stmt");
         return is;
     }
 

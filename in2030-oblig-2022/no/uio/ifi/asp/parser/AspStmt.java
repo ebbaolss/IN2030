@@ -20,9 +20,9 @@ abstract class AspStmt extends AspSyntax {
 
         if (s.isCompoundStmt()) {
             as = AspCompoundStmt.parse(s);
+        } else {
+            as = AspSmallStmtList.parse(s);
         }
-
-        as = AspSmallStmtList.parse(s);
 
         leaveParser("stmt");
         return as;

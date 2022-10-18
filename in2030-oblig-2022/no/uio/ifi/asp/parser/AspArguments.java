@@ -27,7 +27,7 @@ public class AspArguments extends AspPrimarySuffix {
         }
         skip(s, rightParToken);
 
-        leaveParser("Arguments");
+        leaveParser("arguments");
         return aa;
     }
 
