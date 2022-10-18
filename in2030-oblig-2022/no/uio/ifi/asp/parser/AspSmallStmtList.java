@@ -40,7 +40,7 @@ public class AspSmallStmtList extends AspStmt{
 
     @Override
     void prettyPrint() {
-        prettyWrite(null);
+        prettyWrite("assl");
     }
 
     @Override

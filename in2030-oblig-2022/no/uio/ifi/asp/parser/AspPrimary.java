@@ -17,7 +17,7 @@ public class AspPrimary extends AspSyntax {
     static AspPrimary parse(Scanner s) {
         enterParser("primary");
 
-        AspPrimary ap = null;
+        AspPrimary ap = new AspPrimary(s.curLineNum());
         ap.primary = s.curToken().name;
         ap.atm = AspAtom.parse(s);
 

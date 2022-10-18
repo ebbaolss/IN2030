@@ -16,13 +16,13 @@ public class AspSubscription extends AspPrimarySuffix {
     static AspSubscription parse(Scanner s) {
         enterParser("subscription");
 
-        skip(s, leftBracketToken);
+        skip(s, TokenKind.leftBracketToken);
         AspSubscription as = new AspSubscription(s.curLineNum());
         as.subscription = s.curToken().name;
         while (s.curToken().kind != rightBracketToken) {
             as.exp.add(AspExpr.parse(s));
         }
-        skip(s, rightBracketToken);
+        skip(s, TokenKind.rightBracketToken);
         
         leaveParser("subscription");
         return as;

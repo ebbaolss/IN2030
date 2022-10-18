@@ -5,8 +5,7 @@ import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
-abstract class AspStmt extends AspSyntax{
-    
+abstract class AspStmt extends AspSyntax {
     AspSmallStmtList assl;
     AspCompoundStmt acs;
 
@@ -18,11 +17,12 @@ abstract class AspStmt extends AspSyntax{
         enterParser("stmt");
 
         AspStmt as = null;
+
         if (s.isCompoundStmt()) {
-            as.acs = AspCompoundStmt.parse(s);
+            as = AspCompoundStmt.parse(s);
         }
 
-        as.assl = AspSmallStmtList.parse(s);
+        as = AspSmallStmtList.parse(s);
 
         leaveParser("stmt");
         return as;

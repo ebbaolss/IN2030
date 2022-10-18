@@ -33,6 +33,7 @@ public class AspProgram extends AspSyntax {
     }
 
     @Override
+    public
     void prettyPrint() {
         prettyWrite(null);
     }

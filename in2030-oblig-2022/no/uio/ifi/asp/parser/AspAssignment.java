@@ -1,5 +1,8 @@
 package no.uio.ifi.asp.parser;
 import java.util.ArrayList;
+
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
@@ -20,11 +23,15 @@ public class AspAssignment extends AspSmallStmt{
         AspAssignment aa = new AspAssignment(s.curLineNum());
         aa.name = AspName.parse(s);
 
-        TokenKind cur = s.curToken().kind;
-        while (cur == TokenKind.equalToken) {
+        while (s.curToken().kind != equalToken) {
+            // -- Must be changed in part 2:
             aa.sub.add(AspSubscription.parse(s));
         }
-        skip(s, TokenKind.equalToken);
+
+        if (s.curToken().kind == equalToken) {
+            skip(s, equalToken);
+        }
+
         aa.expr = AspExpr.parse(s);
 
         leaveParser("assignment");

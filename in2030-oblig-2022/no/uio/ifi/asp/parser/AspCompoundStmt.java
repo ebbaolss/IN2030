@@ -26,7 +26,7 @@ abstract class AspCompoundStmt extends AspStmt {
             acs = AspIfStmt.parse(s);
             return acs;
         }
-        else if (cur == TokenKind.ifToken) {
+        else if (cur == TokenKind.whileToken) {
             acs = AspWhileStmt.parse(s);
         }
         else if (cur == TokenKind.defToken) {

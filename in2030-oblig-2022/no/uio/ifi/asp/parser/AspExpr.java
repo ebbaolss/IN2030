@@ -32,6 +32,7 @@ public class AspExpr extends AspSyntax {
     }
 
     @Override
+    public
     void prettyPrint() {
         prettyWrite("aspexpr");
     }

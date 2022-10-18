@@ -28,8 +28,8 @@ public class AspSuite extends AspSyntax {
                 if (s.curToken().kind == TokenKind.dedentToken) {
                     f = false;
                 }
-                skip(s, TokenKind.dedentToken);
             }
+            skip(s, TokenKind.dedentToken);
         } else {
             as.smallstmt = AspSmallStmtList.parse(s);
         }

@@ -16,7 +16,7 @@ public abstract class AspPrimarySuffix extends AspSyntax {
         enterParser("primary suffix");
 
         AspPrimarySuffix aps = null;
-        aps.primarySuffix = s.curToken().name;
+        
         switch (s.curToken().kind) {
             case leftParToken:
                 aps = AspArguments.parse(s); 
