@@ -25,7 +25,6 @@ public class AspExpr extends AspSyntax {
                 break;
             }
             skip(s, TokenKind.orToken);
-
         }
         leaveParser("expr");
         return ae;

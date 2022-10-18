@@ -13,7 +13,7 @@ public class AspComparison extends AspSyntax {
         super(n);
     }
 
-    public static AspComparison parse(Scanner s) {
+    static AspComparison parse(Scanner s) {
         enterParser("comparison");
 
         AspComparison com = new AspComparison(s.curLineNum());
@@ -25,6 +25,8 @@ public class AspComparison extends AspSyntax {
             if (s.isCompOpr()) {
                 com.comopr.add(AspCompOpr.parse(s));
                 f = true;
+            } else {
+                break;
             }
         }
 

@@ -13,7 +13,7 @@ public class AspTerm extends AspSyntax {
         super(n);
     }
 
-    public static AspTerm parse(Scanner s) {
+    static AspTerm parse(Scanner s) {
         enterParser("term");
 
         AspTerm ter = new AspTerm(s.curLineNum());
@@ -22,9 +22,11 @@ public class AspTerm extends AspSyntax {
         while (f == true) {
             ter.fac.add(AspFactor.parse(s));
             f = false;
-            if (s.isFactorPrefix()) {
+            if (s.isTermOpr()) { 
                 ter.teropr.add(AspTermOpr.parse(s));
                 f = true;
+            } else {
+                break;
             }
         }
 

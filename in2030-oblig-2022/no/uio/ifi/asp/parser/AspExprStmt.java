@@ -13,12 +13,12 @@ public class AspExprStmt extends AspSmallStmt{
     }
     
     static AspExprStmt parse(Scanner s) {
-        enterParser("expr statement");
+        enterParser("expr stmt");
         
         AspExprStmt aes = new AspExprStmt(s.curLineNum());
         aes.exprstmt = AspExprStmt.parse(s);
         
-        leaveParser("expr statement");
+        leaveParser("expr stmt");
         return aes;
     }
 

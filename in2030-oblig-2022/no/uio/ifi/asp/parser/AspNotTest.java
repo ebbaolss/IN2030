@@ -22,9 +22,10 @@ public class AspNotTest extends AspSyntax {
         TokenKind cur = s.curToken().kind;
         
         if (cur == TokenKind.notToken) {
-            skip(s, TokenKind.andToken);
+            skip(s, TokenKind.notToken);
         }
         ant.com.add(AspComparison.parse(s));
+        
         leaveParser("not test");
         return ant;
     }
