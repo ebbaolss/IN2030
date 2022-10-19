@@ -6,17 +6,17 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspExprStmt extends AspSmallStmt{
-    AspExprStmt exprstmt;
+    AspExpr expr;
 
     AspExprStmt(int n) {
         super(n);
     }
     
-    static AspExprStmt parse(Scanner s) {
+    public static AspExprStmt parse(Scanner s) {
         enterParser("expr stmt");
         
         AspExprStmt aes = new AspExprStmt(s.curLineNum());
-        aes.exprstmt = AspExprStmt.parse(s);
+        aes.expr = AspExpr.parse(s);
         
         leaveParser("expr stmt");
         return aes;

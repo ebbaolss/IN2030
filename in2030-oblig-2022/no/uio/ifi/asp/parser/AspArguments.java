@@ -1,6 +1,5 @@
 package no.uio.ifi.asp.parser;
 import java.util.ArrayList;
-import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
@@ -19,6 +18,7 @@ public class AspArguments extends AspPrimarySuffix {
         skip(s, leftParToken);
         AspArguments aa = new AspArguments(s.curLineNum());
         aa.arguments = s.curToken().name;
+        
         while (s.curToken().kind != rightParToken) {
             aa.exp.add(AspExpr.parse(s));
             if (s.curToken().kind == commaToken) {

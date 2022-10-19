@@ -362,7 +362,7 @@ public class Scanner {
 
 	public boolean isCompOpr() {
 		TokenKind k = curToken().kind;
-		if (k.equals(TokenKind.lessToken) || k.equals(TokenKind.greaterToken) || k.equals(TokenKind.doubleEqualToken) || k.equals(TokenKind.greaterEqualToken)|| k.equals(TokenKind.lessEqualToken)|| k.equals(TokenKind.notEqualToken)) {
+		if (k == lessToken || k == greaterToken || k == doubleEqualToken || k == greaterEqualToken || k == lessEqualToken || k == notEqualToken) {
 			return true;
 		}
 		return false;
@@ -370,7 +370,7 @@ public class Scanner {
 
 	public boolean isFactorPrefix() {
 		TokenKind k = curToken().kind;
-		if (k.equals(TokenKind.plusToken) || k.equals(TokenKind.minusToken)) {
+		if (k == plusToken || k == minusToken) {
 			return true;
 		}
 		return false;
@@ -378,7 +378,7 @@ public class Scanner {
 
 	public boolean isCompoundStmt() {
 		TokenKind k = curToken().kind;
-		if (k.equals(TokenKind.forToken) || k.equals(TokenKind.ifToken) || k.equals(TokenKind.whileToken) || k.equals(TokenKind.defToken)) {
+		if (k == forToken || k == ifToken || k == whileToken || k == defToken) {
 			return true;
 		}
 		return false;
@@ -386,7 +386,7 @@ public class Scanner {
 
 	public boolean isFactorOpr() {
 		TokenKind k = curToken().kind;
-		if (k.equals(TokenKind.astToken) || k.equals(TokenKind.slashToken) || k.equals(TokenKind.percentToken) || k.equals(TokenKind.doubleSlashToken)) {
+		if (k == astToken || k == slashToken || k == percentToken || k == doubleSlashToken) {
 			return true;
 		}
 		return false;
@@ -394,7 +394,7 @@ public class Scanner {
 
 	public boolean isTermOpr() {
 		TokenKind k = curToken().kind;
-		if (k.equals(TokenKind.plusToken) || k.equals(TokenKind.minusToken)) {
+		if (k == plusToken || k == minusToken) {
 			return true;
 		}
 		return false;

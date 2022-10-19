@@ -1,8 +1,6 @@
 package no.uio.ifi.asp.parser;
 import java.util.ArrayList;
-
 import javax.swing.RowFilter.ComparisonType;
-
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;

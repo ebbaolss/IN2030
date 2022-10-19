@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspSmallStmt extends AspSyntax {
-    static AspSmallStmt as = null;
+    //static AspSmallStmt as = null;
 
     AspSmallStmt(int n) {
         super(n);
@@ -17,6 +17,7 @@ abstract class AspSmallStmt extends AspSyntax {
     
         AspSmallStmt as = null;
         TokenKind cur = s.curToken().kind;
+        
         if (cur == globalToken) {
             as = AspGlobalStmt.parse(s);
         }

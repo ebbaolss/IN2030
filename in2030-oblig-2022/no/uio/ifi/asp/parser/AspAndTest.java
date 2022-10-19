@@ -18,12 +18,15 @@ class AspAndTest extends AspSyntax {
         enterParser("and test");
         
         AspAndTest aat = new AspAndTest(s.curLineNum());
+
         while (true) {
             aat.notTests.add(AspNotTest.parse(s));
+            
             if (s.curToken().kind != TokenKind.andToken) {
                 break;
+            } else {
+                skip(s, TokenKind.andToken);
             }
-            skip(s, TokenKind.andToken);
         }
         leaveParser("and test");
         return aat;
