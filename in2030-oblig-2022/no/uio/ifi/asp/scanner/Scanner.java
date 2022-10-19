@@ -1,6 +1,7 @@
 // © 2021 Dag Langmyhr, Institutt for informatikk, Universitetet i Oslo
 // testkjør:: java -jar asp.jar -testparser test.asp
 // scannerkjør::  java -jar asp.jar -testscanner boble.asp
+// prettyprint:: java -jar asp.jar -logY -testparser palindrom.asp
 
 package no.uio.ifi.asp.scanner;
 import java.io.*;
