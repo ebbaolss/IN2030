@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspName extends AspAtom {
-    String name;
+    String p;
     
     AspName(int n) {
         super(n);
@@ -15,10 +15,9 @@ public class AspName extends AspAtom {
     static AspName parse(Scanner s) {
         enterParser("name");
 
-        //AspName an = new AspName(s.curLineNum());
         AspName an = new AspName(s.curLineNum());
-        an.name = s.curToken().name;
-        an.name = s.curToken().name;
+        an.p = s.curToken().name;
+
         skip(s, nameToken);
 
         leaveParser("name");
@@ -27,7 +26,7 @@ public class AspName extends AspAtom {
     
     @Override
     void prettyPrint() {
-        prettyWrite(name);
+        prettyWrite(p);
     }
 
     @Override

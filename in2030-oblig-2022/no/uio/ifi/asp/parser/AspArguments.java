@@ -33,14 +33,22 @@ public class AspArguments extends AspPrimarySuffix {
 
     @Override
     public void prettyPrint() {
-        int nPrinted = 0;
-        for (AspExpr expr : exp) {
-            if (nPrinted < exp.size()) {
-                prettyWrite(",");
-            }
-            ++nPrinted;
+        prettyWrite(TokenKind.leftParToken.toString());
+        if (exp == null) {
+            
         }
-        prettyWrite(arguments);
+        else {
+            int cnt = 0;
+            for (AspExpr aspExpr : exp) {
+                if (cnt > 0) {
+                    prettyWrite(TokenKind.commaToken.toString() + " ");
+                }
+                aspExpr.prettyPrint();
+                cnt++;
+                
+            }
+        }
+        prettyWrite(TokenKind.rightParToken.toString());
     }
 
     @Override

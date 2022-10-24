@@ -35,7 +35,22 @@ public class AspListDisplay extends AspAtom {
 
     @Override
     void prettyPrint() {
-        prettyWrite(listDisplay);
+        prettyWrite(TokenKind.leftBracketToken.toString());
+        
+        int cnt = 0;
+        if (exp == null) {
+            
+        }
+        else {
+            for (AspExpr aspExpr : exp) {
+                if (cnt > 0) {
+                    prettyWrite(TokenKind.commaToken.toString() + " ");
+                }
+                aspExpr.prettyPrint();
+                cnt++;
+            }
+        }
+        prettyWrite(TokenKind.rightBracketToken.toString());
     }
 
     @Override

@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspSubscription extends AspPrimarySuffix {
-    ArrayList<AspExpr> exp = new ArrayList<>();
+    AspExpr exp;
     String subscription;
 
     AspSubscription(int n) {
@@ -20,7 +20,7 @@ public class AspSubscription extends AspPrimarySuffix {
         AspSubscription as = new AspSubscription(s.curLineNum());
         as.subscription = s.curToken().name;
         while (s.curToken().kind != rightBracketToken) {
-            as.exp.add(AspExpr.parse(s));
+            as.exp = AspExpr.parse(s);
         }
         skip(s, TokenKind.rightBracketToken);
         
@@ -30,15 +30,9 @@ public class AspSubscription extends AspPrimarySuffix {
 
     @Override
     void prettyPrint() {
-        
-        int nPrinted = 0;
-        for (AspExpr x : exp) {
-            if (nPrinted > 0) {
-                prettyWrite(" expr ");
-            }
-            x.prettyPrint();
-            ++nPrinted;
-        }
+        prettyWrite(TokenKind.leftBracketToken.toString());
+        exp.prettyPrint();
+        prettyWrite(TokenKind.rightBracketToken.toString());
     }
 
     @Override

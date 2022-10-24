@@ -34,7 +34,12 @@ public class AspForStmt extends AspCompoundStmt{
 
     @Override
     void prettyPrint() {
-        prettyWrite(forStmt);
+        prettyWrite(TokenKind.forToken.toString() + " ");
+        name.prettyPrint();
+        prettyWrite(" " + TokenKind.inToken.toString() + " ");
+        expr.prettyPrint();
+        prettyWrite(TokenKind.colonToken.toString());
+        sui.prettyPrint();
     }
 
     @Override

@@ -9,6 +9,7 @@ public class AspFactor extends AspSyntax {
     ArrayList<AspFactorPrefix> facpre = new ArrayList<>();
     ArrayList<AspFactorOpr> facopr = new ArrayList<>();
     ArrayList<AspPrimary> prim = new ArrayList<>();
+    static Boolean b = false;
 
     AspFactor(int n) {
         super(n);
@@ -22,6 +23,7 @@ public class AspFactor extends AspSyntax {
         while (f == true) {
             if (s.isFactorPrefix()) {
                 fac.facpre.add(AspFactorPrefix.parse(s));
+                b = true;
             }
             fac.prim.add(AspPrimary.parse(s));
 
@@ -41,7 +43,19 @@ public class AspFactor extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        prettyWrite("factor");
+        
+        int cnt = 0;
+        
+        for (AspPrimary aspPrimary : prim) {
+            if (cnt > 0) {
+                facopr.get(cnt).prettyPrint();
+            }
+            if (facpre.size() > cnt) {
+                facpre.get(cnt).prettyPrint();
+            }
+            aspPrimary.prettyPrint();
+            cnt++;
+        }
     }
 
     @Override

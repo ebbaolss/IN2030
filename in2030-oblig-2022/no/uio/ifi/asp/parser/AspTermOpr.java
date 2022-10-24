@@ -7,15 +7,18 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspTermOpr extends AspSyntax {
     
+    String p;
+
     AspTermOpr(int n) {
         super(n);
     }
     
     static AspTermOpr parse(Scanner s) {
         enterParser("term opr");
-        AspTermOpr ato = null;
+        AspTermOpr ato = new AspTermOpr(s.curLineNum());
+        ato.p = s.curToken().toString();
         TokenKind cur = s.curToken().kind;
-        if (cur == plusToken) {
+        if (cur == plusToken) {  
             skip (s, plusToken);
         }
         else if (cur == minusToken) {
@@ -27,7 +30,7 @@ public class AspTermOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        prettyWrite("term - opr");
+        prettyWrite(" " + p + " ");
     }
 
     @Override

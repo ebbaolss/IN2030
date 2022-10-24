@@ -36,7 +36,15 @@ public class AspComparison extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        prettyWrite("aspcompa");
+        int cnt = 0;
+
+        for (AspTerm aspTerm : ter) {
+            aspTerm.prettyPrint();
+            if (comopr.size() > cnt) {
+                comopr.get(cnt).prettyPrint();
+            }
+            cnt++;
+        }
     }
 
     @Override

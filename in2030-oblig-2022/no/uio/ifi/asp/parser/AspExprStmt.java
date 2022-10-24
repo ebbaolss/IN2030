@@ -7,6 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspExprStmt extends AspSmallStmt{
     AspExpr expr;
+    String s;
 
     AspExprStmt(int n) {
         super(n);
@@ -16,6 +17,7 @@ public class AspExprStmt extends AspSmallStmt{
         enterParser("expr stmt");
         
         AspExprStmt aes = new AspExprStmt(s.curLineNum());
+        aes.s = s.curToken().name;
         aes.expr = AspExpr.parse(s);
         
         leaveParser("expr stmt");
@@ -24,6 +26,8 @@ public class AspExprStmt extends AspSmallStmt{
 
     @Override
     void prettyPrint() {
-        prettyWrite("exprstmttm");
+        expr.prettyPrint();
+        prettyWrite( s );
+        
     }
 }

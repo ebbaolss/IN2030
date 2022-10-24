@@ -30,8 +30,4 @@ public abstract class AspPrimarySuffix extends AspSyntax {
         return aps;
     }
 
-    @Override
-    void prettyPrint() {
-        prettyWrite(primarySuffix);
-    }
 }

@@ -23,7 +23,7 @@ class AspPassStmt extends AspSmallStmt {
     
     @Override
     void prettyPrint() {
-        prettyWrite(null);
+        prettyWrite(TokenKind.passToken.toString());
     }
     
 }

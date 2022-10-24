@@ -8,6 +8,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 abstract class AspStmt extends AspSyntax {
     AspSmallStmtList assl;
     AspCompoundStmt acs;
+    static String print;
 
     AspStmt(int n) {
         super(n);
@@ -17,7 +18,7 @@ abstract class AspStmt extends AspSyntax {
         enterParser("stmt");
 
         AspStmt as = null;
-
+        print = s.curToken().toString();
         if (s.isCompoundStmt()) {
             as = AspCompoundStmt.parse(s);
         } else {
@@ -30,6 +31,6 @@ abstract class AspStmt extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        
+        prettyWrite(print);
     }
 }

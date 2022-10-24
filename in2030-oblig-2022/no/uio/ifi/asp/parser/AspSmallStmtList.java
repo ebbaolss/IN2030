@@ -7,6 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspSmallStmtList extends AspStmt{
     ArrayList<AspSmallStmt> smallstmt = new ArrayList<>();
+    static String p;
     
     AspSmallStmtList(int n) {
         super(n);
@@ -30,6 +31,7 @@ public class AspSmallStmtList extends AspStmt{
         TokenKind cur = s.curToken().kind;
         if (cur == TokenKind.semicolonToken) {
             skip(s, TokenKind.semicolonToken);
+            p = TokenKind.semicolonToken.toString();
         }
         skip(s, TokenKind.newLineToken);
 
@@ -40,7 +42,18 @@ public class AspSmallStmtList extends AspStmt{
 
     @Override
     void prettyPrint() {
-        prettyWrite("assl");
+        int cnt = 0;
+        for (AspSmallStmt aspSmallStmt : smallstmt) {
+            if (cnt > 0) {
+                prettyWrite(TokenKind.semicolonToken.toString() + " ");
+            }
+            aspSmallStmt.prettyPrint();
+            cnt++;
+        }
+        if (p != null) {
+            prettyWrite(p);
+        }
+        prettyWriteLn();
     }
 
     @Override

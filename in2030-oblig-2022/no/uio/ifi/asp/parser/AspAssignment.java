@@ -24,7 +24,6 @@ public class AspAssignment extends AspSmallStmt{
         aa.name = AspName.parse(s);
 
         while (s.curToken().kind != equalToken) {
-            // -- Must be changed in part 2:
             aa.sub.add(AspSubscription.parse(s));
         }
 
@@ -37,4 +36,14 @@ public class AspAssignment extends AspSmallStmt{
         leaveParser("assignment");
         return aa;
     } 
+
+    @Override
+    void prettyPrint() {
+        name.prettyPrint();
+        for (AspSubscription aspSubscription : sub) {
+            aspSubscription.prettyPrint();
+        }
+        prettyWrite(" " + TokenKind.equalToken.toString() + " ");
+        expr.prettyPrint();
+    }
 }

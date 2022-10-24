@@ -7,7 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspPrimary extends AspSyntax {
     ArrayList<AspPrimarySuffix> prisuf = new ArrayList<>();
-    AspAtom atm = null;
+    AspAtom atm;
     String primary;
 
     AspPrimary(int n) {
@@ -33,7 +33,18 @@ public class AspPrimary extends AspSyntax {
     
     @Override
     void prettyPrint() {
-        prettyWrite(primary);
+    
+        atm.prettyPrint();
+        
+        if (prisuf == null) {
+        }
+
+        else {
+            for (AspPrimarySuffix aspPrimarySuffix : prisuf) {
+                aspPrimarySuffix.prettyPrint();
+            }
+        }
+        
     }
 
     @Override

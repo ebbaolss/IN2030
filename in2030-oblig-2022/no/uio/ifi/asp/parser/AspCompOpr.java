@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspCompOpr extends AspSyntax {
-    String CompOpr;
+    static String CompOpr;
 
     AspCompOpr(int n) {
         super(n);
@@ -15,7 +15,7 @@ public class AspCompOpr extends AspSyntax {
     static AspCompOpr parse(Scanner s) {
         enterParser("comp opr");
         AspCompOpr aco = new AspCompOpr(s.curLineNum());
-        aco.CompOpr = s.curToken().name;
+        CompOpr = s.curToken().toString();
         TokenKind cur = s.curToken().kind;
         
         if (cur == TokenKind.lessToken) {
@@ -43,7 +43,7 @@ public class AspCompOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        prettyWrite(CompOpr);
+        prettyWrite(" " + CompOpr + " ");
     }
 
     @Override

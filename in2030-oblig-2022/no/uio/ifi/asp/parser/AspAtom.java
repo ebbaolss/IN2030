@@ -53,6 +53,5 @@ abstract class AspAtom extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        prettyWrite("atom");
     }
 }

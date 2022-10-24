@@ -7,7 +7,9 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFuncDef extends AspCompoundStmt{
     ArrayList<AspName> nam = new ArrayList<>();
-    ArrayList<AspSuite> sui = new ArrayList<>();
+    AspName name;
+    AspSuite sui;
+    String p;
     
     AspFuncDef(int n) {
         super(n);
@@ -18,8 +20,12 @@ public class AspFuncDef extends AspCompoundStmt{
         enterParser("func def");
         AspFuncDef afd = new AspFuncDef(s.curLineNum());
         
+        afd.p = s.curToken().name;
+        
+        
         skip(s, defToken);
-        afd.nam.add(AspName.parse(s));
+        afd.name = AspName.parse(s);
+        
         skip(s, leftParToken);
         
         TokenKind cur = s.curToken().kind;
@@ -38,7 +44,7 @@ public class AspFuncDef extends AspCompoundStmt{
 
         skip(s, rightParToken);
         skip(s, colonToken);
-        afd.sui.add(AspSuite.parse(s));
+        afd.sui = AspSuite.parse(s);
 
         leaveParser("func def");
         return afd;
@@ -46,6 +52,19 @@ public class AspFuncDef extends AspCompoundStmt{
     
     @Override
     void prettyPrint() {
-        prettyWrite("funcccy");
+        prettyWrite(p + " ");
+        name.prettyPrint();
+        prettyWrite(" (");
+        int cnt = 0;
+        for (AspName aspName : nam) {
+            if (cnt > 0) {
+                prettyWrite(", ");
+            }
+            aspName.prettyPrint();
+
+        }
+        prettyWrite(")");
+        prettyWrite(":");
+        sui.prettyPrint();
     }
 }

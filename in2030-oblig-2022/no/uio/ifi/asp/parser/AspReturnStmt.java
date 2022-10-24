@@ -26,7 +26,8 @@ public class AspReturnStmt extends AspSmallStmt{
 
     @Override
     void prettyPrint() {
-        prettyWrite("returnstmtmtt");
+        prettyWrite(TokenKind.returnToken.toString() + " ");
+        expr.prettyPrint();
     }
 
     @Override

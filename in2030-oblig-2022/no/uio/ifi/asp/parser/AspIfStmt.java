@@ -8,6 +8,8 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class AspIfStmt extends AspCompoundStmt{
     ArrayList<AspExpr> expr = new ArrayList<>();
     ArrayList<AspSuite> sui = new ArrayList<>();
+    AspSuite sui2;
+    static Boolean b = false;
 
     AspIfStmt(int n) {
         super(n);
@@ -35,7 +37,8 @@ public class AspIfStmt extends AspCompoundStmt{
         if (s.curToken().kind == TokenKind.elseToken) {
             skip(s, TokenKind.elseToken);
             skip(s, TokenKind.colonToken);
-            is.sui.add(AspSuite.parse(s));
+            is.sui2 = AspSuite.parse(s);
+            b = true;
         }
         
         leaveParser("if stmt");
@@ -44,7 +47,26 @@ public class AspIfStmt extends AspCompoundStmt{
 
     @Override
     void prettyPrint() {
-        prettyWrite("ifstmmtttt");
+        prettyWrite(TokenKind.ifToken.toString() + " ");
+
+        int cnt = 0;
+        for (AspExpr aspExpr : expr) {
+            if (cnt > 0) {
+                prettyWrite(TokenKind.elifToken.toString());
+            }
+            aspExpr.prettyPrint();
+            prettyWrite(TokenKind.colonToken.toString() + " ");
+            if (sui.size() > cnt) {
+                sui.get(cnt).prettyPrint();
+            }
+            cnt++;
+        }
+
+        if (b == true) {
+            prettyWrite(TokenKind.elseToken.toString());
+            prettyWrite(TokenKind.colonToken.toString() + " ");
+            sui2.prettyPrint();
+        }    
     }
 
     @Override
