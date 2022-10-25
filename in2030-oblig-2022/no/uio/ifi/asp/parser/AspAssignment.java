@@ -12,6 +12,7 @@ public class AspAssignment extends AspSmallStmt{
     AspName name;
     ArrayList<AspSubscription> sub = new ArrayList<>();
     AspExpr expr;
+    boolean b = false;
     
     AspAssignment(int n) {
         super(n);
@@ -23,10 +24,13 @@ public class AspAssignment extends AspSmallStmt{
         AspAssignment aa = new AspAssignment(s.curLineNum());
         aa.name = AspName.parse(s);
 
-        while (s.curToken().kind != equalToken) {
-            aa.sub.add(AspSubscription.parse(s));
+        if (s.curToken().kind != equalToken) {
+            while (s.curToken().kind != equalToken) {
+                aa.sub.add(AspSubscription.parse(s));
+            }
+        } else {
+            aa.b = true;
         }
-
         if (s.curToken().kind == equalToken) {
             skip(s, equalToken);
         }
@@ -40,8 +44,10 @@ public class AspAssignment extends AspSmallStmt{
     @Override
     void prettyPrint() {
         name.prettyPrint();
-        for (AspSubscription aspSubscription : sub) {
-            aspSubscription.prettyPrint();
+        if (b == false) {
+            for (AspSubscription aspSubscription : sub) {
+                aspSubscription.prettyPrint();
+            }
         }
         prettyWrite(" " + TokenKind.equalToken.toString() + " ");
         expr.prettyPrint();

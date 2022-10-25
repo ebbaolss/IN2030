@@ -7,6 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFactorOpr extends AspSyntax {
     String factorOpr;
+    
     AspFactorOpr(int n) {
         super(n);
     }

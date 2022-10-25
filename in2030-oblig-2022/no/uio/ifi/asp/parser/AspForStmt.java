@@ -9,8 +9,8 @@ public class AspForStmt extends AspCompoundStmt{
     AspName name;
     AspExpr expr;
     AspSuite sui;
-    
     String forStmt;
+    
     AspForStmt(int n) {
         super(n);
     }

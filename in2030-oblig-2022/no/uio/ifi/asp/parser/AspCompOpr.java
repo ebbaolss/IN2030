@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspCompOpr extends AspSyntax {
-    static String CompOpr;
+    String CompOpr;
 
     AspCompOpr(int n) {
         super(n);
@@ -15,27 +15,10 @@ public class AspCompOpr extends AspSyntax {
     static AspCompOpr parse(Scanner s) {
         enterParser("comp opr");
         AspCompOpr aco = new AspCompOpr(s.curLineNum());
-        CompOpr = s.curToken().toString();
+        aco.CompOpr = s.curToken().toString();
         TokenKind cur = s.curToken().kind;
-        
-        if (cur == TokenKind.lessToken) {
-            skip (s, TokenKind.lessToken);
-        }
-        else if (cur == greaterToken) {
-            skip (s, greaterToken);
-        }
-        else if (cur == doubleEqualToken) {
-            skip (s, doubleEqualToken);
-        }
-        else if (cur == greaterEqualToken) {
-            skip (s, greaterEqualToken);
-        }
-        else if (cur == lessEqualToken) {
-            skip (s, lessEqualToken);
-        }
-        else if (cur == notEqualToken) {
-            skip (s, notEqualToken);
-        }
+
+        skip(s, cur);
         
         leaveParser("comp opr");
         return aco;

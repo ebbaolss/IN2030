@@ -38,7 +38,6 @@ abstract class AspSmallStmt extends AspSyntax {
 
     @Override
     void prettyPrint() {
-
     }
 
     @Override

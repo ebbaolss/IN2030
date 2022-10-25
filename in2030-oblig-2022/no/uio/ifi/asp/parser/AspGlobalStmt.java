@@ -7,7 +7,6 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspGlobalStmt extends AspSmallStmt{
     ArrayList<AspName> name = new ArrayList<>();
-    static String p;
 
     AspGlobalStmt(int n) {
         super(n);

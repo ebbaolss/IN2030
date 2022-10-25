@@ -8,6 +8,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class AspFactorPrefix extends AspSyntax {
 
     String factorPrefix;
+    
     AspFactorPrefix(int n) {
         super(n);
     }
@@ -17,6 +18,7 @@ public class AspFactorPrefix extends AspSyntax {
         AspFactorPrefix afp = new AspFactorPrefix(s.curLineNum());
         afp.factorPrefix = s.curToken().name;
         TokenKind cur = s.curToken().kind;
+        
         if (cur == TokenKind.plusToken) {
             skip (s, TokenKind.plusToken);
         }
@@ -28,8 +30,8 @@ public class AspFactorPrefix extends AspSyntax {
     }
 
     @Override
-    void prettyPrint() {
-        prettyWrite(factorPrefix);
+    public void prettyPrint() {
+        prettyWrite(" " + factorPrefix + " ");
     }
     
     @Override

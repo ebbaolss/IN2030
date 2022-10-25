@@ -9,7 +9,7 @@ public class AspIfStmt extends AspCompoundStmt{
     ArrayList<AspExpr> expr = new ArrayList<>();
     ArrayList<AspSuite> sui = new ArrayList<>();
     AspSuite sui2;
-    static Boolean b = false;
+    boolean b = false;
 
     AspIfStmt(int n) {
         super(n);
@@ -38,7 +38,7 @@ public class AspIfStmt extends AspCompoundStmt{
             skip(s, TokenKind.elseToken);
             skip(s, TokenKind.colonToken);
             is.sui2 = AspSuite.parse(s);
-            b = true;
+            is.b = true;
         }
         
         leaveParser("if stmt");

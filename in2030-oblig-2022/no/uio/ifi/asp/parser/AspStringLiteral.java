@@ -27,14 +27,14 @@ public class AspStringLiteral extends AspAtom {
     @Override
     void prettyPrint() {
         if (stringLiteral.charAt(0) == '\"') {
-            prettyWrite("\"");
+            prettyWrite("\'");
             prettyWrite(stringLiteral);
-            prettyWrite("\"");
+            prettyWrite("\'");
         }
         else {
-            prettyWrite("\'");
+            prettyWrite("\"");
             prettyWrite(stringLiteral);
-            prettyWrite("\'");
+            prettyWrite("\"");
         }
 
     }
