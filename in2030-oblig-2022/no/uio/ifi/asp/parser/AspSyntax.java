@@ -14,7 +14,6 @@ public abstract class AspSyntax {
         lineNum = n;
     }
 
-
     abstract void prettyPrint();
     abstract RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue;
 

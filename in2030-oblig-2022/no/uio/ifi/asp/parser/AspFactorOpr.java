@@ -14,9 +14,11 @@ public class AspFactorOpr extends AspSyntax {
     
     static AspFactorOpr parse(Scanner s) {
         enterParser("factor opr");
+        
         AspFactorOpr afo = new AspFactorOpr(s.curLineNum());
         afo.factorOpr = s.curToken().name;
         TokenKind cur = s.curToken().kind;
+        
         if (cur == TokenKind.astToken) {
             skip(s, TokenKind.astToken);
         }
@@ -29,6 +31,7 @@ public class AspFactorOpr extends AspSyntax {
         else if (cur == TokenKind.doubleSlashToken) {
             skip(s, TokenKind.doubleSlashToken);
         }
+        
         leaveParser("factor opr");
         return afo;
     }

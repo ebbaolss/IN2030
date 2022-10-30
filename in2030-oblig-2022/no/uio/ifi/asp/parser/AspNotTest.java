@@ -33,14 +33,19 @@ public class AspNotTest extends AspSyntax {
     @Override
     void prettyPrint() {
         if (p != null){
-            prettyWrite(" not ");
+            prettyWrite("not ");
         }
         com.prettyPrint();
     }
 
+    //hentet fra forelesningsfoiler
     @Override
-    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        // -- Must be changed in part 3:
-        return null;
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        RuntimeValue v = com.eval(curScope);
+        
+        if (p != null) {
+            v = v.evalNot(this);
+        }
+        return v;
     }
 }

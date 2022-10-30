@@ -56,6 +56,35 @@ public class AspComparison extends AspSyntax {
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         // -- Must be changed in part 3:
-        return null;
+        //return null;
+        RuntimeValue v = ter.get(0).eval(curScope);
+        
+        for (int i = 1; i < ter.size(); ++i) {
+            TokenKind k = comopr.get(i - 1).kind;
+
+            switch(k) {
+                case lessToken:
+                    v = v.evalLess(ter.get(i).eval(curScope), this);
+                    break;
+                case greaterToken:
+                    v = v.evalGreater(ter.get(i).eval(curScope), this);
+                    break;
+                case doubleEqualToken:
+                    v = v.evalEqual(ter.get(i).eval(curScope), this);
+                    break;
+                case greaterEqualToken:
+                    v = v.evalGreaterEqual(ter.get(i).eval(curScope), this);
+                    break;
+                case lessEqualToken:
+                    v = v.evalLessEqual(ter.get(i).eval(curScope), this);
+                    break;
+                case notEqualToken:
+                    v = v.evalNotEqual(ter.get(i).eval(curScope), this);  
+                    break;
+                default:
+                    Main.panic("Illegal comp operator: " + k + "!");       
+            }
+        }
+        return v;
     }
 }

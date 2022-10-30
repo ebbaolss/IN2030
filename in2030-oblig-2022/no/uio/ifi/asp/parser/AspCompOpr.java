@@ -7,6 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspCompOpr extends AspSyntax {
     String CompOpr;
+    TokenKind kind;
 
     AspCompOpr(int n) {
         super(n);

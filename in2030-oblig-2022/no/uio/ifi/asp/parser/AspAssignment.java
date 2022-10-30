@@ -52,4 +52,18 @@ public class AspAssignment extends AspSmallStmt{
         prettyWrite(" " + TokenKind.equalToken.toString() + " ");
         expr.prettyPrint();
     }
+
+    @Override
+    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        while (true) {
+            RuntimeValue rtv = expr.eval(curScope);
+            if (!rtv.getBoolValue("while",this)){
+            trace("while True: ...");
+            break;
+        }
+        trace("while False:");
+        rtv = expr.eval(curScope);
+        }
+        return null;
+    }
 }

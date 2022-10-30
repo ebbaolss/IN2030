@@ -7,6 +7,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspTermOpr extends AspSyntax {
     String p;
+    TokenKind cur;
 
     AspTermOpr(int n) {
         super(n);
@@ -17,6 +18,7 @@ public class AspTermOpr extends AspSyntax {
         AspTermOpr ato = new AspTermOpr(s.curLineNum());
         ato.p = s.curToken().toString();
         TokenKind cur = s.curToken().kind;
+        
         if (cur == plusToken) {  
             skip (s, plusToken);
         }
