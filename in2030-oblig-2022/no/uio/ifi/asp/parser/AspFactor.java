@@ -17,9 +17,10 @@ public class AspFactor extends AspSyntax {
 
     public static AspFactor parse(Scanner s) {
         enterParser("factor");
+        
         AspFactor fac = new AspFactor(s.curLineNum());
-
         boolean f = true;
+
         while (f == true) {
             if (s.isFactorPrefix()) {
                 fac.facpre.add(AspFactorPrefix.parse(s));
@@ -43,7 +44,6 @@ public class AspFactor extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        
         int cnt = 0;
         
         for (AspPrimary aspPrimary : prim) {

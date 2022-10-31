@@ -36,8 +36,7 @@ public class AspArguments extends AspPrimarySuffix {
         prettyWrite(TokenKind.leftParToken.toString());
         if (exp == null) {
             
-        }
-        else {
+        } else {
             int cnt = 0;
             for (AspExpr aspExpr : exp) {
                 if (cnt > 0) {
@@ -45,7 +44,6 @@ public class AspArguments extends AspPrimarySuffix {
                 }
                 aspExpr.prettyPrint();
                 cnt++;
-                
             }
         }
         prettyWrite(TokenKind.rightParToken.toString());

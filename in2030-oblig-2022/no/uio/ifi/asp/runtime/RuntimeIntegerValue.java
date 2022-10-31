@@ -26,7 +26,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
 
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
-        if(integerValue == 0){
+        if(integerValue == 0) {
             return false;
         } else {
             return true;
@@ -124,10 +124,10 @@ public class RuntimeIntegerValue extends RuntimeValue {
 
     @Override 
     public RuntimeValue evalDivide(RuntimeValue v, AspSyntax where) {
-        if (v instanceof RuntimeIntegerValue){ 
+        if (v instanceof RuntimeIntegerValue) { 
             return new RuntimeFloatValue(integerValue / v.getIntValue("/ operand", where));
         } 
-        else if (v instanceof RuntimeFloatValue){
+        else if (v instanceof RuntimeFloatValue) {
             return new RuntimeFloatValue(integerValue / v.getFloatValue("/ operand", where));
         }   
         runtimeError("Type error for '/'", where);
@@ -135,7 +135,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
     }
     
 
-    public RuntimeValue  evalMultiply(RuntimeValue v, AspSyntax where){
+    public RuntimeValue  evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             return new RuntimeIntegerValue(integerValue * v.getIntValue("* operand", where));
         } 
@@ -161,7 +161,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
 
     //Return positiv verdi (dersom får negativ)
     @Override
-    public RuntimeValue evalPositive(AspSyntax where){
+    public RuntimeValue evalPositive(AspSyntax where) {
         if (integerValue < 0) {
             return new RuntimeIntegerValue(-1 * integerValue);
         }
@@ -170,7 +170,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
 
     //Return negativ verdi
     @Override
-    public RuntimeValue evalNegate(AspSyntax where){
+    public RuntimeValue evalNegate(AspSyntax where) {
         return new RuntimeIntegerValue(-1 * integerValue);    
     }
 

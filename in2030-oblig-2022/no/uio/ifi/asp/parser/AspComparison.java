@@ -17,8 +17,8 @@ public class AspComparison extends AspSyntax {
         enterParser("comparison");
 
         AspComparison com = new AspComparison(s.curLineNum());
-
         boolean f = true;
+
         while (f == true) {
             com.ter.add(AspTerm.parse(s));
             f = false;
@@ -49,8 +49,6 @@ public class AspComparison extends AspSyntax {
                 cnt++;
             }
         }
-
-        
     }
 
     @Override

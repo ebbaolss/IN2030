@@ -17,6 +17,7 @@ public class AspBooleanLiteral extends AspAtom {
 
         AspBooleanLiteral abl = new AspBooleanLiteral(s.curLineNum());
         TokenKind cur = s.curToken().kind;
+        
         if (cur == trueToken) {
             abl.booleanLiteral = true;
             skip(s, trueToken);

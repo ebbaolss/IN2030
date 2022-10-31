@@ -12,8 +12,10 @@ abstract class AspAtom extends AspSyntax {
     }
     
     static AspAtom parse(Scanner s) {
-        AspAtom aa = null;
         enterParser("atom");
+
+        AspAtom aa = null;
+        
         switch (s.curToken().kind) {
         case falseToken:
         case trueToken:
@@ -44,9 +46,9 @@ abstract class AspAtom extends AspSyntax {
             aa = AspStringLiteral.parse(s); 
             break;
         default:
-            parserError("Expected an expression atom but found a " +
-            s.curToken().kind + "!", s.curLineNum());
-            }
+            parserError("Expected an expression atom but found a " + s.curToken().kind + "!", s.curLineNum());
+        }
+        
         leaveParser("atom");
         return aa;   
     }
