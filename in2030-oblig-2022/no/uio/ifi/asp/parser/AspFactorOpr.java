@@ -6,8 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFactorOpr extends AspSyntax {
-    ArrayList<AspFactorOpr> facopr = new ArrayList<>();
-    String factorOpr;
+    Token factorOpr;
     
     AspFactorOpr(int n) {
         super(n);
@@ -17,18 +16,16 @@ public class AspFactorOpr extends AspSyntax {
         enterParser("factor opr");
         
         AspFactorOpr afo = new AspFactorOpr(s.curLineNum());
-        
-        //System.out.println(".." + afo.factorOpr.toString());
-        
+        afo.factorOpr = s.curToken();
         if (s.curToken().kind == TokenKind.astToken) {
             skip(s, TokenKind.astToken);
         }
         else if (s.curToken().kind == TokenKind.doubleSlashToken) {
             skip(s, TokenKind.doubleSlashToken);
+
         }
         else if (s.curToken().kind == TokenKind.slashToken) {
             skip(s, TokenKind.slashToken);
-            
         }
         else if (s.curToken().kind == TokenKind.percentToken) {
             skip(s, TokenKind.percentToken);
@@ -40,8 +37,8 @@ public class AspFactorOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        System.out.println(".." + factorOpr);
-        prettyWrite(" -- ");
+        prettyWrite(" " + factorOpr.toString() + " ");
+        
     }
 
     @Override

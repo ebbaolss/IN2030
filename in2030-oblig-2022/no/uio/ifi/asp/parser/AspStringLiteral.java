@@ -26,17 +26,25 @@ public class AspStringLiteral extends AspAtom {
 
     @Override
     void prettyPrint() {
-        if (stringLit.charAt(0) == '\"') {
-            prettyWrite("\'");
-            prettyWrite(stringLit);
-            prettyWrite("\'");
-        }
-        else {
-            prettyWrite("\"");
-            prettyWrite(stringLit);
-            prettyWrite("\"");
-        }
 
+        if (stringLit.length() == 0) {
+            prettyWrite("\"\"");
+            return;
+        }
+        
+        for (int i = 0; i < stringLit.length(); i++) {
+            if (stringLit.charAt(i) == '\"') {
+                prettyWrite("\'");
+                prettyWrite(stringLit);
+                prettyWrite("\'");
+            } else {
+                prettyWrite("\"");
+                prettyWrite(stringLit);
+                prettyWrite("\"");
+            }
+            return;
+        }
+    
     }
 
     @Override

@@ -38,7 +38,7 @@ public class AspForStmt extends AspCompoundStmt{
         name.prettyPrint();
         prettyWrite(" " + TokenKind.inToken.toString() + " ");
         expr.prettyPrint();
-        prettyWrite(TokenKind.colonToken.toString());
+        prettyWrite(TokenKind.colonToken.toString() + " ");
         sui.prettyPrint();
     }
 

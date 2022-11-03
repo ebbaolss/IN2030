@@ -36,7 +36,15 @@ public class AspTerm extends AspSyntax {
     
     @Override
     void prettyPrint() {
-        int cnt = 0;
+        for (int i = 0; i < fac.size(); i++) {
+            fac.get(i).prettyPrint();
+            
+            if (i < teropr.size()) {
+                teropr.get(i).prettyPrint();
+            }
+        }
+
+        /*int cnt = 0;
 
         for (AspFactor aspFactor : fac) {
             aspFactor.prettyPrint();
@@ -46,7 +54,7 @@ public class AspTerm extends AspSyntax {
             }
 
             cnt++;
-        }
+        }*/
     }
 
     @Override

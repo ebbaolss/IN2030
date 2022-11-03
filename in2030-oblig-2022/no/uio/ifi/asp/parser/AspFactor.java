@@ -26,6 +26,9 @@ public class AspFactor extends AspSyntax {
                 fac.facpre.add(AspFactorPrefix.parse(s));
                 fac.b = true;
             }
+            else {
+                fac.facpre.add(null);
+            }
             fac.prim.add(AspPrimary.parse(s));
 
             f = false;
@@ -41,17 +44,16 @@ public class AspFactor extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        int cnt = 0;
-        for (AspPrimary aspPrimary : prim) {
+        for (int i = 0; i < prim.size(); i++) {
+            if (facpre.get(i) != null) {
+                facpre.get(i).prettyPrint();
+            }
+            prim.get(i).prettyPrint();
+
+            if (i < prim.size() - 1) {
+                facopr.get(i).prettyPrint();
+            }
             
-            if (cnt > 0 && cnt < facopr.size()) {
-                facopr.get(cnt).prettyPrint();
-            }
-            if (facpre.size() > cnt) {
-                facpre.get(cnt).prettyPrint();
-            }
-            aspPrimary.prettyPrint();
-            cnt++;
         }
     }
 

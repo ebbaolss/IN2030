@@ -34,7 +34,7 @@ class AspWhileStmt extends AspCompoundStmt {
     void prettyPrint() {
         prettyWrite(p + " ");
         test.prettyPrint();
-        prettyWrite(TokenKind.colonToken.toString());
+        prettyWrite(TokenKind.colonToken.toString() + " ");
         body.prettyPrint();
     }
 }

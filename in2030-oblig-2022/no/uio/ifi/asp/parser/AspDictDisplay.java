@@ -42,14 +42,14 @@ public class AspDictDisplay extends AspAtom {
     @Override
     void prettyPrint() {
         prettyWrite(TokenKind.leftBracketToken.toString());
-        int cnt = 0;
-        for (AspStringLiteral aspStringLiteral : strl) {
-            if (cnt > 0) {
+
+        for (int i = 0; i < strl.size(); i++) {
+            if (i > 0) {
                 prettyWrite(TokenKind.commaToken.toString() + " ");
             }
-            aspStringLiteral.prettyPrint();
-            prettyWrite(TokenKind.colonToken.toString());
-            exp.get(0).prettyPrint();
+            strl.get(i).prettyPrint();
+            prettyWrite(" " + TokenKind.colonToken.toString() + " ");
+            exp.get(i).prettyPrint();
         }
         prettyWrite(TokenKind.rightBracketToken.toString());
     }

@@ -28,7 +28,6 @@ public class AspSuite extends AspSyntax {
             }
 
             skip(s, TokenKind.dedentToken);
-            System.out.println(s.curToken().kind);
         } else {
             as.smallstmt = AspSmallStmtList.parse(s);
         }
@@ -45,7 +44,6 @@ public class AspSuite extends AspSyntax {
                 for (AspStmt aspStmt : stmt) {
                     aspStmt.prettyPrint();
                 }
-
                 prettyDedent();
             }
             else {
