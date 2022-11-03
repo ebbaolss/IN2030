@@ -33,10 +33,7 @@ public class AspFactor extends AspSyntax {
                 fac.facopr.add(AspFactorOpr.parse(s));
                 f = true;
             }
-            
         }
-        
-
         
         leaveParser("factor");
         return fac;

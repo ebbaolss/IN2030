@@ -125,4 +125,16 @@
                               </factor opr>
                               <primary>
                                 <atom>
-Asp parser error on line 6: Expected an expression atom but found a /!
+                                  <float literal>
+                                  </float literal>
+                                </atom>
+                              </primary>
+                            </factor>
+                          </term>
+                        </comparison>
+                      </not test>
+                    </and test>
+                  </expr>
+                </assignment>
+              </small stmt>
+Asp parser error on line 6: Expected NEWLINE but found integer literal!

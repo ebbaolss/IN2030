@@ -14,6 +14,21 @@ public class AspGlobalStmt extends AspSmallStmt{
 
     static AspGlobalStmt parse(Scanner s) {
         enterParser("global stmt");
+        AspGlobalStmt ags = new AspGlobalStmt(s.curLineNum());
+        ags.name = new ArrayList <> ();
+        skip(s, TokenKind.globalToken);
+        ags.name.add(AspName.parse(s));
+        
+        while (s.curToken().kind == TokenKind.commaToken) {
+            skip(s, TokenKind.commaToken);
+            ags.name.add(AspName.parse(s));
+        }
+
+        leaveParser("global stmt");
+        return ags;
+
+
+        /*enterParser("global stmt");
 
         AspGlobalStmt ags = new AspGlobalStmt(s.curLineNum());
 
@@ -30,8 +45,9 @@ public class AspGlobalStmt extends AspSmallStmt{
         }
         
         leaveParser("global stmt");
-        return ags;
+        return ags;*/
     }
+
     @Override
     void prettyPrint() {
         

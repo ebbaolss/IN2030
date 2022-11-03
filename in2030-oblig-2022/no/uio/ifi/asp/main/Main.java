@@ -107,7 +107,6 @@ public class Main {
 		}
     }
 
-
     private static void doRunInterpreter(Scanner s) {
 	AspProgram prog = AspProgram.parse(s);
 	if (log.doLogPrettyPrint) {
@@ -140,11 +139,9 @@ public class Main {
 			error(m + " ***: " + message);
     }
 
-
     public static void panic(String message) {
 		panic(message, 0);
     }
-
 
     private static void usage() {
 		error("Usage: java -jar asp.jar " + "[-log{E|P|S|Y}] [-test{expr|parser|scanner}] file");

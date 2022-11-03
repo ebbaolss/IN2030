@@ -14,11 +14,6 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return "integer";
     }
 
-    /*@Override 
-    public String toString() {
-        return String.valueOf(integerValue);
-    }*/
-
     @Override
     public String getStringValue(String what, AspSyntax where) {
         return Long.toString(integerValue);
@@ -28,7 +23,8 @@ public class RuntimeIntegerValue extends RuntimeValue {
     public boolean getBoolValue(String what, AspSyntax where) {
         if(integerValue == 0) {
             return false;
-        } else {
+        } 
+        else {
             return true;
         }
     }
@@ -85,11 +81,10 @@ public class RuntimeIntegerValue extends RuntimeValue {
     @Override
     public RuntimeValue evalEqual(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
-            //If equal, sets to true
             return new RuntimeBoolValue(integerValue == v.getIntValue("== operand", where));
-        } 
-        else if (v instanceof RuntimeFloatValue) {
-            //If equal, sets to false
+        } else if (v instanceof RuntimeFloatValue) {
+            return new RuntimeBoolValue(integerValue == v.getFloatValue("== operand", where));
+        } else if (v instanceof RuntimeNoneValue) {
             return new RuntimeBoolValue(integerValue == v.getFloatValue("== operand", where));
         }
         runtimeError("Type error for '=='", where);
@@ -101,9 +96,10 @@ public class RuntimeIntegerValue extends RuntimeValue {
     public RuntimeValue evalNotEqual(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             return new RuntimeBoolValue(integerValue != v.getIntValue("!= operand", where));
-        } 
-        else if (v instanceof RuntimeFloatValue) {
+        } else if (v instanceof RuntimeFloatValue) {
             return new RuntimeBoolValue(integerValue != v.getFloatValue("!= operand", where));
+        } else if (v instanceof RuntimeNoneValue) {
+            return new RuntimeBoolValue(integerValue == v.getFloatValue("!= operand", where));
         }
         runtimeError("Type error for '!='", where);
         return null;    

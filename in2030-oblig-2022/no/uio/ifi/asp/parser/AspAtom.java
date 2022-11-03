@@ -6,16 +6,18 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspAtom extends AspSyntax {
-    
+    static AspAtom aa;
+
     AspAtom(int n) {
         super(n);
     }
-    
+
     static AspAtom parse(Scanner s) {
         enterParser("atom");
 
-        AspAtom aa = null;
+        aa = null;
         
+        System.out.println();
         switch (s.curToken().kind) {
         case falseToken:
         case trueToken:

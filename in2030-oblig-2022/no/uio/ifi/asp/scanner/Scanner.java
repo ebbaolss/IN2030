@@ -2,6 +2,7 @@
 // testkjør:: java -jar asp.jar -testparser test.asp
 // scannerkjør::  java -jar asp.jar -testscanner boble.asp
 // prettyprint:: java -jar asp.jar -logY -testparser palindrom.asp
+// runtimevalue:: java -jar asp.jar -testexpr simple-exprs.asp
 
 package no.uio.ifi.asp.scanner;
 import java.io.*;
@@ -194,10 +195,6 @@ public class Scanner {
 						curLineTokens.add(new Token(doubleEqualToken, curLineNum()));
 						teller = i + 1;
 					}
-					else if (ch[i] == '/' && ch[i + 1] == '/') {
-						curLineTokens.add(new Token(doubleSlashToken, curLineNum()));
-						teller = i + 1;
-					}
 					else {
 						for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
 							if (n.name.equals(t.toString())) {
@@ -219,6 +216,10 @@ public class Scanner {
 					} 
 					else if (ch[i] == '<' && ch[i + 1] == '=') {
 						curLineTokens.add(new Token(lessEqualToken, curLineNum()));
+						teller = i + 1;
+					} 
+					else if (ch[i] == '/' && ch[i + 1] == '/') {
+						curLineTokens.add(new Token(doubleSlashToken, curLineNum()));
 						teller = i + 1;
 					} 
 					else {

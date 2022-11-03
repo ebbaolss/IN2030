@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspName extends AspAtom {
-    String p;
+    public String p;
     
     AspName(int n) {
         super(n);
