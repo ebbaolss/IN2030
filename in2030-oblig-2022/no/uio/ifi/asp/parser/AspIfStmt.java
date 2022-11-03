@@ -31,6 +31,8 @@ public class AspIfStmt extends AspCompoundStmt{
             if (s.curToken().kind == TokenKind.elifToken) {
                 skip(s, TokenKind.elifToken);
                 f = true;
+            } else {
+                break;
             }
         }
     
@@ -38,6 +40,7 @@ public class AspIfStmt extends AspCompoundStmt{
             skip(s, TokenKind.elseToken);
             skip(s, TokenKind.colonToken);
             is.sui2 = AspSuite.parse(s);
+            //is.sui.add(is.sui2);
             is.b = true;
         }
         

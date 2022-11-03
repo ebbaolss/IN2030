@@ -1142,3 +1142,17 @@
   </stmt>
 </program>
 
+n = 1000 
+primes = [True](n + 1) 
+def find_primes ():
+  for i1 in range(2, n + 1):
+    i2 = i1i1 
+    while i2 <= n:
+      primes[i2] = False 
+      i2 = i2 + i1 
+def format (nw):
+  res = str(n) 
+  while len(res) < w:res = " " + res 
+  return res 
+def list_primes ():
+  n_printed = 0 

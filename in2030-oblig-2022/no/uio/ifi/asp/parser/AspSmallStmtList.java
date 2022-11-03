@@ -49,10 +49,9 @@ public class AspSmallStmtList extends AspStmt{
             aspSmallStmt.prettyPrint();
             cnt++;
         }
-        if (p != null) {
-            //prettyWrite(p);
+        if (p == null) {
+            prettyWriteLn(" ");
         }
-        prettyWriteLn();
     }
 
     @Override

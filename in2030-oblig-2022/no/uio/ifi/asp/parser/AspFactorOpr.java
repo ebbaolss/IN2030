@@ -6,6 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFactorOpr extends AspSyntax {
+    ArrayList<AspFactorOpr> facopr = new ArrayList<>();
     String factorOpr;
     
     AspFactorOpr(int n) {
@@ -16,7 +17,8 @@ public class AspFactorOpr extends AspSyntax {
         enterParser("factor opr");
         
         AspFactorOpr afo = new AspFactorOpr(s.curLineNum());
-        afo.factorOpr = s.curToken().name;
+        
+        //System.out.println(".." + afo.factorOpr.toString());
         
         if (s.curToken().kind == TokenKind.astToken) {
             skip(s, TokenKind.astToken);
@@ -38,7 +40,8 @@ public class AspFactorOpr extends AspSyntax {
 
     @Override
     void prettyPrint() {
-        prettyWrite(factorOpr);
+        System.out.println(".." + factorOpr);
+        prettyWrite(" -- ");
     }
 
     @Override

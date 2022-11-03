@@ -22,14 +22,13 @@ public class AspSuite extends AspSyntax {
         if (s.curToken().kind == TokenKind.newLineToken){
             skip(s, TokenKind.newLineToken);
             skip(s, TokenKind.indentToken);
-            boolean f = true;
-            while (f == true) {
+
+            while (s.curToken().kind != TokenKind.dedentToken) {
                 as.stmt.add(AspStmt.parse(s));
-                if (s.curToken().kind == TokenKind.dedentToken) {
-                    f = false;
-                }
             }
+
             skip(s, TokenKind.dedentToken);
+            System.out.println(s.curToken().kind);
         } else {
             as.smallstmt = AspSmallStmtList.parse(s);
         }

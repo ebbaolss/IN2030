@@ -63,6 +63,11 @@ public class Scanner {
 			if (line == null) {
 				sourceFile.close();
 				sourceFile = null;
+				for (int i = 0; i < indents.size(); i++) {
+					if (indents.get(i) > 0) {
+						curLineTokens.add(new Token(dedentToken, curLineNum()));
+					}
+				}
 				curLineTokens.add(new Token(eofToken, curLineNum())); // Indicates E-O-F
 			} else {
 				Main.log.noteSourceLine(curLineNum(), line);
@@ -106,25 +111,28 @@ public class Scanner {
 				teller = i;
 				if (isDigit(ch[i])) {
 					s += ch[i];
-					boolean f = false;
+					boolean isFloat = false;
 					for (int j = i; j < ch.length; j++) {
 						if (j + 1 >= ch.length) {
 							teller = j;
 							break;
 						}
 						// float check
-						f = false;
+						isFloat = false;
 						if (ch[j + 1] == '.') {
-							// s += ch[j + 1];
-							f = true;
-							j++;
-							teller = j;
+							s += ch[j+1];
+							teller = j+2;
+							int c2 = teller;
+							while (c2 < ch.length) {
+								s += ch[c2];
+								c2++;
+							}
+							isFloat = true;
 							break;
 						}
 
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 							// hvis tall er float
-
 							teller = j;
 
 							break;
@@ -133,7 +141,7 @@ public class Scanner {
 						}
 
 					}
-					if (f == true) { // får ikke denne til å fungere, noe feil med true/false
+					if (isFloat == true) { // får ikke denne til å fungere, noe feil med true/false
 						Token t = new Token(floatToken, curLineNum());
 						t.floatLit = Double.parseDouble(s);
 						curLineTokens.add(t);
