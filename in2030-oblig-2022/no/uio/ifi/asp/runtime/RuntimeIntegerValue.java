@@ -8,10 +8,19 @@ public class RuntimeIntegerValue extends RuntimeValue {
     public RuntimeIntegerValue(long v) {
         integerValue = v;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(integerValue);
+    }
     
     @Override
     String typeName() {
         return "integer";
+    }
+
+    public String showInfo() {
+        return toString();
     }
 
     @Override
@@ -131,7 +140,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
     }
     
 
-    public RuntimeValue  evalMultiply(RuntimeValue v, AspSyntax where) {
+    public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             return new RuntimeIntegerValue(integerValue * v.getIntValue("* operand", where));
         } 

@@ -13,6 +13,21 @@ public class RuntimeListValue extends RuntimeValue {
     protected String typeName() {
         return "[]";
     }
+
+    public String showInfo() {
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @Override
+    public String getStringValue(String what, AspSyntax where) {
+        runtimeError("Type error: " + what + " is not a text string!", where);
+        return value.toString();
+    }
     
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
@@ -26,12 +41,34 @@ public class RuntimeListValue extends RuntimeValue {
     public RuntimeValue evalLen(AspSyntax where) {
         return new RuntimeIntegerValue(value.size());
     }
+    
+    /* 
+    @Override
+    public RuntimeValue evalEqual(RuntimeValue v, AspSyntax where) {
+        if (v instanceof RuntimeIntegerValue) {
+            return new RuntimeBoolValue(value == v.getIntValue("== operand", where));
+        } else if (v instanceof RuntimeFloatValue) {
+            return new RuntimeBoolValue(integerValue == v.getFloatValue("== operand", where));
+        } else if (v instanceof RuntimeNoneValue) {
+            return new RuntimeBoolValue(integerValue == v.getFloatValue("== operand", where));
+        }
+        runtimeError("Type error for '=='", where);
+        return null;    
+    }
 
     @Override
-    public String getStringValue(String what, AspSyntax where) {
-        runtimeError("Type error: " + what + " is not a text string!", where);
-        return value.toString();
+    public RuntimeValue evalNotEqual(RuntimeValue v, AspSyntax where) {
+        if (v instanceof RuntimeIntegerValue) {
+            return new RuntimeBoolValue(integerValue != v.getIntValue("!= operand", where));
+        } else if (v instanceof RuntimeFloatValue) {
+            return new RuntimeBoolValue(integerValue != v.getFloatValue("!= operand", where));
+        } else if (v instanceof RuntimeNoneValue) {
+            return new RuntimeBoolValue(integerValue == v.getFloatValue("!= operand", where));
+        }
+        runtimeError("Type error for '!='", where);
+        return null;    
     }
+    */
 
     @Override
     public RuntimeValue evalNot(AspSyntax where) {
@@ -55,5 +92,14 @@ public class RuntimeListValue extends RuntimeValue {
             return new RuntimeListValue(returnList);
         }
         return null;
+    }
+
+    public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+        runtimeError("Subscription '[...]' undefined for " + typeName() + "!", where);
+        return null;  // Required by the compiler!
+    }
+
+    public void evalAssignElem(RuntimeValue inx, RuntimeValue val, AspSyntax where) {
+        runtimeError("Assigning to an element not allowed for " + typeName() + "!", where);
     }
 }

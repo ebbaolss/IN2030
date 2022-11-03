@@ -10,6 +10,15 @@ public class RuntimeStringValue extends RuntimeValue {
     }
 
     @Override
+    public String toString() {
+        return String.valueOf(stringValue);
+    }
+
+    public String showInfo() {
+        return toString();
+    }
+
+    @Override
     protected String typeName() {
         return "string";
     }
@@ -138,5 +147,11 @@ public class RuntimeStringValue extends RuntimeValue {
         }
         runtimeError("Type error for '>='", where);
         return null;
+    }
+
+    //benyttes for å hente et element med angitt index fra en tekst, en liste eller en ordbok
+    public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+        runtimeError("Subscription '[...]' undefined for " + typeName() + "!", where);
+        return null;  // Required by the compiler!
     }
 }

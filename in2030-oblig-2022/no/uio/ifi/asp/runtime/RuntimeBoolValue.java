@@ -17,6 +17,10 @@ public class RuntimeBoolValue extends RuntimeValue {
         return "boolean";
     }
 
+    public String showInfo() {
+        return toString();
+    }
+
     @Override 
     public String toString() {
         return (boolValue ? "True" : "False");
