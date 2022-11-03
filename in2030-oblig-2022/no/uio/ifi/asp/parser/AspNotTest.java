@@ -18,9 +18,8 @@ public class AspNotTest extends AspSyntax {
         enterParser("not test");
 
         AspNotTest ant = new AspNotTest(s.curLineNum());
-        TokenKind cur = s.curToken().kind;
         
-        if (cur == TokenKind.notToken) {
+        if (s.curToken().kind == TokenKind.notToken) {
             ant.p = TokenKind.notToken.toString();
             skip(s, TokenKind.notToken);
         }

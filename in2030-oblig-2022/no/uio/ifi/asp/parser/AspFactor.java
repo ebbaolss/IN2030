@@ -39,6 +39,22 @@ public class AspFactor extends AspSyntax {
         return fac;
     }
 
+    /*@Override
+    void prettyPrint() {
+        int cnt = 0;
+        
+        for (AspPrimary aspPrimary : prim) {
+            if (cnt > 0) {
+                facopr.get(cnt).prettyPrint();
+            }
+            if (facpre.size() > cnt) {
+                facpre.get(cnt).prettyPrint();
+            }
+            aspPrimary.prettyPrint();
+            cnt++;
+        }
+    }*/
+
     @Override
     void prettyPrint() {
         int cnt = 0;
@@ -54,6 +70,7 @@ public class AspFactor extends AspSyntax {
             cnt++;
         }
     }
+
 
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {

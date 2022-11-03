@@ -16,7 +16,6 @@ public class AspNoneLiteral extends AspAtom {
         enterParser("none literal");
 
         AspNoneLiteral anl = new AspNoneLiteral(s.curLineNum());
-        // AspNoneLiteral anl = new AspNoneLiteral(s.curLineNum());
         anl.noneLiteral = s.curToken().name;
         skip(s, noneToken);
 

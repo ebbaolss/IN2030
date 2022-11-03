@@ -26,26 +26,6 @@ public class AspGlobalStmt extends AspSmallStmt{
 
         leaveParser("global stmt");
         return ags;
-
-
-        /*enterParser("global stmt");
-
-        AspGlobalStmt ags = new AspGlobalStmt(s.curLineNum());
-
-        skip(s, TokenKind.globalToken);
-
-        boolean f = true;
-        while (f == true) {
-            ags.name.add(AspName.parse(s));
-            f = false;
-            if (s.curToken().kind == TokenKind.commaToken) {
-                skip(s, TokenKind.commaToken);
-                f = true;
-            }
-        }
-        
-        leaveParser("global stmt");
-        return ags;*/
     }
 
     @Override

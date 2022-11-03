@@ -17,22 +17,20 @@ public class AspFactorPrefix extends AspSyntax {
         
         AspFactorPrefix afp = new AspFactorPrefix(s.curLineNum());
         afp.factorPrefix = s.curToken().name;
-        TokenKind cur = s.curToken().kind;
         
-        if (cur == TokenKind.plusToken) {
+        if (s.curToken().kind == TokenKind.plusToken) {
             skip (s, TokenKind.plusToken);
             afp.factorPrefix = "+";
             leaveParser("factor prefix");
             return afp;
         }
-        else if (cur == TokenKind.minusToken) {
+        else if (s.curToken().kind == TokenKind.minusToken) {
             skip (s, TokenKind.minusToken);
             afp.factorPrefix = "-";
             leaveParser("factor prefix");
             return afp;
         }
-        //leaveParser("factor prefix");
-        //return afp;
+       
         return null;
     }
 

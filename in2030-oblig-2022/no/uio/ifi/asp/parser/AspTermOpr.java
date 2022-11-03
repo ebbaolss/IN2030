@@ -17,12 +17,11 @@ public class AspTermOpr extends AspSyntax {
         enterParser("term opr");
         AspTermOpr ato = new AspTermOpr(s.curLineNum());
         ato.p = s.curToken().toString();
-        TokenKind cur = s.curToken().kind;
         
-        if (cur == plusToken) {  
+        if (s.curToken().kind == plusToken) {  
             skip (s, plusToken);
         }
-        else if (cur == minusToken) {
+        else if (s.curToken().kind == minusToken) {
             skip (s, minusToken);
         }
         leaveParser("term opr");

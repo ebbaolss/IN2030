@@ -17,23 +17,18 @@ public class AspFactorOpr extends AspSyntax {
         
         AspFactorOpr afo = new AspFactorOpr(s.curLineNum());
         afo.factorOpr = s.curToken().name;
-        TokenKind cur = s.curToken().kind;
-        System.out.println(s.curToken().kind);
         
-        if (cur == TokenKind.astToken) {
+        if (s.curToken().kind == TokenKind.astToken) {
             skip(s, TokenKind.astToken);
         }
-        else if (cur == TokenKind.doubleSlashToken) {
-            System.out.println("heeii");
+        else if (s.curToken().kind == TokenKind.doubleSlashToken) {
             skip(s, TokenKind.doubleSlashToken);
-            System.out.println("heeiiwdawdaw");
         }
-        else if (cur == TokenKind.slashToken) {
-            System.out.println("feil her");
+        else if (s.curToken().kind == TokenKind.slashToken) {
             skip(s, TokenKind.slashToken);
             
         }
-        else if (cur == TokenKind.percentToken) {
+        else if (s.curToken().kind == TokenKind.percentToken) {
             skip(s, TokenKind.percentToken);
         }
         

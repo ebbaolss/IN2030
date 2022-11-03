@@ -16,13 +16,12 @@ public class AspBooleanLiteral extends AspAtom {
         enterParser("boolean literal");
 
         AspBooleanLiteral abl = new AspBooleanLiteral(s.curLineNum());
-        TokenKind cur = s.curToken().kind;
         
-        if (cur == trueToken) {
+        if (s.curToken().kind == trueToken) {
             abl.booleanLiteral = true;
             skip(s, trueToken);
         }
-        else if (cur == falseToken) {
+        else if (s.curToken().kind == falseToken) {
             skip(s, falseToken);
         }
 

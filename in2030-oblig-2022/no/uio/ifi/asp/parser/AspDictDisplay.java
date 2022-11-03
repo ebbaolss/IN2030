@@ -21,14 +21,13 @@ public class AspDictDisplay extends AspAtom {
         skip(s, leftBraceToken);
         AspDictDisplay add = new AspDictDisplay(s.curLineNum());
         add.dictDisplay = s.curToken().name;
-        TokenKind cur = s.curToken().kind;
 
         while (s.curToken().kind != TokenKind.rightBraceToken) {
             add.strl.add(AspStringLiteral.parse(s));
             skip(s, TokenKind.colonToken);
             add.exp.add(AspExpr.parse(s));
 
-            if (cur != TokenKind.commaToken) {
+            if (s.curToken().kind != TokenKind.commaToken) {
                 break;
             } else {
                 skip(s, TokenKind.commaToken);

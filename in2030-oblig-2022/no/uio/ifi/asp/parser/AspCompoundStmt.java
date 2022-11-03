@@ -15,18 +15,17 @@ abstract class AspCompoundStmt extends AspStmt {
         enterParser("compound stmt");
         
         AspCompoundStmt acs = null;
-        TokenKind cur = s.curToken().kind;
         
-        if (cur == TokenKind.forToken) {
+        if (s.curToken().kind == TokenKind.forToken) {
             acs = AspForStmt.parse(s);
         }
-        else if (cur == TokenKind.ifToken) {
+        else if (s.curToken().kind == TokenKind.ifToken) {
             acs = AspIfStmt.parse(s);
         }
-        else if (cur == TokenKind.whileToken) {
+        else if (s.curToken().kind == TokenKind.whileToken) {
             acs = AspWhileStmt.parse(s);
         }
-        else if (cur == TokenKind.defToken) {
+        else if (s.curToken().kind == TokenKind.defToken) {
             acs = AspFuncDef.parse(s);
         }
         else {

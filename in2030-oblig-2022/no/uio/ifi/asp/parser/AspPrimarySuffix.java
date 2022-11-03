@@ -24,6 +24,8 @@ public abstract class AspPrimarySuffix extends AspSyntax {
             case leftBracketToken:
                 aps = AspSubscription.parse(s); 
                 break;
+            default:
+                parserError("Expected an expression primary suffix but found a " + s.curToken().kind + "!", s.curLineNum());    
         }        
         
         leaveParser("primary suffix");

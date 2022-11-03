@@ -28,8 +28,7 @@ public class AspSmallStmtList extends AspStmt{
             }
         }
 
-        TokenKind cur = s.curToken().kind;
-        if (cur == TokenKind.semicolonToken) {
+        if (s.curToken().kind == TokenKind.semicolonToken) {
             skip(s, TokenKind.semicolonToken);
             assl.p = TokenKind.semicolonToken.toString();
         }

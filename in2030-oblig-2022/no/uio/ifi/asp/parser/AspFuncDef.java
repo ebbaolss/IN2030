@@ -24,28 +24,15 @@ public class AspFuncDef extends AspCompoundStmt{
         afd.name = AspName.parse(s);
         skip(s, leftParToken);
         
-        TokenKind cur = s.curToken().kind;
-        boolean f = true;
-
-        while (cur != TokenKind.rightParToken) {
+        while (s.curToken().kind != TokenKind.rightParToken) {
             afd.nam.add(AspName.parse(s));
-            if(cur != TokenKind.commaToken) {
+            
+            if(s.curToken().kind != TokenKind.commaToken) {
                 break;
             }
+            
             skip(s, TokenKind.commaToken);
         }
-
-        /* 
-        while (f == true) {
-            if (cur == TokenKind.nameToken) {
-                afd.nam.add(AspName.parse(s));
-            }
-            f = false;
-            if (cur == TokenKind.commaToken) {
-                skip(s, commaToken);
-                f = true;
-            }
-        }*/
 
         skip(s, rightParToken);
         skip(s, colonToken);
