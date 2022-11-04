@@ -18,6 +18,7 @@ public class AspCompOpr extends AspSyntax {
         
         AspCompOpr aco = new AspCompOpr(s.curLineNum());
         aco.CompOpr = s.curToken().toString();
+        aco.kind = s.curToken().kind;
 
         skip(s, s.curToken().kind);
         
@@ -32,7 +33,6 @@ public class AspCompOpr extends AspSyntax {
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        // -- Must be changed in part 3:
         return null;
     }
 }

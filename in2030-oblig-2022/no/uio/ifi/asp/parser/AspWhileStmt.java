@@ -6,8 +6,8 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 class AspWhileStmt extends AspCompoundStmt {
-    AspExpr test;
-    AspSuite body;
+    AspExpr expr;
+    AspSuite sui;
     String p;
 
     AspWhileStmt(int n) {
@@ -22,9 +22,9 @@ class AspWhileStmt extends AspCompoundStmt {
 
         skip(s, whileToken); 
 
-        aws.test = AspExpr.parse(s); 
+        aws.expr = AspExpr.parse(s); 
         skip(s, colonToken); 
-        aws.body = AspSuite.parse(s);
+        aws.sui = AspSuite.parse(s);
         
         leaveParser("while stmt");
         return aws; 
@@ -33,8 +33,26 @@ class AspWhileStmt extends AspCompoundStmt {
     @Override
     void prettyPrint() {
         prettyWrite(p + " ");
-        test.prettyPrint();
+        expr.prettyPrint();
         prettyWrite(TokenKind.colonToken.toString() + " ");
-        body.prettyPrint();
+        sui.prettyPrint();
+    }
+
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+
+        while (true) {
+            RuntimeValue v = expr.eval(curScope);
+
+            if (!v.getBoolValue("while loop", this)) {
+                break;
+            }
+
+            trace("while True: ...");
+            sui.eval(curScope);
+        }
+
+        trace("while False:");
+
+        return null;
     }
 }

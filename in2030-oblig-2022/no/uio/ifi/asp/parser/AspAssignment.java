@@ -50,15 +50,8 @@ public class AspAssignment extends AspSmallStmt{
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        while (true) {
-            RuntimeValue rtv = expr.eval(curScope);
-            if (!rtv.getBoolValue("while",this)){
-            trace("while True: ...");
-            break;
-        }
-        trace("while False:");
-        rtv = expr.eval(curScope);
-        }
+        RuntimeValue evaluetedExpr = expr.eval(curScope);
+        String traceString = "";
         return null;
     }
 }

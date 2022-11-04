@@ -13,6 +13,10 @@ public class RuntimeFloatValue extends RuntimeValue {
     protected String typeName() {
         return "float";
     }
+    
+    public String showInfo() {
+        return floatValue + "";
+    }
 
     @Override
     public String getStringValue(String what, AspSyntax where) {

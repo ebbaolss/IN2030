@@ -7,6 +7,8 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFactorOpr extends AspSyntax {
     Token factorOpr;
+    TokenKind kind;
+    String p;
     
     AspFactorOpr(int n) {
         super(n);
@@ -17,6 +19,8 @@ public class AspFactorOpr extends AspSyntax {
         
         AspFactorOpr afo = new AspFactorOpr(s.curLineNum());
         afo.factorOpr = s.curToken();
+        afo.kind = s.curToken().kind;
+        afo.p = s.curToken().toString();
         if (s.curToken().kind == TokenKind.astToken) {
             skip(s, TokenKind.astToken);
         }
@@ -43,7 +47,6 @@ public class AspFactorOpr extends AspSyntax {
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        // -- Must be changed in part 3:
         return null;
     }
 }

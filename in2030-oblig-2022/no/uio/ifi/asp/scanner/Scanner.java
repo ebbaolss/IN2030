@@ -58,7 +58,6 @@ public class Scanner {
 		// Read the next line:
 		String line = null;
 		try {
-			// System.out.println("***>>>" + sourceFile);
 			line = sourceFile.readLine();
 			if (line == null) {
 				sourceFile.close();
@@ -124,12 +123,17 @@ public class Scanner {
 							teller = j+2;
 							int c2 = teller;
 							while (c2 < ch.length) {
+								if (!isDigit(ch[c2])) {
+									break;
+								}
 								s += ch[c2];
 								c2++;
 							}
+							teller = c2;
 							isFloat = true;
 							break;
 						}
+						i = teller;
 
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 							// hvis tall er float

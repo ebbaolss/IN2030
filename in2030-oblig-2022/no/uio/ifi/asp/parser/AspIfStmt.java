@@ -35,7 +35,7 @@ public class AspIfStmt extends AspCompoundStmt{
                 break;
             }
         }
-    
+        
         if (s.curToken().kind == TokenKind.elseToken) {
             skip(s, TokenKind.elseToken);
             skip(s, TokenKind.colonToken);

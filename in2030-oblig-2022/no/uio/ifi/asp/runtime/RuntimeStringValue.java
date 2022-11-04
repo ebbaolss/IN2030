@@ -14,6 +14,10 @@ public class RuntimeStringValue extends RuntimeValue {
         return "string";
     }
 
+    public String showInfo() {
+        return "\'" + stringValue + "\'";
+    }
+
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
         if (stringValue.isEmpty()) {
@@ -29,7 +33,6 @@ public class RuntimeStringValue extends RuntimeValue {
 
     @Override
     public String getStringValue(String what, AspSyntax where) {
-        runtimeError("Type error: " + what + " is not a text string!", where);
         return stringValue;
     }
 
@@ -43,8 +46,9 @@ public class RuntimeStringValue extends RuntimeValue {
 
     @Override
     public RuntimeValue evalAdd(RuntimeValue v, AspSyntax where) {
+        
         if (v instanceof RuntimeStringValue) {
-            return new RuntimeStringValue(stringValue + v.getStringValue("+", where));
+            return new RuntimeStringValue(stringValue.concat(v.getStringValue(null, where)));
         } 
         runtimeError("Type error for '+'" + typeName() + "!", where);
         return null;
@@ -138,5 +142,16 @@ public class RuntimeStringValue extends RuntimeValue {
         }
         runtimeError("Type error for '>='", where);
         return null;
+    }
+
+    public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+        RuntimeValue v1 = null;
+        char x;
+        if (v instanceof RuntimeIntegerValue) {
+            int i = (int) (v.getIntValue("[]", where));
+            x = stringValue.charAt(i);
+            v1 = new RuntimeStringValue(String.valueOf(x));
+        }
+        return v1;
     }
 }

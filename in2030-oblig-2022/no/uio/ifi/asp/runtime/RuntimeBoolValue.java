@@ -22,6 +22,10 @@ public class RuntimeBoolValue extends RuntimeValue {
         return (boolValue ? "True" : "False");
     }
 
+    public String showInfo() {
+        return toString();
+    }
+
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
         return boolValue;
@@ -51,4 +55,3 @@ public class RuntimeBoolValue extends RuntimeValue {
         }
 }
 
-/* Runtime String, Float, Integer, List og Dict; */

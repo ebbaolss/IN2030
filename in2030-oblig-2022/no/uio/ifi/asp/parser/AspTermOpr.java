@@ -17,7 +17,7 @@ public class AspTermOpr extends AspSyntax {
         enterParser("term opr");
         AspTermOpr ato = new AspTermOpr(s.curLineNum());
         ato.p = s.curToken().toString();
-        
+        ato.cur = s.curToken().kind;
         if (s.curToken().kind == plusToken) {  
             skip (s, plusToken);
         }
@@ -35,6 +35,6 @@ public class AspTermOpr extends AspSyntax {
 
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        return null;
+        return new RuntimeStringValue(p);
     }
 }

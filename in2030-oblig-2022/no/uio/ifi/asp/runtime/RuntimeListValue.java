@@ -13,7 +13,21 @@ public class RuntimeListValue extends RuntimeValue {
     protected String typeName() {
         return "[]";
     }
-    
+
+    public String showInfo() {
+        return "" + value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @Override
+    public String getStringValue(String what, AspSyntax where) {
+        return what;
+    }
+
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
         if (value == null) {
@@ -28,27 +42,20 @@ public class RuntimeListValue extends RuntimeValue {
     }
 
     @Override
-    public String getStringValue(String what, AspSyntax where) {
-        runtimeError("Type error: " + what + " is not a text string!", where);
-        return value.toString();
-    }
-
-    @Override
     public RuntimeValue evalNot(AspSyntax where) {
         if (value == null) {
             return new RuntimeBoolValue(true);
         }
         return new RuntimeBoolValue(false);
     }
-    
+
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
-            //int valueV = (int) v.getIntValue("* operand", where);
-            //int length = value.size()* valueV;
-            ArrayList<RuntimeValue> returnList = new ArrayList<>();
-            for (int j = 0; j<v.getIntValue(v.toString(), where); j++) {
+            int valueV = (int) v.getIntValue("* operand", where);
+            int length = value.size() * valueV;
+            ArrayList<RuntimeValue> returnList = new ArrayList<>(length);
+            for (int j = 0; j < length; j++) {
                 for (int i = 0; i < value.size(); i++) {
-                    //RuntimeValue a = value.get(i).toString().repeat((int) v.getIntValue("*", where));
                     returnList.add(value.get(i));
                 }
             }
@@ -56,4 +63,15 @@ public class RuntimeListValue extends RuntimeValue {
         }
         return null;
     }
+
+    public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+        System.out.println("jeg er her ");
+        RuntimeValue v1 = null;
+        if (v instanceof RuntimeIntegerValue) {
+            int i = (int) (v.getIntValue("[]", where));
+            v1 = value.get(i);
+        }
+        return v1;
+    }
+
 }

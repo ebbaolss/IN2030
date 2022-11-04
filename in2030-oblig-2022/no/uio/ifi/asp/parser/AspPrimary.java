@@ -9,6 +9,7 @@ public class AspPrimary extends AspSyntax {
     ArrayList<AspPrimarySuffix> prisuf = new ArrayList<>();
     AspAtom atm;
     String primary;
+    TokenKind kind;
 
     AspPrimary(int n) {
         super(n);
@@ -20,7 +21,7 @@ public class AspPrimary extends AspSyntax {
         AspPrimary ap = new AspPrimary(s.curLineNum());
         ap.primary = s.curToken().name;
         ap.atm = AspAtom.parse(s);
-
+        ap.kind = s.curToken().kind;
         if(s.curToken().kind == TokenKind.leftParToken|| s.curToken().kind == TokenKind.leftBracketToken) {
             ap.prisuf.add(AspPrimarySuffix.parse(s));
         }
@@ -47,6 +48,16 @@ public class AspPrimary extends AspSyntax {
 
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        return null;
+        RuntimeValue v = atm.eval(curScope);
+
+        for (AspPrimarySuffix aspPrimarySuffix : prisuf) {
+            if (aspPrimarySuffix instanceof AspSubscription) {
+                v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
+            } 
+            else {
+                //del4
+            }
+        }
+        return v;
     }
 }

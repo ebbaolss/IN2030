@@ -60,6 +60,106 @@ public class AspFactor extends AspSyntax {
 
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        return null;
+
+        RuntimeValue v = prim.get(0).eval(curScope);
+        if (facpre.size() != 0) {
+            if (facpre.get(0) != null) {
+                TokenKind k = facpre.get(0).kind;
+                switch (k) {
+                    case plusToken:
+                        v = v.evalPositive(this);
+                        break;
+                    case minusToken:
+                        v = v.evalNegate(this);
+                        break;
+                    default:
+                        Main.panic("Illegal Factor operator" + k + "!");
+                }
+            }
+        }
+
+            for (int i = 1; i < prim.size(); i++) {
+                TokenKind k = facopr.get(i-1).kind;
+                RuntimeValue next = prim.get(i).eval(curScope);
+                if (facpre.get(i) != null) {
+                    TokenKind n = facpre.get(i).kind;
+                    switch (n) {
+                        case plusToken:
+                            next = next.evalPositive(this);
+                            break;
+                        case minusToken:
+                            next = next.evalNegate(this);
+                            break;
+                        default:
+                            Main.panic("Illegal Factor operator" + k + "!");
+                    }
+                }
+
+                switch (k) {
+                    case astToken:
+                        v = v.evalMultiply(next, this);
+                        break;
+                    case percentToken:
+                        v = v.evalModulo(next, this);
+                        break;
+                    case slashToken:
+                        v = v.evalDivide(next, this);
+                        break;
+                    case doubleSlashToken:
+                        v = v.evalIntDivide(next, this);
+                        break;
+                    default:
+                        Main.panic("illefal Factor operator " + k + "!");
+                }
+
+            }
+        return v;
     }
+
+        /*RuntimeValue v = prim.get(0).eval(curScope);
+
+        if (facopr.isEmpty()) {
+            if (facpre.get(0) == null) {
+                
+            }
+            else {
+                TokenKind k = facpre.get(0).kind;
+                switch (k) {
+                    case plusToken:
+                        v = v.evalPositive(this);
+                        break;
+                    case minusToken:
+                        v = v.evalNegate(this);
+                        break;
+                    default:
+                        Main.panic("Illegal factor prefix: " + k);
+                }
+                return v;
+            }
+        }
+                
+        
+        for (int i = 1; i < prim.size(); i++) {
+            TokenKind k = prim.get(i-1).kind;
+
+            switch (k) {
+                case astToken:
+                    System.out.println("..." + prim.get(0).kind);
+                    System.out.println("----" + prim.get(i).kind);
+                    v = v.evalMultiply(prim.get(i-1).eval(curScope), this);
+                    break;
+                case slashToken:
+                    v = v.evalDivide(prim.get(i).eval(curScope), this);
+                    break;
+                case percentToken:
+                    v = v.evalModulo(prim.get(i).eval(curScope), this);
+                    break;
+                case doubleSlashToken:
+                    v = v.evalIntDivide(prim.get(i).eval(curScope), this);
+                    break;
+                default:
+                    Main.panic("Illegal factor operator: " + k + "!");
+            }
+        }
+        return v;*/
 }

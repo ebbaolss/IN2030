@@ -14,7 +14,6 @@ public class AspFloatLiteral extends AspAtom {
 
     static AspFloatLiteral parse(Scanner s) {
         enterParser("float literal");
-
         AspFloatLiteral afl = new AspFloatLiteral(s.curLineNum());
         afl.floatLit = s.curToken().floatLit;
         skip(s, floatToken);
@@ -31,7 +30,6 @@ public class AspFloatLiteral extends AspAtom {
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        //return new RuntimeFloatValue(floatLit);
-        return null;
+        return new RuntimeFloatValue(floatLit);
     }
 }

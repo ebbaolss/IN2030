@@ -14,6 +14,10 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return "integer";
     }
 
+    public String showInfo() {
+        return integerValue + "";
+    }
+
     @Override
     public String getStringValue(String what, AspSyntax where) {
         return Long.toString(integerValue);
@@ -75,7 +79,6 @@ public class RuntimeIntegerValue extends RuntimeValue {
         runtimeError("Type error for '-'", where);
         return null;
     }
-
 
 
     @Override
