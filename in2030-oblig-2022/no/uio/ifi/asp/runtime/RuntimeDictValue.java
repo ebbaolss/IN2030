@@ -37,7 +37,7 @@ public class RuntimeDictValue extends RuntimeValue {
 
     @Override
     public String getStringValue(String what, AspSyntax where) {
-        return null;
+        return what;
     }
 
     @Override
@@ -49,12 +49,16 @@ public class RuntimeDictValue extends RuntimeValue {
     }
 
     public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
-        runtimeError("Subscription '[...]' undefined for " + typeName() + "!", where);
-        return null;  // Required by the compiler!
+        RuntimeValue value = null;
+        if(v instanceof RuntimeStringValue){    
+            value = dict.get(v.showInfo());
+        }
+        return value;
     }
 
     public void evalAssignElem(RuntimeValue inx, RuntimeValue val, AspSyntax where) {
-        runtimeError("Assigning to an element not allowed for " + typeName() + "!", where);
+        String index = inx.showInfo();
+        dict.put(index,val);
     }
     
 }

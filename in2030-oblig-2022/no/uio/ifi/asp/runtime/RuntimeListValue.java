@@ -25,8 +25,9 @@ public class RuntimeListValue extends RuntimeValue {
 
     @Override
     public String getStringValue(String what, AspSyntax where) {
-        runtimeError("Type error: " + what + " is not a text string!", where);
-        return value.toString();
+        //runtimeError("Type error: " + what + " is not a text string!", where);
+        //return value.toString();
+        return what;
     }
     
     @Override
@@ -80,10 +81,11 @@ public class RuntimeListValue extends RuntimeValue {
     
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
-            //int valueV = (int) v.getIntValue("* operand", where);
-            //int length = value.size()* valueV;
-            ArrayList<RuntimeValue> returnList = new ArrayList<>();
-            for (int j = 0; j<v.getIntValue(v.toString(), where); j++) {
+            int valueV = (int) v.getIntValue("* operand", where);
+            int length = value.size()* valueV;
+            ArrayList<RuntimeValue> returnList = new ArrayList<>(length);
+            //v.getIntValue(v.toString(), where)
+            for (int j = 0; j < length; j++) {
                 for (int i = 0; i < value.size(); i++) {
                     //RuntimeValue a = value.get(i).toString().repeat((int) v.getIntValue("*", where));
                     returnList.add(value.get(i));
@@ -100,6 +102,12 @@ public class RuntimeListValue extends RuntimeValue {
     }
 
     public void evalAssignElem(RuntimeValue inx, RuntimeValue val, AspSyntax where) {
-        runtimeError("Assigning to an element not allowed for " + typeName() + "!", where);
+        if (inx instanceof RuntimeIntegerValue){
+            int index = Integer.parseInt(inx.showInfo());
+            //arrayList sin index = val
+        }
+        else{
+            runtimeError("Type error for assignElem.", where);
+        }
     }
 }
