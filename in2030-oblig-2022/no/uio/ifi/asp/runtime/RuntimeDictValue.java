@@ -1,8 +1,11 @@
 package no.uio.ifi.asp.runtime;
 
+import java.util.ArrayList;
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.parser.AspSyntax;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class RuntimeDictValue extends RuntimeValue {
     HashMap<String, RuntimeValue> dict;
@@ -17,7 +20,24 @@ public class RuntimeDictValue extends RuntimeValue {
     }
 
     public String showInfo() {
-        return toString();
+        String setString = "";
+        int counter = 0;
+        setString = setString + "{";
+
+        for (Map.Entry<String, RuntimeValue> entry : dict.entrySet()) {
+            String keyword = entry.getKey().toString();
+            RuntimeValue val = entry.getValue();
+
+            if (counter < dict.size()-1){
+                setString = setString + "\'" + keyword + "\'" + ": " + val.showInfo() + ", ";
+            } else {
+                setString = setString + "\'" + keyword + "\'" + ": " + val.showInfo();
+            }
+            counter++;
+        }
+        setString = setString + '}';
+        return setString;
+        
     }
 
     @Override
@@ -48,12 +68,15 @@ public class RuntimeDictValue extends RuntimeValue {
     }
 
     public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
-        /*RuntimeValue value = null;
-        if (v instanceof RuntimeStringValue) {
-            value = dict.get(v.showInfo());
+        if (dict.containsKey(v.getStringValue(null, where))) {
+            RuntimeValue value = dict.get(v.getStringValue(null, where));
+            return value;
+        } else {
+            String errorMsg = "Dictionary key " + v.getStringValue(null, where) + " undefined!";
+            runtimeError(errorMsg, where);
+            return null;
         }
-        return value;*/
-        return null;
+
     }
 
 }

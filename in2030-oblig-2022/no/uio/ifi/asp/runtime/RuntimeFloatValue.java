@@ -23,10 +23,6 @@ public class RuntimeFloatValue extends RuntimeValue {
         return floatValue + "";
     }
 
-    public String showInfo() {
-        return toString();
-    }
-
     @Override
     public String getStringValue(String what, AspSyntax where) {
         return Double.toString(floatValue);

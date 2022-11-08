@@ -14,14 +14,16 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return "integer";
     }
 
+    @Override 
     public String showInfo() {
-        return integerValue + "";
-    }
-
-    @Override
-    public String getStringValue(String what, AspSyntax where) {
         return Long.toString(integerValue);
     }
+
+    public String toString() {
+        return Long.toString(integerValue);
+    }
+
+    
 
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {

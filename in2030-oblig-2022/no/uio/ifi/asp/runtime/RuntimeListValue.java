@@ -13,9 +13,10 @@ public class RuntimeListValue extends RuntimeValue {
     protected String typeName() {
         return "[]";
     }
-
+    
+    @Override
     public String showInfo() {
-        return "" + value;
+        return value.toString();
     }
 
     @Override
@@ -36,6 +37,7 @@ public class RuntimeListValue extends RuntimeValue {
         return true;
     }
 
+
     @Override
     public RuntimeValue evalLen(AspSyntax where) {
         return new RuntimeIntegerValue(value.size());
@@ -51,22 +53,27 @@ public class RuntimeListValue extends RuntimeValue {
 
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
-            int valueV = (int) v.getIntValue("* operand", where);
-            int length = value.size() * valueV;
-            ArrayList<RuntimeValue> returnList = new ArrayList<>(length);
-            for (int j = 0; j < length; j++) {
-                for (int i = 0; i < value.size(); i++) {
-                    returnList.add(value.get(i));
-                }
+            long valueV = v.getIntValue("* Operator", where);
+            RuntimeListValue newList = new RuntimeListValue(new ArrayList<RuntimeValue>());
+            for (int i = 0; i < valueV; i++) {
+                newList.value.addAll(value);
             }
-            return new RuntimeListValue(returnList);
+            return newList;
         }
         return null;
     }
 
+    public ArrayList<RuntimeValue> getListValue(String what, AspSyntax where) {
+        if (value.isEmpty()){
+            return null;
+        } else {
+            return value;
+        }
+    }
+
     public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
-        System.out.println("jeg er her ");
         RuntimeValue v1 = null;
+        
         if (v instanceof RuntimeIntegerValue) {
             int i = (int) (v.getIntValue("[]", where));
             v1 = value.get(i);

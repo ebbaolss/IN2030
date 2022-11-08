@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
+import java.util.HashMap;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspDictDisplay extends AspAtom {
@@ -41,23 +42,22 @@ public class AspDictDisplay extends AspAtom {
 
     @Override
     void prettyPrint() {
-        prettyWrite(TokenKind.leftBracketToken.toString());
+        prettyWrite(TokenKind.leftBraceToken.toString());
 
         for (int i = 0; i < strl.size(); i++) {
             if (i > 0) {
                 prettyWrite(TokenKind.commaToken.toString() + " ");
             }
             strl.get(i).prettyPrint();
-            prettyWrite(" " + TokenKind.colonToken.toString() + " ");
+            prettyWrite(TokenKind.colonToken.toString());
             exp.get(i).prettyPrint();
         }
-        prettyWrite(TokenKind.rightBracketToken.toString());
+        prettyWrite(TokenKind.rightBraceToken.toString());
     }
 
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        /*HashMap<String, RuntimeValue> hMap = new HashMap<>();
-
+        HashMap<String, RuntimeValue> hMap = new HashMap<>();
         if(!strl.isEmpty()){
             for (int i = 0; i < strl.size() ; i++ ) {
                 hMap.put(strl.get(i).eval(curScope).toString(), exp.get(i).eval(curScope));
@@ -65,10 +65,5 @@ public class AspDictDisplay extends AspAtom {
         }
         return new RuntimeDictValue(hMap);
 
-        return null;
-        //RuntimeDictValue returnDictValue = new RuntimeDictValue(new ArrayList<RuntimeValue>());
-
-        //return returnDictValue;*/
-        return null;
-    }
+    }   
 }
