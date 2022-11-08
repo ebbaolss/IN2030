@@ -16,7 +16,7 @@ public class AspExpr extends AspSyntax {
 
     public static AspExpr parse(Scanner s) {
         enterParser("expr");
-    
+
         AspExpr ae = new AspExpr(s.curLineNum());
 
         while (true) {
@@ -27,7 +27,7 @@ public class AspExpr extends AspSyntax {
                 skip(s, TokenKind.orToken);
             }
         }
-        
+
         leaveParser("expr");
         return ae;
     }
@@ -50,13 +50,13 @@ public class AspExpr extends AspSyntax {
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue rt = andTests.get(0).eval(curScope);
-        
+
         for(int i = 1; i < andTests.size(); i++){
-            
+
             if(rt.getBoolValue("expr", this)){
                 return rt;
             }
-            rt = andTests.get(i).eval(curScope);
+        rt = andTests.get(i).eval(curScope);
         }
         return rt;
     }
