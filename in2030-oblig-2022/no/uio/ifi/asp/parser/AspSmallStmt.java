@@ -12,25 +12,25 @@ abstract class AspSmallStmt extends AspSyntax {
     static AspSmallStmt parse(Scanner s) {
         enterParser("small stmt");
     
-        AspSmallStmt as = null;
+        
         
         if (s.curToken().kind == globalToken) {
-            as = AspGlobalStmt.parse(s);
+            ass = AspGlobalStmt.parse(s);
         }
         else if (s.curToken().kind == passToken) {
-            as = AspPassStmt.parse(s);
+            ass = AspPassStmt.parse(s);
         }
         else if (s.curToken().kind == returnToken) {
-            as = AspReturnStmt.parse(s);
+            ass = AspReturnStmt.parse(s);
         }
         else if (s.curToken().kind == nameToken && s.anyEqualToken()) {
-            as = AspAssignment.parse(s);
+            ass = AspAssignment.parse(s);
         } else {
-            as = AspExprStmt.parse(s);
+            ass = AspExprStmt.parse(s);
         }
 
         leaveParser("small stmt");
-        return as;
+        return ass;
     }
 
     @Override

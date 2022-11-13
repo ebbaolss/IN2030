@@ -25,5 +25,11 @@ class AspPassStmt extends AspSmallStmt {
     void prettyPrint() {
         prettyWrite(TokenKind.passToken.toString());
     }
+
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        trace("pass");
+        return null;
+    }
     
 }

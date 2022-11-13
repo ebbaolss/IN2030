@@ -1,5 +1,7 @@
 package no.uio.ifi.asp.parser;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
@@ -40,4 +42,16 @@ public class AspGlobalStmt extends AspSmallStmt{
             aspName.prettyPrint();
         }
     }
+
+    @Override
+    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+
+        trace("global" );
+
+        for (AspName aspName : name) {
+            curScope.registerGlobalName(aspName.p);
+        }
+        return null;
+    }
+
 }

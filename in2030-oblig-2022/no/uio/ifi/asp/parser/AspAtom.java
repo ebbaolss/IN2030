@@ -55,4 +55,10 @@ abstract class AspAtom extends AspSyntax {
     }
 
     abstract void prettyPrint();
+
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        RuntimeValue v = aa.eval(curScope);
+        return v;
+    }
 }

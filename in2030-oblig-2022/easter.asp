@@ -3,7 +3,7 @@
 y = 2021
 while y <= 2025:
    a = y % 19
-   b = y // 100.0
+   b = y // 100
    c = y % 100
    d = b // 4
    e = b % 4
@@ -21,4 +21,4 @@ while y <= 2025:
       print(str(day) + ". mars", y)
    else:
       print(str(day) + ". april", y)
-   y != y+1
+   y = y+1

@@ -59,4 +59,9 @@ public class AspFuncDef extends AspCompoundStmt{
         sui.prettyPrint();
         prettyWriteLn();
     }
+
+    @Override
+    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+       return null;
+    }
 }

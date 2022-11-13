@@ -50,8 +50,19 @@ public class AspAssignment extends AspSmallStmt{
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        RuntimeValue evaluetedExpr = expr.eval(curScope);
-        String traceString = "";
+        RuntimeValue v = expr.eval(curScope);
+        String trace = name.p;
+
+        if (b == false) {
+            for (AspSubscription aspSubscription : sub) {
+                trace += aspSubscription.exp.toString();
+                curScope.assign(name.p, v);
+            }
+        }
+        trace += " = " + v.toString();
+        curScope.assign(name.p, v);
+        curScope.find(name.p, this);
+        trace(trace);
         return null;
     }
 }

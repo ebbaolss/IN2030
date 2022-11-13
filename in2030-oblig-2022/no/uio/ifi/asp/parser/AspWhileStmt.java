@@ -42,7 +42,6 @@ class AspWhileStmt extends AspCompoundStmt {
 
         while (true) {
             RuntimeValue v = expr.eval(curScope);
-
             if (!v.getBoolValue("while loop", this)) {
                 break;
             }
@@ -52,7 +51,6 @@ class AspWhileStmt extends AspCompoundStmt {
         }
 
         trace("while False:");
-
         return null;
     }
 }

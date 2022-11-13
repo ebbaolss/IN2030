@@ -1,6 +1,8 @@
-[] ==>
-Trace line 2: []
-[- 1, 0, 1] * (2) ==>
-Trace line 3: [no.uio.ifi.asp.runtime.RuntimeIntegerValue@77459877, no.uio.ifi.asp.runtime.RuntimeIntegerValue@5b2133b1, no.uio.ifi.asp.runtime.RuntimeIntegerValue@72ea2f77, no.uio.ifi.asp.runtime.RuntimeIntegerValue@77459877, no.uio.ifi.asp.runtime.RuntimeIntegerValue@5b2133b1, no.uio.ifi.asp.runtime.RuntimeIntegerValue@72ea2f77, no.uio.ifi.asp.runtime.RuntimeIntegerValue@77459877, no.uio.ifi.asp.runtime.RuntimeIntegerValue@5b2133b1, no.uio.ifi.asp.runtime.RuntimeIntegerValue@72ea2f77, no.uio.ifi.asp.runtime.RuntimeIntegerValue@77459877, no.uio.ifi.asp.runtime.RuntimeIntegerValue@5b2133b1, no.uio.ifi.asp.runtime.RuntimeIntegerValue@72ea2f77, no.uio.ifi.asp.runtime.RuntimeIntegerValue@77459877, no.uio.ifi.asp.runtime.RuntimeIntegerValue@5b2133b1, no.uio.ifi.asp.runtime.RuntimeIntegerValue@72ea2f77, no.uio.ifi.asp.runtime.RuntimeIntegerValue@77459877, no.uio.ifi.asp.runtime.RuntimeIntegerValue@5b2133b1, no.uio.ifi.asp.runtime.RuntimeIntegerValue@72ea2f77]
-"hei"[1] ==>
-Trace line 4: "e"
+Trace line 3: pass
+Trace line 4: 42
+Trace line 5: y = 2021
+Trace line 6: False
+Trace line 7: if True alt #1: ...
+Trace line 8: 34
+Trace line 9: 9
+Trace line 11: while False:

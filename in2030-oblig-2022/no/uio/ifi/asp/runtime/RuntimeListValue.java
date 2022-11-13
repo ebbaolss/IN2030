@@ -73,7 +73,6 @@ public class RuntimeListValue extends RuntimeValue {
 
     public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
         RuntimeValue v1 = null;
-        
         if (v instanceof RuntimeIntegerValue) {
             int i = (int) (v.getIntValue("[]", where));
             v1 = value.get(i);

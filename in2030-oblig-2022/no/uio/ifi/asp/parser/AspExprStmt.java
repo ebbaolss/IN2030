@@ -28,4 +28,10 @@ public class AspExprStmt extends AspSmallStmt{
     void prettyPrint() {
         expr.prettyPrint();   
     }
+
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        RuntimeValue v = expr.eval(curScope);
+        trace(v.toString());
+        return v;
+    }
 }
