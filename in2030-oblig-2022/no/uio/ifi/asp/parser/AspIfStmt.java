@@ -65,7 +65,7 @@ public class AspIfStmt extends AspCompoundStmt{
             cnt++;
         }
 
-        if (b == true) {
+        if (b) {
             prettyWrite(TokenKind.elseToken.toString());
             prettyWrite(TokenKind.colonToken.toString() + " ");
             sui2.prettyPrint();
@@ -77,14 +77,14 @@ public class AspIfStmt extends AspCompoundStmt{
         int cnt = 0;
         boolean bool = false;
         RuntimeValue v = null;
-        String trace = "if ";
+        String trace = "";
         for (AspExpr aspExpr : expr) {
             if (cnt > 0) {
                 trace += " elif ";
             }
             v = aspExpr.eval(curScope);
             if (v.getBoolValue("if stmt", this)) {
-                trace += v.toString() + " alt #" + (cnt+1) + ": ";
+                trace += "if " + v.toString() + " alt #" + (cnt+1) + ": ";
                 if (sui.size() > cnt) {
                     trace += "...";
                     trace(trace);
@@ -95,11 +95,11 @@ public class AspIfStmt extends AspCompoundStmt{
             }
             cnt++;
         }
-        if (!bool) {
-            v = sui2.eval(curScope);
-            trace += "else : " + "SUITE";
+        
+        if (b) {
+            trace("else: ...");
+            v = sui.get(sui.size()-1).eval(curScope);
         }
-        trace(trace);
         return v;
     }
 }

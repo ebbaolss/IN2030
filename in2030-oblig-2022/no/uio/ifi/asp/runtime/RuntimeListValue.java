@@ -63,7 +63,7 @@ public class RuntimeListValue extends RuntimeValue {
         return null;
     }
 
-    public ArrayList<RuntimeValue> getListValue(String what, AspSyntax where) {
+    public ArrayList<RuntimeValue> getListValue() {
         if (value.isEmpty()){
             return null;
         } else {

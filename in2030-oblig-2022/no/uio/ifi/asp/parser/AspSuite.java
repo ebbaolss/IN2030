@@ -25,6 +25,7 @@ public class AspSuite extends AspSyntax {
 
             while (s.curToken().kind != TokenKind.dedentToken) {
                 as.stmt.add(AspStmt.parse(s));
+                //System.out.println(as.stmt);
             }
 
             skip(s, TokenKind.dedentToken);
@@ -55,13 +56,13 @@ public class AspSuite extends AspSyntax {
         RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
             RuntimeValue v = null;
             if (smallstmt == null) {
-                for (AspStmt aspStmt : stmt) {
-                    v = aspStmt.eval(curScope);
+                for (int i = 0; i < stmt.size(); i++) {
+                    v = stmt.get(i).eval(curScope);
                 }
             } else {
                 v = smallstmt.eval(curScope);
             }
-           
+            
             return v;
 
         }
