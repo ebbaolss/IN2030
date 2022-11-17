@@ -21,6 +21,7 @@ public class AspFactorOpr extends AspSyntax {
         afo.factorOpr = s.curToken();
         afo.kind = s.curToken().kind;
         afo.p = s.curToken().toString();
+        
         if (s.curToken().kind == TokenKind.astToken) {
             skip(s, TokenKind.astToken);
         }

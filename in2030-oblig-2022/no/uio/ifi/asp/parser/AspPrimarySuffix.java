@@ -14,7 +14,7 @@ public abstract class AspPrimarySuffix extends AspSyntax {
     
     static AspPrimarySuffix parse(Scanner s) {
         enterParser("primary suffix");
-
+        
         AspPrimarySuffix aps = null;
         
         switch (s.curToken().kind) {
@@ -31,5 +31,4 @@ public abstract class AspPrimarySuffix extends AspSyntax {
         leaveParser("primary suffix");
         return aps;
     }
-
 }

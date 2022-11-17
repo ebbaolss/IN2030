@@ -21,8 +21,8 @@ public class AspInnerExpr extends AspAtom {
         aie.innerExpr = s.curToken().name;
 
         aie.exp = AspExpr.parse(s);
-
         skip(s, rightParToken);
+        
         leaveParser("inner expr");
         return aie;
     }

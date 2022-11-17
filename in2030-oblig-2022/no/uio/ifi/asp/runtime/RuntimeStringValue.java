@@ -51,7 +51,6 @@ public class RuntimeStringValue extends RuntimeValue {
 
     @Override
     public RuntimeValue evalAdd(RuntimeValue v, AspSyntax where) {
-        
         if (v instanceof RuntimeStringValue) {
             return new RuntimeStringValue(stringValue.concat(v.getStringValue(null, where)));
         } 
@@ -71,7 +70,8 @@ public class RuntimeStringValue extends RuntimeValue {
     public RuntimeValue evalEqual(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeStringValue) {
             return new RuntimeBoolValue(stringValue == v.getStringValue("== operand", where));
-        } else if (v instanceof RuntimeNoneValue) {
+        } 
+        else if (v instanceof RuntimeNoneValue) {
             return new RuntimeBoolValue(stringValue == v.getStringValue("== operand", where));
         }
         runtimeError("Type error for '=='", where);
@@ -82,7 +82,8 @@ public class RuntimeStringValue extends RuntimeValue {
     public RuntimeValue evalNotEqual(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeStringValue) {
             return new RuntimeBoolValue(stringValue != v.getStringValue("!= operand", where));
-        } else if (v instanceof RuntimeNoneValue) {
+        } 
+        else if (v instanceof RuntimeNoneValue) {
             return new RuntimeBoolValue(stringValue == v.getStringValue("!= operand", where));
         }
         runtimeError("Type error for '!='", where);

@@ -3,6 +3,7 @@
 // scannerkjør::  java -jar asp.jar -testscanner boble.asp
 // prettyprint:: java -jar asp.jar -logY -testparser palindrom.asp
 // runtimevalue:: java -jar asp.jar -testexpr simple-exprs.asp
+// sporingsinfo:: java -jar asp.jar -logE easter.asp
 
 package no.uio.ifi.asp.scanner;
 import java.io.*;
@@ -33,8 +34,9 @@ public class Scanner {
 
 	private void scannerError(String message) {
 		String m = "Asp scanner error";
-		if (curLineNum() > 0)
+		if (curLineNum() > 0) {
 			m += " on line " + curLineNum();
+		}
 		m += ": " + message;
 
 		Main.error(m);
@@ -48,8 +50,9 @@ public class Scanner {
 	}
 
 	public void readNextToken() {
-		if (!curLineTokens.isEmpty())
+		if (!curLineTokens.isEmpty()) {
 			curLineTokens.remove(0);
+		}
 	}
 
 	private void readNextLine() {
@@ -62,6 +65,7 @@ public class Scanner {
 			if (line == null) {
 				sourceFile.close();
 				sourceFile = null;
+				
 				for (int i = 0; i < indents.size(); i++) {
 					if (indents.get(i) > 0) {
 						curLineTokens.add(new Token(dedentToken, curLineNum()));
@@ -76,19 +80,18 @@ public class Scanner {
 			scannerError("Unspecified I/O error!");
 		}
 
-		// -- Must be changed in part 1:
 		if (line != null) {
-			if (line.isBlank() || line.charAt(0) == '#')
+			if (line.isBlank() || line.charAt(0) == '#') {
 				return;
-
+			}
 			line = expandLeadingTabs(line);
 			int n = findIndent(line);
 
 			if (n > indents.peek()) {
-
 				indents.push(n);
 				curLineTokens.add(new Token(indentToken, curLineNum()));
 			}
+			
 			if (n < indents.peek()) {
 				while (n < indents.peek()) {
 					indents.pop();
@@ -102,12 +105,13 @@ public class Scanner {
 		}
 
 		if (line != null) {
-
 			String s = "";
 			int teller = 0;
 			char[] ch = line.toCharArray();
+			
 			for (int i = 0; i < ch.length; i++) {
 				teller = i;
+				
 				if (isDigit(ch[i])) {
 					s += ch[i];
 					boolean isFloat = false;
@@ -116,6 +120,7 @@ public class Scanner {
 							teller = j;
 							break;
 						}
+						
 						// float check
 						isFloat = false;
 						if (ch[j + 1] == '.') {
@@ -134,17 +139,16 @@ public class Scanner {
 							break;
 						}
 						i = teller;
-
+						
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
 							// hvis tall er float
 							teller = j;
-
 							break;
 						} else {
 							s += ch[j + 1];
 						}
-
 					}
+					
 					if (isFloat == true) { // får ikke denne til å fungere, noe feil med true/false
 						Token t = new Token(floatToken, curLineNum());
 						t.floatLit = Double.parseDouble(s);
@@ -157,27 +161,24 @@ public class Scanner {
 					s = "";
 					i = teller;
 				}
-
+				
 				else if (isLetterAZ(ch[i])) {
 					s += ch[i];
 
 					for (int j = i; j < ch.length; j++) {
-
 						if (j + 1 >= ch.length) {
 							teller = j;
 							break;
 						}
 
 						if (isOperator(String.valueOf(ch[j + 1])) || isDelimiter(ch[j + 1]) || ch[j + 1] == ' ') {
-
 							teller = j;
 							break;
-						} 
-						
-						else {
+						} else {
 							s += ch[j + 1];
 						}
 					}
+
 					Token n = new Token(nameToken, curLineNum());
 					n.name = s;
 					s = "";
@@ -185,29 +186,30 @@ public class Scanner {
 					i = teller;
 					curLineTokens.add(n);
 				}
-
+				
 				else if (ch[i] == ' ') {
 					continue;
 				}
-
+				
 				else if (ch[i] == '#') {
 					curLineTokens.add(new Token(newLineToken, curLineNum()));
 				}
-
+				
 				else if (isDelimiter(ch[i])) {
 					Token n = new Token(nameToken, curLineNum());
 					n.name = Character.toString(ch[i]);
+					
 					if (ch[i] == '=' && ch[i + 1] != '=') {
 						if (ch[i - 1] == '!' && ch[i] == '=') {
 							curLineTokens.add(new Token(notEqualToken, curLineNum()));
 						} else {
 							curLineTokens.add(new Token(equalToken, curLineNum()));
 						}
-					} else if (ch[i] == '=' && ch[i + 1] == '=') {
+					} 
+					else if (ch[i] == '=' && ch[i + 1] == '=') {
 						curLineTokens.add(new Token(doubleEqualToken, curLineNum()));
 						teller = i + 1;
-					}
-					else {
+					} else {
 						for (TokenKind t : EnumSet.range(colonToken, semicolonToken)) {
 							if (n.name.equals(t.toString())) {
 								if (Character.toString('=') != t.toString()) {
@@ -248,6 +250,7 @@ public class Scanner {
 					Token sq = new Token(stringToken, curLineNum());
 					String q = "";
 					boolean found = false;
+					
 					for (int k = i + 1; k < ch.length; k++) {
 						q += ch[k];
 						if (ch[k] == '\'') {
@@ -258,6 +261,7 @@ public class Scanner {
 							found = true;
 						}
 						teller = k;
+						
 						if (found) {
 							break;
 						}
@@ -269,6 +273,7 @@ public class Scanner {
 					Token sq = new Token(stringToken, curLineNum());
 					String q = "";
 					boolean found = false;
+					
 					for (int k = i + 1; k < ch.length; k++) {
 						q += ch[k];
 						if (ch[k] == '"') {
@@ -279,6 +284,7 @@ public class Scanner {
 							found = true;
 						}
 						teller = k;
+						
 						if (found) {
 							break;
 						}
@@ -302,14 +308,12 @@ public class Scanner {
 
 	private int findIndent(String s) {
 		int indent = 0;
-
 		while (indent < s.length() && s.charAt(indent) == ' ')
 			indent++;
 		return indent;
 	}
 
 	private String expandLeadingTabs(String s) {
-		// -- Must be changed in part 1:
 		int cnt = 0;
 		String s2 = "";
 

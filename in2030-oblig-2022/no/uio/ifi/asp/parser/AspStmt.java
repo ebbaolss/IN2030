@@ -22,7 +22,7 @@ abstract class AspStmt extends AspSyntax {
         } else {
             as = AspSmallStmtList.parse(s);
         }
-
+        
         leaveParser("stmt");
         return as;
     }

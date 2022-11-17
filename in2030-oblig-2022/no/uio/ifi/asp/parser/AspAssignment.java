@@ -39,6 +39,7 @@ public class AspAssignment extends AspSmallStmt{
     @Override
     void prettyPrint() {
         name.prettyPrint();
+        
         if (b == false) {
             for (AspSubscription aspSubscription : sub) {
                 aspSubscription.prettyPrint();
@@ -59,10 +60,12 @@ public class AspAssignment extends AspSmallStmt{
                 curScope.assign(name.p, v);
             }
         }
+
         trace += " = " + v.toString();
         curScope.assign(name.p, v);
         curScope.find(name.p, this);
         trace(trace);
+        
         return null;
     }
 }

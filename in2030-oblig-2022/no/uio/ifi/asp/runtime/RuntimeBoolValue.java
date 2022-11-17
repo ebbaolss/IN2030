@@ -50,4 +50,3 @@ public class RuntimeBoolValue extends RuntimeValue {
         return null;  // Required by the compiler
         }
 }
-

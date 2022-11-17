@@ -46,12 +46,12 @@ public class AspForStmt extends AspCompoundStmt{
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = expr.eval(curScope);
         String trace = "for " + name.p + " in ";
+        
         for (int i = 0; i < expr.andTests.size(); i++) {
-
             curScope.assign(name.p, v);
-
             v = sui.stmt.get(i).eval(curScope);
         }
+        
         trace(trace);
         return null;
     }

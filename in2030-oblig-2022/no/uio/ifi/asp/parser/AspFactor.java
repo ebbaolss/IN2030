@@ -25,8 +25,7 @@ public class AspFactor extends AspSyntax {
             if (s.isFactorPrefix()) {
                 fac.facpre.add(AspFactorPrefix.parse(s));
                 fac.b = true;
-            }
-            else {
+            } else {
                 fac.facpre.add(null);
             }
             fac.prim.add(AspPrimary.parse(s));
@@ -53,7 +52,6 @@ public class AspFactor extends AspSyntax {
             if (i < prim.size() - 1) {
                 facopr.get(i).prettyPrint();
             }
-            
         }
     }
 
@@ -65,6 +63,7 @@ public class AspFactor extends AspSyntax {
         if (facpre.size() != 0) {
             if (facpre.get(0) != null) {
                 TokenKind k = facpre.get(0).kind;
+                
                 switch (k) {
                     case plusToken:
                         v = v.evalPositive(this);
@@ -83,6 +82,7 @@ public class AspFactor extends AspSyntax {
                 RuntimeValue next = prim.get(i).eval(curScope);
                 if (facpre.get(i) != null) {
                     TokenKind n = facpre.get(i).kind;
+                    
                     switch (n) {
                         case plusToken:
                             next = next.evalPositive(this);
@@ -111,7 +111,6 @@ public class AspFactor extends AspSyntax {
                     default:
                         Main.panic("illefal Factor operator " + k + "!");
                 }
-
             }
         return v;
     }

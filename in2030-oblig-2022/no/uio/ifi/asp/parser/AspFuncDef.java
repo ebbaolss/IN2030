@@ -47,6 +47,7 @@ public class AspFuncDef extends AspCompoundStmt{
         prettyWrite(p + " ");
         name.prettyPrint();
         prettyWrite(" (");
+        
         int cnt = 0;
         for (int i = 0; i < nam.size(); i++) {
             if (i > 0) {
@@ -54,6 +55,7 @@ public class AspFuncDef extends AspCompoundStmt{
             }
             nam.get(i).prettyPrint();
         }
+        
         prettyWrite(")");
         prettyWrite(": ");
         sui.prettyPrint();
@@ -63,7 +65,6 @@ public class AspFuncDef extends AspCompoundStmt{
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = name.eval(curScope);
-        
         return v;
     }
 }

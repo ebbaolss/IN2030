@@ -37,7 +37,6 @@ public class RuntimeListValue extends RuntimeValue {
         return true;
     }
 
-
     @Override
     public RuntimeValue evalLen(AspSyntax where) {
         return new RuntimeIntegerValue(value.size());
@@ -55,6 +54,7 @@ public class RuntimeListValue extends RuntimeValue {
         if (v instanceof RuntimeIntegerValue) {
             long valueV = v.getIntValue("* Operator", where);
             RuntimeListValue newList = new RuntimeListValue(new ArrayList<RuntimeValue>());
+            
             for (int i = 0; i < valueV; i++) {
                 newList.value.addAll(value);
             }
@@ -79,5 +79,4 @@ public class RuntimeListValue extends RuntimeValue {
         }
         return v1;
     }
-
 }

@@ -62,6 +62,7 @@ public class AspComparison extends AspSyntax {
             } else {
                 v = ter.get(i-1).eval(curScope);
             }
+            
             switch(k) {
                 case lessToken:
                     v = v.evalLess(ter.get(i).eval(curScope), this);

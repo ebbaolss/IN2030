@@ -22,28 +22,26 @@ public class AspPrimary extends AspSyntax {
         ap.primary = s.curToken().name;
         ap.atm = AspAtom.parse(s);
         ap.kind = s.curToken().kind;
+        
         if(s.curToken().kind == TokenKind.leftParToken|| s.curToken().kind == TokenKind.leftBracketToken) {
             ap.prisuf.add(AspPrimarySuffix.parse(s));
         }
-            
+
         leaveParser("primary");
         return ap;
     }
     
     @Override
     void prettyPrint() {
-    
         atm.prettyPrint();
         
         if (prisuf == null) {
-        }
 
-        else {
+        } else {
             for (AspPrimarySuffix aspPrimarySuffix : prisuf) {
                 aspPrimarySuffix.prettyPrint();
             }
         }
-        
     }
 
     @Override
@@ -54,10 +52,10 @@ public class AspPrimary extends AspSyntax {
         for (AspPrimarySuffix aspPrimarySuffix : prisuf) {
             RuntimeValue w = aspPrimarySuffix.eval(curScope); //verdien til f
             ArrayList<RuntimeValue> liste = new ArrayList<>();
+            
             if (aspPrimarySuffix instanceof AspSubscription) {
                 v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
-            } 
-            else { //arguments aka. en funksjon
+            } else { //arguments aka. en funksjon
                 RuntimeListValue args = (RuntimeListValue) w;
                 trace = "Call function " + primary + " with params " + w;
                 ArrayList<RuntimeValue> lv = args.getListValue();
@@ -65,7 +63,6 @@ public class AspPrimary extends AspSyntax {
                 for (int i = 0; i < lv.size(); i++) {
                     liste.add(lv.get(i));
                 }
-
                 v = v.evalFuncCall(liste, aspPrimarySuffix);
                 trace(trace);
             }
@@ -75,7 +72,6 @@ public class AspPrimary extends AspSyntax {
             trace = "None";
             trace(trace);
         }
-        
         return v;
     }
 }

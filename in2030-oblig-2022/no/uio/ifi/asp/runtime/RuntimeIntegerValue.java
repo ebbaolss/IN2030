@@ -23,14 +23,11 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return Long.toString(integerValue);
     }
 
-    
-
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
         if(integerValue == 0) {
             return false;
-        } 
-        else {
+        } else {
             return true;
         }
     }
@@ -87,9 +84,11 @@ public class RuntimeIntegerValue extends RuntimeValue {
     public RuntimeValue evalEqual(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             return new RuntimeBoolValue(integerValue == v.getIntValue("== operand", where));
-        } else if (v instanceof RuntimeFloatValue) {
+        } 
+        else if (v instanceof RuntimeFloatValue) {
             return new RuntimeBoolValue(integerValue == v.getFloatValue("== operand", where));
-        } else if (v instanceof RuntimeNoneValue) {
+        } 
+        else if (v instanceof RuntimeNoneValue) {
             return new RuntimeBoolValue(integerValue == v.getFloatValue("== operand", where));
         }
         runtimeError("Type error for '=='", where);
@@ -101,9 +100,11 @@ public class RuntimeIntegerValue extends RuntimeValue {
     public RuntimeValue evalNotEqual(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             return new RuntimeBoolValue(integerValue != v.getIntValue("!= operand", where));
-        } else if (v instanceof RuntimeFloatValue) {
+        } 
+        else if (v instanceof RuntimeFloatValue) {
             return new RuntimeBoolValue(integerValue != v.getFloatValue("!= operand", where));
-        } else if (v instanceof RuntimeNoneValue) {
+        } 
+        else if (v instanceof RuntimeNoneValue) {
             return new RuntimeBoolValue(integerValue == v.getFloatValue("!= operand", where));
         }
         runtimeError("Type error for '!='", where);

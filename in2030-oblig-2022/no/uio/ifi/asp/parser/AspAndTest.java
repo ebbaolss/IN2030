@@ -28,6 +28,7 @@ class AspAndTest extends AspSyntax {
                 skip(s, TokenKind.andToken);
             }
         }
+
         leaveParser("and test");
         return aat;
     }
@@ -48,6 +49,7 @@ class AspAndTest extends AspSyntax {
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = notTests.get(0).eval(curScope);
+        
         for (int i = 1; i < notTests.size(); ++i) {
             if (! v.getBoolValue("and operand",this)) {
                 return v;

@@ -37,7 +37,6 @@ public class RuntimeDictValue extends RuntimeValue {
         }
         setString = setString + '}';
         return setString;
-        
     }
 
     @Override
@@ -76,7 +75,5 @@ public class RuntimeDictValue extends RuntimeValue {
             runtimeError(errorMsg, where);
             return null;
         }
-
     }
-
 }

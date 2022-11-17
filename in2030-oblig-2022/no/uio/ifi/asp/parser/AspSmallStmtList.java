@@ -58,7 +58,5 @@ public class AspSmallStmtList extends AspStmt{
             aspSmallStmt.eval(curScope);
         }
         return null;
-
-
     }
 }

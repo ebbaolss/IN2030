@@ -9,12 +9,11 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspProgram extends AspSyntax {
     ArrayList<AspStmt> stmts = new ArrayList<>();
-
+    
     AspProgram(int n) {
         super(n);
     }
-
-
+    
     public static AspProgram parse(Scanner s) {
         enterParser("program");
 
@@ -22,6 +21,7 @@ public class AspProgram extends AspSyntax {
         while (s.curToken().kind != eofToken) {
             ap.stmts.add(AspStmt.parse(s));
         }
+
         if (s.curToken().kind == eofToken) {
             skip(s, eofToken);
         }
@@ -40,14 +40,13 @@ public class AspProgram extends AspSyntax {
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-	//-- Must be changed in part 4:
-    for (AspStmt aspStmt : stmts) {
-        try {
-            aspStmt.eval(curScope);
-        } catch (RuntimeReturnValue rrv) {
-            RuntimeValue.runtimeError("Return statement outside function!", rrv.lineNum);
+        for (AspStmt aspStmt : stmts) {
+            try {
+                aspStmt.eval(curScope);
+            } catch (RuntimeReturnValue rrv) {
+                RuntimeValue.runtimeError("Return statement outside function!", rrv.lineNum);
+            }
         }
-    }
-	return null;
+        return null;
     }
 }

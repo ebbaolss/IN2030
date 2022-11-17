@@ -48,6 +48,7 @@ public class AspDictDisplay extends AspAtom {
             if (i > 0) {
                 prettyWrite(TokenKind.commaToken.toString() + " ");
             }
+
             strl.get(i).prettyPrint();
             prettyWrite(TokenKind.colonToken.toString());
             exp.get(i).prettyPrint();
@@ -58,6 +59,7 @@ public class AspDictDisplay extends AspAtom {
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         HashMap<String, RuntimeValue> hMap = new HashMap<>();
+        
         if(!strl.isEmpty()){
             for (int i = 0; i < strl.size() ; i++ ) {
                 hMap.put(strl.get(i).eval(curScope).toString(), exp.get(i).eval(curScope));

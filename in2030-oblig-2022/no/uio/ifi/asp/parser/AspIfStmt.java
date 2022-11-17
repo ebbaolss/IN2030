@@ -59,6 +59,7 @@ public class AspIfStmt extends AspCompoundStmt{
             }
             aspExpr.prettyPrint();
             prettyWrite(TokenKind.colonToken.toString() + " ");
+            
             if (sui.size() > cnt) {
                 sui.get(cnt).prettyPrint();
             }
@@ -78,11 +79,13 @@ public class AspIfStmt extends AspCompoundStmt{
         boolean bool = false;
         RuntimeValue v = null;
         String trace = "";
+        
         for (AspExpr aspExpr : expr) {
             if (cnt > 0) {
                 trace += " elif ";
             }
             v = aspExpr.eval(curScope);
+            
             if (v.getBoolValue("if stmt", this)) {
                 trace += "if " + v.toString() + " alt #" + (cnt+1) + ": ";
                 if (sui.size() > cnt) {

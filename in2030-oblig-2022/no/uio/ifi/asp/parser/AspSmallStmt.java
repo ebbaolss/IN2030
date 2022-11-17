@@ -5,14 +5,13 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspSmallStmt extends AspSyntax {
     static AspSmallStmt ass = null;
+    
     AspSmallStmt(int n) {
         super(n);
     }
     
     static AspSmallStmt parse(Scanner s) {
         enterParser("small stmt");
-    
-        
         
         if (s.curToken().kind == globalToken) {
             ass = AspGlobalStmt.parse(s);

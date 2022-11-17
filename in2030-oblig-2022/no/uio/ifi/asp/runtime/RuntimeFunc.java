@@ -27,11 +27,9 @@ public class RuntimeFunc extends RuntimeValue{
             RuntimeScope newScope = new RuntimeScope(defScope);
             
             AspFuncDef du;
-            
         } catch (RuntimeReturnValue rrv) {
             return rrv.value;
         }
         return new RuntimeNoneValue();
     }
-
 }

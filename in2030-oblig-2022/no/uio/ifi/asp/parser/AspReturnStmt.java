@@ -29,12 +29,11 @@ public class AspReturnStmt extends AspSmallStmt{
         prettyWrite(TokenKind.returnToken.toString() + " ");
         expr.prettyPrint();
     }
-
+    
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = expr.eval(curScope);
         trace("return " + v.showInfo());
         throw new RuntimeReturnValue(v, lineNum);
-          
     }
 }

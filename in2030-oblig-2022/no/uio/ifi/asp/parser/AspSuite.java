@@ -32,38 +32,37 @@ public class AspSuite extends AspSyntax {
         } else {
             as.smallstmt = AspSmallStmtList.parse(s);
         }
+
         leaveParser("suite");
         return as;
-        } 
+    }
 
-        @Override
-        void prettyPrint() {
-            if (smallstmt == null) {
-                prettyWriteLn();
-                prettyIndent();
+    @Override
+    void prettyPrint() {
+        if (smallstmt == null) {
+            prettyWriteLn();
+            prettyIndent();
 
-                for (AspStmt aspStmt : stmt) {
-                    aspStmt.prettyPrint();
-                }
-                prettyDedent();
+            for (AspStmt aspStmt : stmt) {
+                aspStmt.prettyPrint();
             }
-            else {
-                smallstmt.prettyPrint();
-            }
+            prettyDedent();
+        } else {
+            smallstmt.prettyPrint();
         }
+    }
 
-        @Override
-        RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-            RuntimeValue v = null;
-            if (smallstmt == null) {
-                for (int i = 0; i < stmt.size(); i++) {
-                    v = stmt.get(i).eval(curScope);
-                }
-            } else {
-                v = smallstmt.eval(curScope);
+    @Override
+    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+        RuntimeValue v = null;
+        
+        if (smallstmt == null) {
+            for (int i = 0; i < stmt.size(); i++) {
+                v = stmt.get(i).eval(curScope);
             }
-            
-            return v;
-
+        } else {
+            v = smallstmt.eval(curScope);
         }
+        return v;
+    }
 }

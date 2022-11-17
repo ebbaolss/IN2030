@@ -15,15 +15,18 @@ public class AspTermOpr extends AspSyntax {
     
     static AspTermOpr parse(Scanner s) {
         enterParser("term opr");
+        
         AspTermOpr ato = new AspTermOpr(s.curLineNum());
         ato.p = s.curToken().toString();
         ato.cur = s.curToken().kind;
+        
         if (s.curToken().kind == plusToken) {  
             skip (s, plusToken);
         }
         else if (s.curToken().kind == minusToken) {
             skip (s, minusToken);
         }
+        
         leaveParser("term opr");
         return ato;
     }

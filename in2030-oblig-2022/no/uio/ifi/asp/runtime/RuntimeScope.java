@@ -25,7 +25,6 @@ public class RuntimeScope {
 		outer = oScope;
     }
 
-
     public void assign(String id, RuntimeValue val) {
 		decls.put(id, val);
     }
@@ -33,12 +32,16 @@ public class RuntimeScope {
     public RuntimeValue find(String id, AspSyntax where) {
 		if (globalNames.contains(id)) {
 			RuntimeValue v = Main.globalScope.decls.get(id);
-			if (v != null) return v;
+			if (v != null) {
+				return v;
+			}
 		} else {
 			RuntimeScope scope = this;
 			while (scope != null) {
 				RuntimeValue v = scope.decls.get(id);
-				if (v != null) return v;
+				if (v != null) {
+					return v;
+				}
 				scope = scope.outer;
 			}
 		}

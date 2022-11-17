@@ -16,6 +16,7 @@ public class AspGlobalStmt extends AspSmallStmt{
 
     static AspGlobalStmt parse(Scanner s) {
         enterParser("global stmt");
+        
         AspGlobalStmt ags = new AspGlobalStmt(s.curLineNum());
         ags.name = new ArrayList <> ();
         skip(s, TokenKind.globalToken);
@@ -32,9 +33,9 @@ public class AspGlobalStmt extends AspSmallStmt{
 
     @Override
     void prettyPrint() {
-        
         prettyWrite("global ");
         int cnt = 0;
+        
         for (AspName aspName : name) {
             if (cnt > 0) {
                 prettyWrite(", ");
@@ -45,7 +46,6 @@ public class AspGlobalStmt extends AspSmallStmt{
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-
         trace("global" );
 
         for (AspName aspName : name) {
@@ -53,5 +53,4 @@ public class AspGlobalStmt extends AspSmallStmt{
         }
         return null;
     }
-
 }

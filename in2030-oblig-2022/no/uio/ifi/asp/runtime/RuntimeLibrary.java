@@ -42,6 +42,7 @@ public class RuntimeLibrary extends RuntimeScope {
                 return new RuntimeFloatValue(actualParams.get(0).getFloatValue("float", where));
             }
         });
+
         assign("input", new RuntimeFunc("input") {
             @Override
             public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
@@ -50,6 +51,7 @@ public class RuntimeLibrary extends RuntimeScope {
                 return new RuntimeStringValue(keyboard.next());
             }
         });
+
         assign("int", new RuntimeFunc("int") {
             @Override
             public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
@@ -57,6 +59,7 @@ public class RuntimeLibrary extends RuntimeScope {
                 return new RuntimeIntegerValue(actualParams.get(0).getIntValue("int", where));
             }
         });
+
         assign("range", new RuntimeFunc("range") {
             @Override
             public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
@@ -72,13 +75,15 @@ public class RuntimeLibrary extends RuntimeScope {
                         rangeList.add(new RuntimeIntegerValue(i));
                     }
                     return new RuntimeListValue(rangeList);
-                } else if (v1 == v2) {
+                } 
+                else if (v1 == v2) {
                     rangeList.add(new RuntimeIntegerValue(v1));
                     return new RuntimeListValue(rangeList);
                 }
                 return new RuntimeNoneValue();
             }
         });
+        
         assign("str", new RuntimeFunc("str") {
             @Override
             public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
@@ -93,7 +98,7 @@ public class RuntimeLibrary extends RuntimeScope {
 
     private void checkNumParams(ArrayList<RuntimeValue> actArgs, int nCorrect, String id, AspSyntax where) {
         if (actArgs.size() != nCorrect) {
-            RuntimeValue.runtimeError("Wrong number of parameters to "+id+"!",where);
+            RuntimeValue.runtimeError("Wrong number of parameters to " + id + "!",where);
         }
     }
 }

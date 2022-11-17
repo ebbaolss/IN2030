@@ -34,6 +34,7 @@ public class AspArguments extends AspPrimarySuffix {
     @Override
     public void prettyPrint() {
         prettyWrite(TokenKind.leftParToken.toString());
+        
         if (exp == null) {
             
         } else {
