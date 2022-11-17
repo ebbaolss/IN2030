@@ -59,7 +59,7 @@ public class AspPrimary extends AspSyntax {
             } 
             else { //arguments aka. en funksjon
                 RuntimeListValue args = (RuntimeListValue) w;
-                trace = "Call function " + primary + " with params [" ;
+                trace = "Call function " + primary + " with params " + w;
                 ArrayList<RuntimeValue> lv = args.getListValue();
 
                 for (int i = 0; i < lv.size(); i++) {
@@ -67,7 +67,6 @@ public class AspPrimary extends AspSyntax {
                 }
 
                 v = v.evalFuncCall(liste, aspPrimarySuffix);
-                trace += "]";
                 trace(trace);
             }
         }

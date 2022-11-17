@@ -98,7 +98,7 @@ public class AspIfStmt extends AspCompoundStmt{
         
         if (b) {
             trace("else: ...");
-            v = sui.get(sui.size()-1).eval(curScope);
+            v = sui2.eval(curScope);
         }
         return v;
     }
