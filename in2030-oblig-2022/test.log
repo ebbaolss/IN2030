@@ -1,9 +1,6 @@
 Trace line 3: pass
-Trace line 4: 42
 Trace line 5: y = 2021
-Trace line 6: False
 Trace line 7: if True alt #1: ...
-Trace line 8: 34
-Trace line 9: 9
 Trace line 11: while False:
 Trace line 14: y = 101
+Trace line 16: def is_a_palindrome
