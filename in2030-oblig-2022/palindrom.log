@@ -1,0 +1,3 @@
+Trace line 5: def is_a_palindrome
+Trace line 12: Call function input with params [A word: ]
+Trace line 12: query = racecar

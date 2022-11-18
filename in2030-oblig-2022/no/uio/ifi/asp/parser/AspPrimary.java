@@ -48,25 +48,30 @@ public class AspPrimary extends AspSyntax {
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = atm.eval(curScope);
         String trace = "";
-
-        for (AspPrimarySuffix aspPrimarySuffix : prisuf) {
-            RuntimeValue w = aspPrimarySuffix.eval(curScope); //verdien til f
-            ArrayList<RuntimeValue> liste = new ArrayList<>();
+        if (prisuf.isEmpty()) {
             
-            if (aspPrimarySuffix instanceof AspSubscription) {
-                v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
-            } else { //arguments aka. en funksjon
-                RuntimeListValue args = (RuntimeListValue) w;
-                trace = "Call function " + primary + " with params " + w;
-                ArrayList<RuntimeValue> lv = args.getListValue();
+        }
+        else {
+            for (AspPrimarySuffix aspPrimarySuffix : prisuf) {
+                RuntimeValue w = aspPrimarySuffix.eval(curScope); // verdien til f
+                ArrayList<RuntimeValue> liste = new ArrayList<>();
 
-                for (int i = 0; i < lv.size(); i++) {
-                    liste.add(lv.get(i));
+                if (aspPrimarySuffix instanceof AspSubscription) {
+                    v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
+                } else { // arguments aka. en funksjon
+                    RuntimeListValue args = (RuntimeListValue) w;
+                    trace = "Call function " + primary + " with params " + w;
+                    ArrayList<RuntimeValue> lv = args.getListValue();
+
+                    for (int i = 0; i < lv.size(); i++) {
+                        liste.add(lv.get(i));
+                    }
+                    v = v.evalFuncCall(liste, aspPrimarySuffix);
+                    trace(trace);
                 }
-                v = v.evalFuncCall(liste, aspPrimarySuffix);
-                trace(trace);
             }
         }
+        
 
         if (v instanceof RuntimeNoneValue) {
             trace = "None";
