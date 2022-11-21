@@ -1,3 +1,4 @@
 Trace line 5: def is_a_palindrome
 Trace line 12: Call function input with params [A word: ]
-Trace line 12: query = racecar
+Trace line 12: query = if
+Asp runtime error on line 13: func error 

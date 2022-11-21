@@ -71,7 +71,6 @@ public class AspPrimary extends AspSyntax {
                 }
             }
         }
-        
 
         if (v instanceof RuntimeNoneValue) {
             trace = "None";

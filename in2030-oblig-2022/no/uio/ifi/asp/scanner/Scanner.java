@@ -14,7 +14,7 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 public class Scanner {
 	private LineNumberReader sourceFile = null;
 	private String curFileName;
-	private ArrayList<Token> curLineTokens = new ArrayList<>(); //
+	private ArrayList<Token> curLineTokens = new ArrayList<>();
 	private Stack<Integer> indents = new Stack<>();
 	private final int TABDIST = 4;
 
@@ -23,10 +23,7 @@ public class Scanner {
 		indents.push(0);
 
 		try {
-			sourceFile = new LineNumberReader(
-					new InputStreamReader(
-							new FileInputStream(fileName),
-							"UTF-8"));
+			sourceFile = new LineNumberReader(new InputStreamReader(new FileInputStream(fileName),"UTF-8"));
 		} catch (IOException e) {
 			scannerError("Cannot read " + fileName + "!");
 		}
