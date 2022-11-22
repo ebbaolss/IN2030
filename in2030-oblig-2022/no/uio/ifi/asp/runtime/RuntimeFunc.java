@@ -18,6 +18,12 @@ public class RuntimeFunc extends RuntimeValue {
         name = v;
     }
 
+    public RuntimeFunc(AspFuncDef funcdef, RuntimeScope scope, String v) {
+        def = funcdef;
+        defScope = scope;
+        name = v;
+    }
+
     @Override
     String typeName() {
         // TODO Auto-generated method stub

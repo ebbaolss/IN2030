@@ -12,7 +12,7 @@ public class AspAssignment extends AspSmallStmt{
     AspName name;
     ArrayList<AspSubscription> sub = new ArrayList<>();
     AspExpr expr;
-    boolean b = false;
+    boolean bool = false;
     
     AspAssignment(int n) {
         super(n);
@@ -40,7 +40,7 @@ public class AspAssignment extends AspSmallStmt{
     void prettyPrint() {
         name.prettyPrint();
         
-        if (b == false) {
+        if (bool == false) {
             for (AspSubscription aspSubscription : sub) {
                 aspSubscription.prettyPrint();
             }
@@ -54,7 +54,7 @@ public class AspAssignment extends AspSmallStmt{
         RuntimeValue v = expr.eval(curScope);
         String trace = name.p;
 
-        if (b == false) {
+        if (bool == false) {
             for (AspSubscription aspSubscription : sub) {
                 trace += aspSubscription.exp.toString();
                 curScope.assign(name.p, v);

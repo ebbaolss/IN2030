@@ -23,7 +23,7 @@ public class AspPrimary extends AspSyntax {
         ap.atm = AspAtom.parse(s);
         ap.kind = s.curToken().kind;
         
-        if(s.curToken().kind == TokenKind.leftParToken|| s.curToken().kind == TokenKind.leftBracketToken) {
+        if (s.curToken().kind == TokenKind.leftParToken || s.curToken().kind == TokenKind.leftBracketToken) {
             ap.prisuf.add(AspPrimarySuffix.parse(s));
         }
 
@@ -48,6 +48,7 @@ public class AspPrimary extends AspSyntax {
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = atm.eval(curScope);
         String trace = "";
+        
         if (prisuf.isEmpty()) {
             
         }
@@ -60,12 +61,24 @@ public class AspPrimary extends AspSyntax {
                     v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
                 } else { // arguments aka. en funksjon
                     RuntimeListValue args = (RuntimeListValue) w;
-                    trace = "Call function " + primary + " with params " + w;
+                    //trace = "Call function " + primary + " with params " + w;
+                    trace = "Call function " + v.showInfo() + " with params [" + args.getStringValue("", this);
                     ArrayList<RuntimeValue> lv = args.getListValue();
 
                     for (int i = 0; i < lv.size(); i++) {
                         liste.add(lv.get(i));
+
+                        if (i < lv.size() - 1) {
+                            trace += lv.get(i).showInfo() + ", ";
+                        } else {
+                            trace += lv.get(i).showInfo() + "]";
+                        }
                     }
+
+                    if (lv.size() == 0) {
+                        trace += "]";
+                    }
+                    
                     v = v.evalFuncCall(liste, aspPrimarySuffix);
                     trace(trace);
                 }
