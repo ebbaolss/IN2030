@@ -1,4 +1,11 @@
 Trace line 5: def is_a_palindrome
 Trace line 12: Call function input with params ['A word: ']
-Trace line 12: query = if
-Asp runtime error on line 13: func error 
+Trace line 12: query = heh
+Trace line 13: Call function is_a_palindrome with params ['heh']
+Trace line 6: i1 = 0
+Trace line 6: Call function len with params ['heh']
+Trace line 6: i2 = 2
+Trace line 7: while False:
+Trace line 10: return True
+Trace line 13: Call function print with params ['"heh":', True]
+Trace line 13: None

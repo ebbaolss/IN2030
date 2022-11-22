@@ -59,7 +59,8 @@ public class AspPrimary extends AspSyntax {
 
                 if (aspPrimarySuffix instanceof AspSubscription) {
                     v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
-                } else { // arguments aka. en funksjon
+                } 
+                else if (aspPrimarySuffix instanceof AspArguments) { // arguments aka. en funksjon
                     RuntimeListValue args = (RuntimeListValue) w;
                     //trace = "Call function " + primary + " with params " + w;
                     trace = "Call function " + v.showInfo() + " with params [" + args.getStringValue("", this);
@@ -79,8 +80,10 @@ public class AspPrimary extends AspSyntax {
                         trace += "]";
                     }
                     
-                    v = v.evalFuncCall(liste, aspPrimarySuffix);
+                    //Main.log.traceEval(trace, this);
                     trace(trace);
+                    v = v.evalFuncCall(liste, aspPrimarySuffix);
+                    
                 }
             }
         }

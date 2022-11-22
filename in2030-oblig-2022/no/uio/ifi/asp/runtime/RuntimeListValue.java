@@ -79,4 +79,8 @@ public class RuntimeListValue extends RuntimeValue {
         }
         return v1;
     }
+
+    public int getSize() {
+        return value.size();
+    }
 }

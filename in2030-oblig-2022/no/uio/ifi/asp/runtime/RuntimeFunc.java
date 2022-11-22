@@ -8,25 +8,28 @@ import no.uio.ifi.asp.main.*;
 
 
 public class RuntimeFunc extends RuntimeValue {
-    ArrayList<RuntimeValue> parameters = new ArrayList<>();
-    AspFuncDef def;
-    RuntimeScope defScope;
+
+    ArrayList<AspName> parameters = new ArrayList<>();
+    AspFuncDef funcdef;
+    RuntimeScope funcScope;
     String name;
     AspName an;
+    
+
+    public RuntimeFunc(AspFuncDef def, RuntimeScope scope, String v) {
+        funcdef = def;
+        funcScope = scope;
+        name = v;
+        parameters = funcdef.nam;
+        
+    }
 
     public RuntimeFunc(String v) {
         name = v;
     }
 
-    public RuntimeFunc(AspFuncDef funcdef, RuntimeScope scope, String v) {
-        def = funcdef;
-        defScope = scope;
-        name = v;
-    }
-
     @Override
     String typeName() {
-        // TODO Auto-generated method stub
         return "Func";
     }
 
@@ -36,49 +39,39 @@ public class RuntimeFunc extends RuntimeValue {
     }
 
     public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
-        //denne må endres
-        //ArrayList<AspName> parameters = def.nam;
+        
 
         if (actualParams == null){
             actualParams = new ArrayList<RuntimeValue>();
         }
 
+        // Check parameters
+        checkNumParams(actualParams, parameters.size(), "int", where);
+        
         if (parameters.size() != actualParams.size()) {
             runtimeError("func error ", where);
-            //System.out.println("yess");
         }
 
         // Create new scope
-        RuntimeScope newScope = new RuntimeScope(defScope);
-
-        // Assign the arguments
-        int counter = 0;
-        //for (int i = 0; i < actualParams.size(); i++) {
-        for (RuntimeValue runtime : actualParams) {
-            //newScope.assign(parameters.get(i).p, actualParams.get(i));
-            String fp = parameters.get(counter).getStringValue("function call", where);
-            newScope.assign(fp, runtime);
-            counter ++;
+        RuntimeScope newScope = new RuntimeScope(funcScope);
+        
+        for (int index = 0; index < parameters.size(); index++) {
+            String fp = parameters.get(index).p;
+            newScope.assign(fp, actualParams.get(index));
         }
 
         try {
-            def.sui.eval(newScope);
+            funcdef.sui.eval(newScope);
         } 
         catch (RuntimeReturnValue rrv) {
             return rrv.value;
         }
         return new RuntimeNoneValue();
+    }
 
-
-        /*try {
-
-            def.eval(defScope);
-            RuntimeScope newScope = new RuntimeScope(defScope);
-            
-            AspFuncDef du;
-        } catch (RuntimeReturnValue rrv) {
-            return rrv.value;
+    private void checkNumParams(ArrayList<RuntimeValue> actArgs, int nCorrect, String id, AspSyntax where) {
+        if (actArgs.size() != nCorrect) {
+            RuntimeValue.runtimeError("Wrong number of parameters to " + id + "!", where);
         }
-        return new RuntimeNoneValue();*/
     }
 }
