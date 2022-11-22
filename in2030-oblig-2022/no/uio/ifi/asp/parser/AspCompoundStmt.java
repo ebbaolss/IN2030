@@ -43,7 +43,6 @@ abstract class AspCompoundStmt extends AspStmt {
 
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        trace("lol");
         return null;
     }
 }

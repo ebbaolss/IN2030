@@ -25,7 +25,6 @@ public class AspSuite extends AspSyntax {
 
             while (s.curToken().kind != TokenKind.dedentToken) {
                 as.stmt.add(AspStmt.parse(s));
-                //System.out.println(as.stmt);
             }
 
             skip(s, TokenKind.dedentToken);

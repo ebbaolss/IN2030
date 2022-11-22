@@ -61,10 +61,13 @@ public class AspPrimary extends AspSyntax {
                     v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
                 } 
                 else if (aspPrimarySuffix instanceof AspArguments) { // arguments aka. en funksjon
-                    RuntimeListValue args = (RuntimeListValue) w;
+                    RuntimeListValue args = (RuntimeListValue) v;
+                    System.out.println(args.getStringValue("trace", this));
                     //trace = "Call function " + primary + " with params " + w;
                     trace = "Call function " + v.showInfo() + " with params [" + args.getStringValue("", this);
                     ArrayList<RuntimeValue> lv = args.getListValue();
+                    System.out.println(args.getListValue());
+
 
                     for (int i = 0; i < lv.size(); i++) {
                         liste.add(lv.get(i));
