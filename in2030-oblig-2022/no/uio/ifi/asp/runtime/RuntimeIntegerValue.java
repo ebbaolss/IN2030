@@ -137,7 +137,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
     }
     
 
-    public RuntimeValue  evalMultiply(RuntimeValue v, AspSyntax where) {
+    public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             return new RuntimeIntegerValue(integerValue * v.getIntValue("* operand", where));
         } 

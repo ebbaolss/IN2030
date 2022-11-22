@@ -20,8 +20,6 @@ public class RuntimeFunc extends RuntimeValue {
         funcdef = def;
         funcScope = scope;
         name = v;
-        parameters = funcdef.nam;
-        
     }
 
     public RuntimeFunc(String v) {

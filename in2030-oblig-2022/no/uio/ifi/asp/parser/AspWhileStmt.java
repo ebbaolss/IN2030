@@ -40,6 +40,7 @@ class AspWhileStmt extends AspCompoundStmt {
 
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = expr.eval(curScope);
+        System.out.println(v);
 
         while (true) {
             v = expr.eval(curScope);
@@ -52,6 +53,6 @@ class AspWhileStmt extends AspCompoundStmt {
         }
 
         trace("while False:");
-        return v;
+        return null;
     }
 }
