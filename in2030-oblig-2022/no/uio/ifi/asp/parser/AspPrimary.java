@@ -61,29 +61,29 @@ public class AspPrimary extends AspSyntax {
                     v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
                 } 
                 else if (aspPrimarySuffix instanceof AspArguments) { // arguments aka. en funksjon
-                    RuntimeListValue args = (RuntimeListValue) v;
-                    System.out.println(args.getStringValue("trace", this));
-                    //trace = "Call function " + primary + " with params " + w;
+                    RuntimeListValue args = (RuntimeListValue) w;
                     trace = "Call function " + v.showInfo() + " with params [" + args.getStringValue("", this);
                     ArrayList<RuntimeValue> lv = args.getListValue();
-                    System.out.println(args.getListValue());
+                    if (lv == null) {
+                        //ingen args
+                       trace += "]";
+                    }
+                    else {
+                        for (int i = 0; i < lv.size(); i++) {
+                            liste.add(lv.get(i));
 
+                            if (i < lv.size() - 1) {
+                                trace += lv.get(i).showInfo() + ", ";
+                            } else {
+                                trace += lv.get(i).showInfo() + "]";
+                            }
+                        }
 
-                    for (int i = 0; i < lv.size(); i++) {
-                        liste.add(lv.get(i));
-
-                        if (i < lv.size() - 1) {
-                            trace += lv.get(i).showInfo() + ", ";
-                        } else {
-                            trace += lv.get(i).showInfo() + "]";
+                        if (lv.size() == 0) {
+                            trace += "]";
                         }
                     }
 
-                    if (lv.size() == 0) {
-                        trace += "]";
-                    }
-                    
-                    //Main.log.traceEval(trace, this);
                     trace(trace);
                     v = v.evalFuncCall(liste, aspPrimarySuffix);
                     

@@ -1,5 +1,9 @@
 Trace line 3: pass
+Trace line 4: 42
 Trace line 5: y = 2021
+Trace line 6: True
 Trace line 8: if True alt #1: ...
+Trace line 9: 34
+Trace line 10: 9
 Trace line 12: while False:
 Trace line 15: y = 101

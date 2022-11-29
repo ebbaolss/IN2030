@@ -7,4 +7,8 @@ Trace line 6: while True: ...
 Trace line 7: endret = False
 Trace line 8: Call function len with params [[3, 17, -3, 0, 3, 1, 12]]
 Trace line 8: Call function range with params [1, 7]
-Asp runtime error on line 9: '-' undefined for []!
+Trace line 8: for #1: i = 1
+Trace line 13: if True alt #1: ...
+Trace line 13: return 0
+Trace line 18: Call function print with params ['Resultatet etter', 0, 'ombyttinger er', [3, 17, -3, 0, 3, 1, 12]]
+Trace line 18: None

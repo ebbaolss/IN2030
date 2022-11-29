@@ -1,8 +1,5 @@
 package no.uio.ifi.asp.parser;
 import java.util.ArrayList;
-
-import javax.swing.text.StyledEditorKit.BoldAction;
-
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
@@ -26,6 +23,7 @@ public class AspAssignment extends AspSmallStmt{
 
         while (s.curToken().kind != equalToken) {
             aa.sub.add(AspSubscription.parse(s));
+            aa.bool = true;
         }
 
         skip(s, equalToken);
@@ -53,15 +51,22 @@ public class AspAssignment extends AspSmallStmt{
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = expr.eval(curScope);
         String trace = name.p;
-
         if (bool == false) {
             for (AspSubscription aspSubscription : sub) {
-                trace += aspSubscription.exp.toString();
+                trace += " " + aspSubscription.exp.toString();
                 curScope.assign(name.p, v);
             }
         }
-
-        trace += " = " + v.toString();
+        else {
+            for (int i = 0; i < sub.size(); i++) {
+                trace += "[" + sub.get(i).eval(curScope);
+                curScope.assign(name.p, v);
+            }
+            trace += "]";
+        }       
+        if (v != null) {
+            trace += " = " + v.toString();
+        }
         curScope.assign(name.p, v);
         curScope.find(name.p, this);
         trace(trace);

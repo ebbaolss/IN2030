@@ -9,7 +9,6 @@ import no.uio.ifi.asp.main.*;
 
 public class RuntimeFunc extends RuntimeValue {
 
-    ArrayList<AspName> parameters = new ArrayList<>();
     AspFuncDef funcdef;
     RuntimeScope funcScope;
     String name;
@@ -38,23 +37,20 @@ public class RuntimeFunc extends RuntimeValue {
 
     public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
         
-
-        if (actualParams == null){
-            actualParams = new ArrayList<RuntimeValue>();
-        }
+        
 
         // Check parameters
-        checkNumParams(actualParams, parameters.size(), "int", where);
+        //checkNumParams(actualParams, "int", where);
         
-        if (parameters.size() != actualParams.size()) {
+        if (actualParams.size() != funcdef.nam.size()) {
             runtimeError("func error ", where);
         }
 
         // Create new scope
         RuntimeScope newScope = new RuntimeScope(funcScope);
         
-        for (int index = 0; index < parameters.size(); index++) {
-            String fp = parameters.get(index).p;
+        for (int index = 0; index < actualParams.size(); index++) {
+            String fp = funcdef.nam.get(index).p;
             newScope.assign(fp, actualParams.get(index));
         }
 
@@ -68,6 +64,9 @@ public class RuntimeFunc extends RuntimeValue {
     }
 
     private void checkNumParams(ArrayList<RuntimeValue> actArgs, int nCorrect, String id, AspSyntax where) {
+        System.out.println(actArgs.size());
+        System.out.println(actArgs);
+        System.out.println(nCorrect);
         if (actArgs.size() != nCorrect) {
             RuntimeValue.runtimeError("Wrong number of parameters to " + id + "!", where);
         }

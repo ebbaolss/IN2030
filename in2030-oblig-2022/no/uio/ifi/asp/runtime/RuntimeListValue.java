@@ -21,7 +21,7 @@ public class RuntimeListValue extends RuntimeValue {
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return value.toString();
     }
 
     @Override
