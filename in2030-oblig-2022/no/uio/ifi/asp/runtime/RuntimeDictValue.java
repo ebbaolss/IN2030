@@ -19,6 +19,11 @@ public class RuntimeDictValue extends RuntimeValue {
     }
 
     public String showInfo() {
+        return toString();
+    }
+
+    @Override
+    public String toString() {
         String setString = "";
         int counter = 0;
         setString = setString + "{";
@@ -36,11 +41,7 @@ public class RuntimeDictValue extends RuntimeValue {
         }
         setString = setString + '}';
         return setString;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(dict);
+        //return String.valueOf(dict);
     }
 
     @Override
@@ -74,5 +75,11 @@ public class RuntimeDictValue extends RuntimeValue {
             runtimeError(errorMsg, where);
             return null;
         }
+    }
+
+    @Override
+    public void evalAssignElem(RuntimeValue v, RuntimeValue v2, AspSyntax where) {
+        String keyword = v.getStringValue("assign dict", where);
+        dict.put(keyword, v2);
     }
 }

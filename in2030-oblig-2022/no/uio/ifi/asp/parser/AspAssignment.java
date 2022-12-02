@@ -51,6 +51,7 @@ public class AspAssignment extends AspSmallStmt{
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = expr.eval(curScope);
         String trace = name.p;
+        
         if (bool == false) {
             for (AspSubscription aspSubscription : sub) {
                 trace += " " + aspSubscription.exp.toString();
@@ -70,7 +71,10 @@ public class AspAssignment extends AspSmallStmt{
         curScope.assign(name.p, v);
         curScope.find(name.p, this);
         trace(trace);
+
+        //assign the last element in the sub-listen 
+        //v.evalAssignElem(sub.get(sub.size() - 1).eval(curScope), v, this);
         
-        return null;
+        return v;
     }
 }

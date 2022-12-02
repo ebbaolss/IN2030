@@ -50,6 +50,24 @@ public class RuntimeListValue extends RuntimeValue {
         return new RuntimeBoolValue(false);
     }
 
+    @Override
+    public RuntimeValue evalEqual(RuntimeValue v, AspSyntax where) {
+        if(v instanceof RuntimeNoneValue) {
+            return new RuntimeBoolValue(false);
+        }
+        runtimeError("Error for '==' ", where);
+        return null;
+    }
+
+    public RuntimeValue evalNotEqual(RuntimeValue v, AspSyntax where) {
+        if(v instanceof RuntimeNoneValue) {
+            return new RuntimeBoolValue(true);
+        }
+        runtimeError("Error for '!=' ", where);
+        return null;
+    }
+
+    @Override
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             long valueV = v.getIntValue("* Operator", where);
@@ -82,5 +100,16 @@ public class RuntimeListValue extends RuntimeValue {
 
     public int getSize() {
         return value.size();
+    }
+
+    @Override
+    public void evalAssignElem(RuntimeValue v, RuntimeValue v2, AspSyntax where) {
+        if (v instanceof RuntimeIntegerValue){
+            long midint = v.getIntValue("assign list", where);
+            int position = (int)midint;
+            value.set(position, v2);
+        } else {
+            runtimeError("Type error for assignElem.", where);
+        }
     }
 }
