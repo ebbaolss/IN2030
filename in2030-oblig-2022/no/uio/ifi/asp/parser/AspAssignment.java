@@ -6,8 +6,8 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspAssignment extends AspSmallStmt{
-    AspName name;
     ArrayList<AspSubscription> sub = new ArrayList<>();
+    AspName name;
     AspExpr expr;
     boolean bool = false;
     
@@ -49,9 +49,36 @@ public class AspAssignment extends AspSmallStmt{
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        RuntimeValue v = expr.eval(curScope);
-        String trace = name.p;
-        
+        RuntimeValue rt = expr.eval(curScope);
+        RuntimeValue rt2 = null;
+
+        if (sub.isEmpty()) {
+            if (curScope.hasGlobalName(name.p)) {
+                Main.globalScope.assign(name.p, rt);
+                trace(name.p + " = " + rt.showInfo());
+            } else {
+                curScope.assign(name.p, rt);
+                trace(name.p + " = " + rt.showInfo());
+            }
+        }
+        else if (!sub.isEmpty()){
+            rt2 = name.eval(curScope);
+            for (int i = 0; i < sub.size() - 1; i++){
+                rt2 = rt2.evalSubscription(sub.get(i).eval(curScope), this);
+            }
+            RuntimeValue lastPos = sub.get(sub.size() - 1).eval(curScope);
+            rt2.evalAssignElem(lastPos, rt, this);
+            trace(name.p + "[" + lastPos + "] = " + rt);
+            return rt;
+        } /*else {
+            curScope.assign(name.p, rt);
+            trace(name.p + " = " + rt.toString());
+            return rt;
+        }*/
+        return rt;
+    }
+
+        /* 
         if (bool == false) {
             for (AspSubscription aspSubscription : sub) {
                 trace += " " + aspSubscription.exp.toString();
@@ -73,8 +100,9 @@ public class AspAssignment extends AspSmallStmt{
         trace(trace);
 
         //assign the last element in the sub-listen 
-        //v.evalAssignElem(sub.get(sub.size() - 1).eval(curScope), v, this);
+        v.evalAssignElem(sub.get(sub.size() - 1).eval(curScope), v, this);
         
+
         return v;
-    }
+    }*/
 }

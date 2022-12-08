@@ -36,6 +36,11 @@ public abstract class RuntimeValue {
         return null;  // Required by the compiler!
     }
 
+    public ArrayList<RuntimeValue> getListValue(String what, AspSyntax where) {
+        runtimeError("Type error: " + what + " is not a list!", where);
+      return null;  // Required by the compiler!
+    }
+
     // For part 3:
 
     public RuntimeValue evalAdd(RuntimeValue v, AspSyntax where) {

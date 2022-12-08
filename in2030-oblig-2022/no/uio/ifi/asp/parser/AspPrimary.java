@@ -58,17 +58,17 @@ public class AspPrimary extends AspSyntax {
                 ArrayList<RuntimeValue> liste = new ArrayList<>();
 
                 if (aspPrimarySuffix instanceof AspSubscription) {
-                    v = v.evalSubscription(aspPrimarySuffix.eval(curScope), this);
+                    v = v.evalSubscription(w, this);
                 } 
                 else if (aspPrimarySuffix instanceof AspArguments) { // arguments aka. en funksjon
                     RuntimeListValue args = (RuntimeListValue) w;
-                    trace = "Call function " + v.showInfo() + " with params [" + args.getStringValue("", this);
                     ArrayList<RuntimeValue> lv = args.getListValue();
+                    trace = "Call function " + v.showInfo() + " with params [" + args.getStringValue("", this);
+                    
                     if (lv == null) {
                         //ingen args
-                       trace += "]";
-                    }
-                    else {
+                        trace += "]";
+                    } else {
                         for (int i = 0; i < lv.size(); i++) {
                             liste.add(lv.get(i));
 
@@ -78,12 +78,10 @@ public class AspPrimary extends AspSyntax {
                                 trace += lv.get(i).showInfo() + "]";
                             }
                         }
-
                         if (lv.size() == 0) {
                             trace += "]";
                         }
                     }
-
                     trace(trace);
                     v = v.evalFuncCall(liste, aspPrimarySuffix);
                     

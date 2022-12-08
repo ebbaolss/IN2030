@@ -47,8 +47,8 @@ public class RuntimeLibrary extends RuntimeScope {
             @Override
             public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
                 checkNumParams(actualParams, 1, "input", where);
-                System.out.println(actualParams.get(0).getStringValue("input", where));
-                return new RuntimeStringValue(keyboard.next());
+                System.out.println(actualParams.get(0)); //.getStringValue("input", where)
+                return new RuntimeStringValue(keyboard.nextLine());
             }
         });
 
@@ -60,7 +60,7 @@ public class RuntimeLibrary extends RuntimeScope {
             }
         });
 
-        assign("range", new RuntimeFunc("range") {
+        /*assign("range", new RuntimeFunc("range") {
             @Override
             public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
                 checkNumParams(actualParams, 2, "range", where);
@@ -81,7 +81,33 @@ public class RuntimeLibrary extends RuntimeScope {
                 }
                 return new RuntimeNoneValue();
             }
-        });
+        });*/
+
+        assign("range", new RuntimeFunc("range") {
+            @Override
+            public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
+                checkNumParams(actualParams, 2, "range", where);
+
+                long startIndex = actualParams.get(0).getIntValue("int", where);
+                long i = startIndex;
+                long end = actualParams.get(1).getIntValue("int", where);
+                int size = 0;
+
+                while (i < end) {
+                    i++;
+                    size++;
+                }
+
+                ArrayList<RuntimeValue> newList = new ArrayList<>();
+
+                for (int y = 0; y < size; y++) {
+                    newList.add(y, new RuntimeIntegerValue(startIndex));
+                    startIndex++;
+                }
+
+                return new RuntimeListValue(newList);
+            }
+        }); 
         
         assign("str", new RuntimeFunc("str") {
             @Override

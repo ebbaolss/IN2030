@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import no.uio.ifi.asp.parser.AspSyntax;
 
 public class RuntimeListValue extends RuntimeValue {
-    ArrayList<RuntimeValue> value;
+    public ArrayList<RuntimeValue> value = new ArrayList<>();
 
     public RuntimeListValue(ArrayList<RuntimeValue> v) {
         value = v;
@@ -71,13 +71,28 @@ public class RuntimeListValue extends RuntimeValue {
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             long valueV = v.getIntValue("* Operator", where);
-            RuntimeListValue newList = new RuntimeListValue(new ArrayList<RuntimeValue>());
-            
-            for (int i = 0; i < valueV; i++) {
-                newList.value.addAll(value);
+            ArrayList<RuntimeValue> newList = new ArrayList<>();
+
+            int counter = 0;
+            long time = v.getIntValue("*", where);
+            while (counter < time) {
+                newList.addAll(value);
+                counter++;
             }
-            return newList;
+
+
+
+            //RuntimeListValue newList = new RuntimeListValue(new ArrayList<RuntimeValue>());
+            /* 
+            for (int i = 0; i < valueV; i++) {
+                newList.add(value.get(i));
+                for (int j = 0; j < value.size(); j++) {
+                    newList.add(value.get(i));
+                }
+            }*/
+            return new RuntimeListValue(newList);
         }
+        runtimeError("Type error for *.", where);
         return null;
     }
 
