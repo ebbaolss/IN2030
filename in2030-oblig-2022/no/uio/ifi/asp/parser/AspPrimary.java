@@ -68,7 +68,8 @@ public class AspPrimary extends AspSyntax {
                     if (lv == null) {
                         //ingen args
                         trace += "]";
-                    } else {
+                    } 
+                    else {
                         for (int i = 0; i < lv.size(); i++) {
                             liste.add(lv.get(i));
 
@@ -76,16 +77,18 @@ public class AspPrimary extends AspSyntax {
                                 trace += lv.get(i).showInfo() + ", ";
                             } else {
                                 trace += lv.get(i).showInfo() + "]";
+                                trace(trace);
                             }
                         }
                         if (lv.size() == 0) {
                             trace += "]";
                         }
                     }
-                    trace(trace);
+                    
                     v = v.evalFuncCall(liste, aspPrimarySuffix);
                     
                 }
+                
             }
         }
 

@@ -58,6 +58,41 @@ public class AspComparison extends AspSyntax {
         for (int i = 1; i < ter.size(); ++i) {
             TokenKind k = comopr.get(i-1).kind;
 
+            RuntimeValue element = ter.get(i).eval(curScope);
+            if (i > 1) v = ter.get(i-1).eval(curScope);
+
+            switch (k) {
+                case lessToken:
+                    v = v.evalLess(element, this); 
+                    break;
+                case greaterToken:
+                    v = v.evalGreater(element, this); 
+                    break;
+                case doubleEqualToken:
+                    v = v.evalEqual(element, this); 
+                    break;
+                case greaterEqualToken:
+                    v = v.evalGreaterEqual(element, this); 
+                    break;
+                case lessEqualToken:
+                    v = v.evalLessEqual(element, this); 
+                    break;
+                case notEqualToken:
+                    v = v.evalNotEqual(element, this); 
+                    break;
+                default:
+                    Main.panic("Illegal term operator: " + k + "!");
+            }
+            
+            if (v.getBoolValue(null, this) == false) {
+                return v;
+            }
+        }
+        return v;
+
+
+
+            /*
             if (ter.size() > 1) {
                 if (! v.getBoolValue(k.toString(), this)) {
                     return v;
@@ -89,6 +124,6 @@ public class AspComparison extends AspSyntax {
                     Main.panic("Illegal comp operator: " + k + "!");       
             }
         }
-        return v;
+        return v;*/
     }
 }
