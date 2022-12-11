@@ -36,8 +36,6 @@ public class RuntimeFunc extends RuntimeValue {
     }
 
     public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
-        
-        
 
         // Check parameters
         //checkNumParams(actualParams, "int", where);

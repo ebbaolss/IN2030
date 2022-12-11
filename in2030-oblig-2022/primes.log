@@ -3,6 +3,7 @@ Trace line 6: primes = [True, True, True, True, True, True, True, True, True, Tr
 Trace line 8: def find_primes
 Trace line 15: def format
 Trace line 20: def list_primes
+Trace line 32: Call function find_primes with params []
 Trace line 9: Call function range with params [2, 1001]
 Trace line 9: for #1: i1 = 2
 Trace line 10: i2 = 4
@@ -10652,6 +10653,7 @@ Trace line 9: for #999: i1 = 1000
 Trace line 10: i2 = 1000000
 Trace line 11: while False:
 Trace line 32: None
+Trace line 33: Call function list_primes with params []
 Trace line 21: n_printed = 0
 Trace line 22: line_buf = ''
 Trace line 23: Call function range with params [2, 1001]

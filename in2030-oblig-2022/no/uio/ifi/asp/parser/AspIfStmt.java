@@ -87,13 +87,11 @@ public class AspIfStmt extends AspCompoundStmt{
             
             if (v.getBoolValue("if stmt", this)) {
                 trace += "if " + v.toString() + " alt #" + (cnt + 1) + ": ";
-                System.out.println(sui.size() + " ****** "+ cnt);
                 if (sui.size() > cnt) {
                     trace += "...";
                     trace(trace);
-                    System.out.println(v.showInfo());
                     v = sui.get(cnt).eval(curScope); //! denne er null
-                    return v;
+                    return null;
                 }
             }
             cnt++;
