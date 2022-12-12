@@ -70,7 +70,6 @@ public class RuntimeListValue extends RuntimeValue {
     @Override
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
-            long valueV = v.getIntValue("* Operator", where);
             ArrayList<RuntimeValue> newList = new ArrayList<>();
 
             int counter = 0;
@@ -79,17 +78,6 @@ public class RuntimeListValue extends RuntimeValue {
                 newList.addAll(value);
                 counter++;
             }
-
-
-
-            //RuntimeListValue newList = new RuntimeListValue(new ArrayList<RuntimeValue>());
-            /* 
-            for (int i = 0; i < valueV; i++) {
-                newList.add(value.get(i));
-                for (int j = 0; j < value.size(); j++) {
-                    newList.add(value.get(i));
-                }
-            }*/
             return new RuntimeListValue(newList);
         }
         runtimeError("Type error for *.", where);
