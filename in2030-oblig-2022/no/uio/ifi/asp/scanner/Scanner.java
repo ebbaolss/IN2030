@@ -16,7 +16,6 @@ public class Scanner {
 	private String curFileName;
 	private ArrayList<Token> curLineTokens = new ArrayList<>();
 	private Stack<Integer> indents = new Stack<>();
-	private final int TABDIST = 4;
 
 	public Scanner(String fileName) {
 		curFileName = fileName;
@@ -97,7 +96,7 @@ public class Scanner {
 			}
 
 			if (n != indents.peek()) {
-				System.out.println("-------Indenteringsfeil--------" + curLineNum());
+				System.out.println("-------Indenteringsfeil-------" + curLineNum());
 			}
 		}
 

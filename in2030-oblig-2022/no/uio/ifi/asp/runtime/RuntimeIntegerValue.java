@@ -25,7 +25,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
 
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
-        if(integerValue == 0) {
+        if (integerValue == 0) {
             return false;
         } else {
             return true;

@@ -71,9 +71,9 @@ public class RuntimeListValue extends RuntimeValue {
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {
             ArrayList<RuntimeValue> newList = new ArrayList<>();
-
+            long time = (long)v.getIntValue("*", where);
+            
             int counter = 0;
-            long time = v.getIntValue("*", where);
             while (counter < time) {
                 newList.addAll(value);
                 counter++;

@@ -1,11 +1,9 @@
 // © 2021 Dag Langmyhr, Institutt for informatikk, Universitetet i Oslo
 
 package no.uio.ifi.asp.runtime;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
-
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.parser.AspSyntax;
 
@@ -13,7 +11,6 @@ public class RuntimeLibrary extends RuntimeScope {
     private Scanner keyboard = new Scanner(System.in);
 
     public RuntimeLibrary() {
-        
         assign("len", new RuntimeFunc("len") {
             @Override
             public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
@@ -47,7 +44,7 @@ public class RuntimeLibrary extends RuntimeScope {
             @Override
             public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
                 checkNumParams(actualParams, 1, "input", where);
-                System.out.println(actualParams.get(0)); //.getStringValue("input", where)
+                System.out.println(actualParams.get(0));
                 return new RuntimeStringValue(keyboard.nextLine());
             }
         });
@@ -59,29 +56,6 @@ public class RuntimeLibrary extends RuntimeScope {
                 return new RuntimeIntegerValue(actualParams.get(0).getIntValue("int", where));
             }
         });
-
-        /*assign("range", new RuntimeFunc("range") {
-            @Override
-            public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
-                checkNumParams(actualParams, 2, "range", where);
-                ArrayList<RuntimeValue> rangeList = new ArrayList<>();
-
-                long v1 = actualParams.get(0).getIntValue("int", where);
-                long v2 = actualParams.get(1).getIntValue("int", where);
-                
-                if (v1 < v2) {
-                    for (long i = v1; i < v2; i++) {
-                        rangeList.add(new RuntimeIntegerValue(i));
-                    }
-                    return new RuntimeListValue(rangeList);
-                } 
-                else if (v1 == v2) {
-                    rangeList.add(new RuntimeIntegerValue(v1));
-                    return new RuntimeListValue(rangeList);
-                }
-                return new RuntimeNoneValue();
-            }
-        });*/
 
         assign("range", new RuntimeFunc("range") {
             @Override

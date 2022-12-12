@@ -1,5 +1,4 @@
 package no.uio.ifi.asp.runtime;
-
 import java.util.ArrayList;
 import no.uio.ifi.asp.parser.AspFuncDef;
 import no.uio.ifi.asp.parser.AspName;
@@ -8,7 +7,6 @@ import no.uio.ifi.asp.main.*;
 
 
 public class RuntimeFunc extends RuntimeValue {
-
     AspFuncDef funcdef;
     RuntimeScope funcScope;
     String name;
@@ -35,23 +33,21 @@ public class RuntimeFunc extends RuntimeValue {
         return name;
     }
 
+    @Override
     public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, AspSyntax where) {
-
-        // Check parameters
-        //checkNumParams(actualParams, "int", where);
+        checkNumParams(actualParams, funcdef.nam.size(), "int", where);
+        ArrayList<AspName> param = funcdef.nam;
+        RuntimeScope newScope = new RuntimeScope(funcScope); 
         
         if (actualParams.size() != funcdef.nam.size()) {
             runtimeError("func error ", where);
         }
-
-        // Create new scope
-        RuntimeScope newScope = new RuntimeScope(funcScope);
-        
+    
         for (int index = 0; index < actualParams.size(); index++) {
-            String fp = funcdef.nam.get(index).p;
-            newScope.assign(fp, actualParams.get(index));
+            newScope.assign(param.get(index).p, actualParams.get(index));
         }
-
+    
+        //hentet fra forelesningsfoiler
         try {
             funcdef.sui.eval(newScope);
         } 
@@ -62,9 +58,6 @@ public class RuntimeFunc extends RuntimeValue {
     }
 
     private void checkNumParams(ArrayList<RuntimeValue> actArgs, int nCorrect, String id, AspSyntax where) {
-        System.out.println(actArgs.size());
-        System.out.println(actArgs);
-        System.out.println(nCorrect);
         if (actArgs.size() != nCorrect) {
             RuntimeValue.runtimeError("Wrong number of parameters to " + id + "!", where);
         }
