@@ -54,7 +54,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeBoolValue(false);
     }
     
-    //Basert på koden utdelt fra forelesningen
+    //basert på forelesningsfoiler
     @Override
     public RuntimeValue evalAdd(RuntimeValue v, AspSyntax where) {
         if (v instanceof RuntimeIntegerValue) {

@@ -1,12 +1,11 @@
 package no.uio.ifi.asp.parser;
-
 import java.util.ArrayList;
-
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
+//hentet fra forelesningsfoiler
 class AspAndTest extends AspSyntax {
     ArrayList<AspNotTest> notTests = new ArrayList<>();
     
@@ -51,7 +50,7 @@ class AspAndTest extends AspSyntax {
         RuntimeValue v = notTests.get(0).eval(curScope);
         
         for (int i = 1; i < notTests.size(); ++i) {
-            if (! v.getBoolValue("and operand",this)) {
+            if (!v.getBoolValue("and operand",this)) {
                 return v;
             }
             v = notTests.get(i).eval(curScope);

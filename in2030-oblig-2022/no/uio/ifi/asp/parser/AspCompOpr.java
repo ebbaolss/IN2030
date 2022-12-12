@@ -30,6 +30,6 @@ public class AspCompOpr extends AspSyntax {
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        return null;
+        return new RuntimeStringValue(CompOpr);
     }
 }

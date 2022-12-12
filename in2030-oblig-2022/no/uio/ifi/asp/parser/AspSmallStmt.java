@@ -31,14 +31,4 @@ abstract class AspSmallStmt extends AspSyntax {
         leaveParser("small stmt");
         return ass;
     }
-
-    @Override
-    void prettyPrint() {
-    }
-
-    @Override
-    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        RuntimeValue v = ass.eval(curScope);
-        return v;
-    }
 }

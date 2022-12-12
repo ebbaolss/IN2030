@@ -77,32 +77,4 @@ public class AspAssignment extends AspSmallStmt{
         }*/
         return rt;
     }
-
-        /* 
-        if (bool == false) {
-            for (AspSubscription aspSubscription : sub) {
-                trace += " " + aspSubscription.exp.toString();
-                curScope.assign(name.p, v);
-            }
-        }
-        else {
-            for (int i = 0; i < sub.size(); i++) {
-                trace += "[" + sub.get(i).eval(curScope);
-                curScope.assign(name.p, v);
-            }
-            trace += "]";
-        }       
-        if (v != null) {
-            trace += " = " + v.toString();
-        }
-        curScope.assign(name.p, v);
-        curScope.find(name.p, this);
-        trace(trace);
-
-        //assign the last element in the sub-listen 
-        v.evalAssignElem(sub.get(sub.size() - 1).eval(curScope), v, this);
-        
-
-        return v;
-    }*/
 }

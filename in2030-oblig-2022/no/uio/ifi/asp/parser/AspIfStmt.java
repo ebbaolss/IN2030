@@ -40,7 +40,6 @@ public class AspIfStmt extends AspCompoundStmt{
             skip(s, TokenKind.elseToken);
             skip(s, TokenKind.colonToken);
             is.sui2 = AspSuite.parse(s);
-            //is.sui.add(is.sui2);
             is.b = true;
         }
         
@@ -87,10 +86,11 @@ public class AspIfStmt extends AspCompoundStmt{
             
             if (v.getBoolValue("if stmt", this)) {
                 trace += "if " + v.toString() + " alt #" + (cnt + 1) + ": ";
+                
                 if (sui.size() > cnt) {
                     trace += "...";
                     trace(trace);
-                    v = sui.get(cnt).eval(curScope); //! denne er null
+                    v = sui.get(cnt).eval(curScope);
                     return null;
                 }
             }

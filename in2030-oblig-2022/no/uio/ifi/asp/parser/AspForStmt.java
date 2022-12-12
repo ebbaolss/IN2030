@@ -52,24 +52,10 @@ public class AspForStmt extends AspCompoundStmt{
             
             for (int i = 0; i < listObject.size(); i++) {
                 curScope.assign(name.p, listObject.get(i)); 
-                trace("for #" + (i+1) + ": " + name.p + " = " + listObject.get(i).showInfo());
+                trace("for #" + (i + 1) + ": " + name.p + " = " + listObject.get(i).showInfo());
                 v = sui.eval(curScope);
             }
         }
         return v;
-
-        /*RuntimeValue v = expr.eval(curScope);
-
-        
-        for (int i = 0; i < expr.andTests.size(); i++) {
-            RuntimeValue a = v.evalSubscription(new RuntimeIntegerValue(i), acs);
-            String trace = "for #" + (i+1) + ": " + name.p + " = " + a.toString();
-            trace(trace);
-            curScope.assign(name.p, a);
-            sui.eval(curScope);
-            v = sui.stmt.get(i).eval(curScope);
-        }
-        
-        return v;*/
     }
 }

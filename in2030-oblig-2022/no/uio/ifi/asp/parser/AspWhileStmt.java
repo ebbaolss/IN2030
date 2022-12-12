@@ -38,16 +38,16 @@ class AspWhileStmt extends AspCompoundStmt {
         sui.prettyPrint();
     }
 
+    @Override
+    //hentet fra forelesningsfoiler
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        //RuntimeValue v = expr.eval(curScope);
-
         while (true) {
-            //v = expr.eval(curScope);
             RuntimeValue v = expr.eval(curScope);
+            
             if (!v.getBoolValue("while loop", this)) {
                 break;
             }
-
+            
             trace("while True: ...");
             sui.eval(curScope);
         }

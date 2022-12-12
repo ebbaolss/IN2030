@@ -50,7 +50,6 @@ public class AspFuncDef extends AspCompoundStmt{
         name.prettyPrint();
         prettyWrite(" (");
         
-        int cnt = 0;
         for (int i = 0; i < nam.size(); i++) {
             if (i > 0) {
                 prettyWrite(", ");

@@ -39,6 +39,7 @@ public class AspProgram extends AspSyntax {
     }
 
     @Override
+    //hentet fra forelesningsfoiler
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         for (AspStmt aspStmt : stmts) {
             try {

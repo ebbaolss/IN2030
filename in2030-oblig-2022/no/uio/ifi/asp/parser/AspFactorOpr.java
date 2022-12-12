@@ -48,6 +48,6 @@ public class AspFactorOpr extends AspSyntax {
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        return null;
+        return new RuntimeStringValue(factorOpr.toString());
     }
 }

@@ -56,12 +56,12 @@ public class AspComparison extends AspSyntax {
         RuntimeValue v = ter.get(0).eval(curScope);
 
         for (int i = 1; i < ter.size(); ++i) {
-            TokenKind k = comopr.get(i-1).kind;
+            TokenKind tokenKind = comopr.get(i - 1).kind;
 
             RuntimeValue element = ter.get(i).eval(curScope);
-            if (i > 1) v = ter.get(i-1).eval(curScope);
+            if (i > 1) v = ter.get(i - 1).eval(curScope);
 
-            switch (k) {
+            switch (tokenKind) {
                 case lessToken:
                     v = v.evalLess(element, this); 
                     break;
@@ -81,7 +81,7 @@ public class AspComparison extends AspSyntax {
                     v = v.evalNotEqual(element, this); 
                     break;
                 default:
-                    Main.panic("Illegal term operator: " + k + "!");
+                    Main.panic("Illegal term operator: " + tokenKind + "!");
             }
             
             if (v.getBoolValue(null, this) == false) {
@@ -89,41 +89,5 @@ public class AspComparison extends AspSyntax {
             }
         }
         return v;
-
-
-
-            /*
-            if (ter.size() > 1) {
-                if (! v.getBoolValue(k.toString(), this)) {
-                    return v;
-                } else {
-                    v = ter.get(i-1).eval(curScope);
-                }
-            }
-            
-            switch(k) {
-                case lessToken:
-                    v = v.evalLess(ter.get(i).eval(curScope), this);
-                    break;
-                case greaterToken:
-                    v = v.evalGreater(ter.get(i).eval(curScope), this);
-                    break;
-                case doubleEqualToken:
-                    v = v.evalEqual(ter.get(i).eval(curScope), this);
-                    break;
-                case greaterEqualToken:
-                    v = v.evalGreaterEqual(ter.get(i).eval(curScope), this);
-                    break;
-                case lessEqualToken:
-                    v = v.evalLessEqual(ter.get(i).eval(curScope), this);
-                    break;
-                case notEqualToken:
-                    v = v.evalNotEqual(ter.get(i).eval(curScope), this);  
-                    break;
-                default:
-                    Main.panic("Illegal comp operator: " + k + "!");       
-            }
-        }
-        return v;*/
     }
 }

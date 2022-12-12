@@ -46,6 +46,7 @@ public class AspTerm extends AspSyntax {
     }
 
     @Override
+    //hentet fra forelesningsfoiler
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue{
         RuntimeValue v = fac.get(0).eval(curScope);
         

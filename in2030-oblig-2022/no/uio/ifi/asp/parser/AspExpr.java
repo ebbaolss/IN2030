@@ -53,7 +53,7 @@ public class AspExpr extends AspSyntax {
 
         for(int i = 1; i < andTests.size(); i++){
             
-            if(rt.getBoolValue("expr", this)){
+            if(rt.getBoolValue("expr", this) && rt != null){
                 return rt;
             }
             rt = andTests.get(i).eval(curScope);

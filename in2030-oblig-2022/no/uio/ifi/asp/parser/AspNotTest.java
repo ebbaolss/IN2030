@@ -37,8 +37,9 @@ public class AspNotTest extends AspSyntax {
         com.prettyPrint();
     }
 
-    //hentet fra forelesningsfoiler
+    
     @Override
+    //hentet fra forelesningsfoiler
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
         RuntimeValue v = com.eval(curScope);
         

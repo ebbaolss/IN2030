@@ -6,7 +6,6 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 abstract class AspCompoundStmt extends AspStmt {
-    
     AspCompoundStmt(int n) {
         super(n);
     }
@@ -29,20 +28,10 @@ abstract class AspCompoundStmt extends AspStmt {
             acs = AspFuncDef.parse(s);
         }
         else {
-            parserError("aspcompopr", s.curLineNum());
+            parserError("asp compopr error", s.curLineNum());
         }
         
         leaveParser("compound stmt");
         return acs;
-    }
-
-    @Override
-    void prettyPrint() {
-        prettyWrite("cmpndstmt");
-    }
-
-    @Override
-    RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        return null;
     }
 }

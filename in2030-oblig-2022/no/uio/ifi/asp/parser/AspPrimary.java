@@ -83,7 +83,6 @@ public class AspPrimary extends AspSyntax {
                         }
                     }
                     v = v.evalFuncCall(liste, aspPrimarySuffix);
-                    //System.out.println(v.showInfo());
                 }        
             }
         }

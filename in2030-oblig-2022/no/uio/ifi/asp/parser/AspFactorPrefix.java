@@ -44,6 +44,6 @@ public class AspFactorPrefix extends AspSyntax {
     
     @Override
     RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-        return null;
+        return new RuntimeStringValue(factorPrefix);
     }
 }
