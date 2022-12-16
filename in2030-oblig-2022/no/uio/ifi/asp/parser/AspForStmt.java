@@ -48,11 +48,12 @@ public class AspForStmt extends AspCompoundStmt{
 
         if (v instanceof RuntimeListValue) {
             RuntimeListValue listValue = (RuntimeListValue) v;
-            ArrayList<RuntimeValue> listObject = listValue.value;
+            ArrayList<RuntimeValue> listArray = listValue.value;
             
-            for (int i = 0; i < listObject.size(); i++) {
-                curScope.assign(name.p, listObject.get(i)); 
-                trace("for #" + (i + 1) + ": " + name.p + " = " + listObject.get(i).showInfo());
+            for (int i = 0; i < listArray.size(); i++) {
+                curScope.assign(name.p, listArray.get(i)); 
+                
+                trace("for #" + (i+1) + ": " + name.p + " = " + listArray.get(i).showInfo());
                 v = sui.eval(curScope);
             }
         }

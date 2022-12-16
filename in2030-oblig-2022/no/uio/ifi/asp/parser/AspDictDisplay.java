@@ -61,7 +61,7 @@ public class AspDictDisplay extends AspAtom {
         HashMap<String, RuntimeValue> hMap = new HashMap<>();
         
         if(!strl.isEmpty()){
-            for (int i = 0; i < strl.size() ; i++ ) {
+            for (int i = 0; i < strl.size(); i++ ) {
                 hMap.put(strl.get(i).eval(curScope).toString(), exp.get(i).eval(curScope));
             }
         }
